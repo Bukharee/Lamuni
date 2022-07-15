@@ -1,1 +1,1 @@
-web: gunicorn myproject.wsgi
+web: gunicorn Lamuni.wsgi
