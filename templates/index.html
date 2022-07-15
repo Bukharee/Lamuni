@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
     <title>Fiber</title>
   </head>
   <body>
@@ -29,7 +30,7 @@
         </div>
 
         <div class="flex sm:hidden">
-          <img src="/img/Hamburger Menu.svg" alt="hamburger" />
+          <img src="{% static 'img/Hamburger Menu.svg' %}" alt="hamburger" />
         </div>
       </nav>
     </header>
@@ -126,7 +127,7 @@
         <!-- here image -->
 
         <div class="flex-none flex justify-center w-full sm:w-2/4 mb-6">
-          <img src="/img/hero-Illustration.png" alt="" />
+          <img src="{% static 'img/hero-Illustration.png' %}" alt="" />
         </div>
         <div></div>
       </div>
@@ -257,7 +258,11 @@
 
           <!-- Page Image -->
           <div class="flex-none px-6 h-38 sm:w-2/4 mt-12">
-            <img class="h-full" src="/img/Page Image.png  " alt="Image" />
+            <img
+              class="h-full"
+              src="{% static 'img/Page Image.png' %}"
+              alt="Image"
+            />
           </div>
         </div>
 
@@ -269,7 +274,7 @@
             class="flex flex-col space-y-6 max-w-md border border-light-gray rounded-md p-6 mb-6"
           >
             <div class="flex justify-start space-x-4 items-center">
-              <img src="/img/User Avatar 2.svg" alt="user" />
+              <img src="{% static 'img/User Avatar 2.svg' %}" alt="user" />
               <div>
                 <h4 class="text-dark-purple font-bold text-base">
                   Sarah Andrews
@@ -297,7 +302,7 @@
             class="flex flex-col space-y-6 max-w-md border border-light-gray rounded-md p-6 mb-6"
           >
             <div class="flex justify-start space-x-4 items-center">
-              <img src="/img/User Avatar 2.svg" alt="user" />
+              <img src="{% static 'img/User Avatar 2.svg' %}" alt="user" />
               <div>
                 <h4 class="text-dark-purple font-bold text-base">
                   Sarah Andrews
@@ -326,7 +331,7 @@
             class="flex flex-col space-y-6 max-w-md border border-light-gray rounded-md p-6 mb-6"
           >
             <div class="flex justify-start space-x-4 items-center">
-              <img src="/img/User Avatar 2.svg" alt="user" />
+              <img src="{% static 'img/User Avatar 2.svg' %}" alt="user" />
               <div>
                 <h4 class="text-dark-purple font-bold text-base">
                   Sarah Andrews
