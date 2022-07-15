@@ -10,16 +10,17 @@
   </head>
   <body>
     <!-- Header -->
-    <header class="bg-new-white">
+    <header class="bg-white">
       <nav class="container mx-auto px-8 py-4 flex sm:space-x-6 items-center justify-between">
         <h1 class="font-bold text-xl text-dark-green md:text-2xl">Lamuni</h1>
        
-        <ul class="nav-menu first-letter flex flex-col absolute top-16 -left-full bg-new-white w-full
+        <ul class="nav-menu first-letter flex flex-col absolute top-16 -left-full bg-white w-full
         text-center shadow-md sm:shadow-none border-2 border-light-orange sm:border-0 
         transition-all duration-300 mx-auto sm:w-auto sm:flex-row sm:static sm:space-x-6 items-center justify-between" >
             <li class="sm:mx-4 my-2"> <a class="font-bold text-sm hover:text-dark-green">Community</a></li>
             <li class="sm:mx-4 my-2"> <a class="font-bold text-sm hover:text-dark-green">Pricing</a> </li>
             <li class="sm:mx-4 my-2"> <a class="font-bold text-sm hover:text-dark-green">Features</a> </li>
+            <li class="sm:mx-4 my-2"> <a class="font-bold text-sm hover:text-dark-green">About Us</a> </li>
         </ul>
 
 <!-- {#        <div class="absolute sm:flex sm:space-x-6">#}
@@ -29,10 +30,10 @@
 {#        </div>#} -->
 
         <div class="hidden sm:flex space-x-6">
-          <button class="px-4 py-2 lg:px-6 rounded-md">
+          <button class="px-4 py-2 rounded-md hover:text-dark-green">
             <a href="#" class="font-bold text-sm lg:text-base">Sign In</a>
           </button>
-          <button class="text-white bg-dark-green px-4 lg:px-6 py-2 rounded-md">
+          <button class="text-white bg-dark-green px-4 hover:bg-light-green py-2 rounded-md">
             <a href="signup.html" class="font-bold text-sm lg:text-base">Sign Up</a>
           </button>
         </div>
@@ -40,13 +41,14 @@
            <span class="bar block h-1 w-6 bg-dark-black mx-auto my-1 transition-all duration-300 ease-in-out"></span>
            <span class="bar block h-1 w-6 bg-dark-black mx-auto my-1 transition-all duration-300 ease-in-out"></span>
            <span class="bar block h-1 w-6 bg-dark-black mx-auto my-1 transition-all duration-300 ease-in-out"></span>
+           
          </div>
       </nav>
     </header>
 
     <!-- Hero Section -->
 
-    <section class="bg-new-white">
+    <section class="bg-white">
       <div
         class="container mx-auto px-8 pt-6 pb-12 flex flex-col-reverse sm:flex-row"
       >
@@ -122,12 +124,12 @@
             class="flex flex-col space-y-4 sm:flex-row sm:space-x-4 items-center"
           >
             <button
-              class="px-12 py-3 sm:px-4 sm:py-3 bg-dark-green rounded-md text-white"
+              class="px-12 py-3 sm:px-4 sm:py-3 bg-dark-green hover:bg-light-green rounded-md text-white"
             >
               <a href="#" class="text-sm">Start Free Trial</a>
             </button>
             <p
-              class="px-12 py-3 sm:px-4 sm:py-3 underline underline-offset-4 text-dark-green rounded-md"
+              class="px-12 py-3 sm:px-4 sm:py-3 underline underline-offset-4 text-dark-green hover:text-light-green rounded-md"
             >
               <a href="#" class="text-sm">View Example</a>
             </p>
@@ -136,7 +138,7 @@
         <!-- here image -->
 
         <div class="flex-none flex justify-center w-full sm:w-2/4 mb-6">
-          <img src="{% static 'img/photo/dolloar.png' %}" alt="" />
+          <img src="{% static 'img/photo/saving money.jpeg' %}" alt="" />
         </div>
         <div></div>
       </div>
@@ -146,7 +148,7 @@
     <section>
       <div class="container mx-auto px-8 py-12 mt-6">
         <div class="flex flex-col space-y-6">
-          <h3 class="font-bold text-lg text-dark-purple">Why fiber?</h3>
+          <h3 class="font-bold text-lg text-dark-green">Why fiber?</h3>
           <h2 class="font-bold text-2xl sm:text-3xl max-w-md">
             A good portfolio means good employability.
           </h2>
@@ -158,7 +160,7 @@
             <span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-8 w-8 text-dark-purple"
+                class="h-8 w-8 text-dark-green"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -218,7 +220,7 @@
             <span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-8 w-8 text-dark-purple"
+                class="h-8 w-8 text-dark-green"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -278,7 +280,7 @@
         <!-- <div
           class="mt-16 flex flex-col sm:flex-row sm:space-x-12 justify-around items-center"
         > -->
-        <div class="my-6 mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div class="my-6 mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-12">
           <!-- item 1 -->
           <div
             class="flex mx-auto flex-col space-y-6 max-w-md border border-light-gray rounded-md p-6 mb-6"

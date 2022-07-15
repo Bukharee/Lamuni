@@ -1769,9 +1769,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(199 195 192 / var(--tw-border-opacity));
 }
 
-.bg-light-orange {
+.bg-white {
   --tw-bg-opacity: 1;
-  background-color: rgb(251 248 243 / var(--tw-bg-opacity));
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .bg-dark-green {
@@ -1784,9 +1784,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(16 16 16 / var(--tw-bg-opacity));
 }
 
-.bg-white {
+.bg-light-orange {
   --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  background-color: rgb(251 248 243 / var(--tw-bg-opacity));
 }
 
 .bg-light-gray {
@@ -1797,11 +1797,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-\[rgb\(255\2c 0\2c 0\)\] {
   --tw-bg-opacity: 1;
   background-color: rgb(255 0 0 / var(--tw-bg-opacity));
-}
-
-.bg-new-white {
-  --tw-bg-opacity: 1;
-  background-color: rgb(250 251 251 / var(--tw-bg-opacity));
 }
 
 .bg-\[url\(\'\.\.\.\'\)\] {
@@ -2599,6 +2594,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   transform: translateY(-8px) rotate(-45deg);
 }
 
+.hover\:bg-light-green:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(96 175 124 / var(--tw-bg-opacity));
+}
+
 .hover\:font-bold:hover {
   font-weight: 700;
 }
@@ -2606,6 +2606,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .hover\:text-dark-green:hover {
   --tw-text-opacity: 1;
   color: rgb(22 163 74 / var(--tw-text-opacity));
+}
+
+.hover\:text-light-green:hover {
+  --tw-text-opacity: 1;
+  color: rgb(96 175 124 / var(--tw-text-opacity));
 }
 
 .before\:hover\:text-center:hover::before {
@@ -2810,6 +2815,10 @@ Ensure the default browser behavior of the `hidden` attribute.
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .md\:gap-12 {
+    gap: 3rem;
+  }
+
   .md\:px-12 {
     padding-left: 3rem;
     padding-right: 3rem;
@@ -2847,11 +2856,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 
 @media (min-width: 1024px) {
-  .lg\:px-6 {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-
   .lg\:px-20 {
     padding-left: 5rem;
     padding-right: 5rem;
