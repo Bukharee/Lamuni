@@ -1,47 +1,48 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css">
-    <title>Fiber:Sign-Up</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <title>Lamuni:Sign-Up</title>
 </head>
 <body>
     <section class="">
         <div class="flex flex-col sm:flex-row sm:space-x-12 px-4 sm:px-0">
             <!-- sign-up form -->
             <div class="flex flex-col space-y-6 sm:px-12 md:px-12 lg:px-20 py-12  bg-white sm:w-1/2">
-                <h3 class="text-xl font-bold">Fiber</h3>
+                <h3 class="text-xl font-bold text-dark-green">Lamuni</h3>
                 <h1 class="text-3xl lg:text-4xl font-bold">Create your Fiber account</h1>
                 <div class="flex flex-col space-y-4">
                     <div class="flex flex-col space-y-4">
                         <label class="text-xl" for="name">Your Name</label>
-                        <input class="px-3 py-3 border border-light-gray rounded-md text-light-gray focus:outline-dark-purple" type="text" name="name" id="name" placeholder="Abubakar Muhd">
+                        <input class="px-3 py-3 border border-light-gray rounded-md text-light-gray focus:outline-darktext-dark-green" type="text" name="name" id="name" placeholder="Abubakar Muhd">
                     </div>
                     <div class="flex flex-col space-y-4">
                         <label class="text-xl" for="name">Email</label>
-                        <input class="px-3 py-3 border border-light-gray rounded-md text-light-gray focus:outline-dark-purple"  placeholder="bbkrmuhdsaddiq@gmail.com" type="email" name="email" id="email">
+                        <input class="px-3 py-3 border border-light-gray rounded-md text-light-gray focus:outline-darktext-dark-green"  placeholder="bbkrmuhdsaddiq@gmail.com" type="email" name="email" id="email">
                        
                     </div>
                     <div class="flex flex-col space-y-4">
                         <label class="text-xl" for="name">Password</label>
-                        <input class="px-3 py-3 border border-light-gray rounded-md text-light-gray focus:outline-dark-purple" placeholder="At least 8 characters" type="password" name="password" id="password" >
+                        <input class="px-3 py-3 border border-light-gray rounded-md text-light-gray focus:outline-darktext-dark-green" placeholder="At least 8 characters" type="password" name="password" id="password" >
                     </div>
                 </div>
                 <div class="flex items-start">
                     
-                    <p class="text-base md:text-lg"> <input class="h-5 w-5 border-light-gray" type="checkbox" name="check" id="check"> By creating an account omn fiber you agree to the <span class="font-bold  text-dark-purple underline underline-offset-2"> Terms & Conditions</span> </p>
+                    <p class="text-base md:text-lg"> <input class="h-5 w-5 border-light-gray" type="checkbox" name="check" id="check"> By creating an account omn fiber you agree to the <span class="font-bold  text-dark-green underline underline-offset-2"> Terms & Conditions</span> </p>
                 </div>
-                <button class="px-6 py-4 bg-dark-purple text-white font-bold rounded-md"><a href="#">Create Fiber Account</a></button>
+                <button class="px-6 py-4 bg-darktext-dark-green text-white font-bold rounded-md"><a href="#">Create Fiber Account</a></button>
                 <div class="flex items-center justify-center">
-                    <p class="text-lg">Already have an account ? <span class="font-bold text-dark-purple">Sign In</span></p>
+                    <p class="text-lg">Already have an account ? <span class="font-bold text-dark-green">Sign In</span></p>
                 </div>
 
             </div>
 
             <!-- Image -->
-            <div class=" hidden sm:block bg-dark-purple w-1/2 ">
+            <div class=" hidden sm:block bg-darktext-dark-green w-1/2 ">
                 <div class=" hidden sm:flex flex-col py-16  items-center">
                     <img class="w-4/5" src="/img/Sign Up Image.png " alt="image">
                 </div>
