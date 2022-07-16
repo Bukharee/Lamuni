@@ -3,7 +3,7 @@
     "tailwindcss": "^3.0.24"
   },
   "scripts": {
-    "build:tailwind" : "npx tailwindcss -i style.css -o index.css --watch"
+    "build:tailwind" : "npx tailwindcss -i ../static/style.css -o ../static/css/index.css --watch"
   }
 
 }
