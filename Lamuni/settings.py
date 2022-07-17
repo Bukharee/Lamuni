@@ -12,10 +12,12 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+from django.utils.translation import gettext_lazy as _
+from django.conf import global_settings
+import django.conf.locale
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -27,7 +29,6 @@ SECRET_KEY = 'django-insecure-6p%@+7gok43@dim7io7kq(9&!y6^chh7!1mcf*sk@3hwhvp&2k
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-
 
 # Application definition
 
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -75,7 +77,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Lamuni.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
@@ -85,7 +86,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -105,7 +105,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
@@ -117,6 +116,43 @@ USE_I18N = True
 
 USE_TZ = True
 
+USE_L10N = True
+
+
+# Hausa Setup
+
+def ugettext(s): return s
+
+
+EXTRA_LANG_INFO = {
+    'ha': {
+        'bidi': False,
+        'code': 'ha',
+        'name': 'Hausa',
+        'name_local': 'Hausa',
+    },
+    'ya': {
+        'bidi': False,
+        'code': 'ya',
+        'name': 'Yoruba',
+        'name_local': 'Ìran Yorùbá',
+    },
+}
+LANG_INFO = dict(**django.conf.locale.LANG_INFO, **EXTRA_LANG_INFO)
+django.conf.locale.LANG_INFO = LANG_INFO
+
+# Supported languages
+
+LANGUAGES = (
+    ('en', _('English')),
+    ('ha', _('Hausa')),
+    ('ya', _('Yoruba')),
+    ('ig', _('Igbo')),
+)
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale/'),
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
@@ -128,10 +164,8 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
