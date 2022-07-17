@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     # apps
     "Users",
     'Lessons',
+    'parler',
+    'ckeditor',  # HTML Editor
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
