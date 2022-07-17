@@ -2694,10 +2694,6 @@ Ensure the default browser behavior of the `hidden` attribute.
     margin-top: 4rem;
   }
 
-  .sm\:block {
-    display: block;
-  }
-
   .sm\:flex {
     display: flex;
   }
@@ -2707,10 +2703,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   }
 
   .sm\:w-2\/4 {
-    width: 50%;
-  }
-
-  .sm\:w-1\/2 {
     width: 50%;
   }
 
@@ -2777,11 +2769,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   .sm\:px-6 {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
-  }
-
-  .sm\:px-12 {
-    padding-left: 3rem;
-    padding-right: 3rem;
   }
 
   .sm\:text-base {
