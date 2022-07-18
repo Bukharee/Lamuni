@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% load i18n %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List</title>
+</head>
+<body>
+<div class="article-body">
+<ul>
+    <!-- Iterate over object_list -->
+    {% for lesson in lessons %}
+    <!-- Display Objects -->
+    <li>{{ lesson.title }}</li>
+    <li>{{ lesson.desc }}</li>
+
+    <hr/>
+    <!-- If object_list is empty  -->
+    {% empty %}
+    <li>No objects yet.</li>
+    {% endfor %}
+</ul>
+</div>
+</body>
+</html>
