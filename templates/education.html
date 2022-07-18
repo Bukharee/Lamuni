@@ -1,11 +1,83 @@
 <html lang="en">
 <head>
+{% load static %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+    <title>Education</title>
+    <style>
+        .main-content {
+            margin-top: 10%;
+        }
+        .card {
+            padding: 30px;
+            width: 50%;
+            box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+        }
+       
+    </style>
 </head>
-<body>
-    <h1>this is the education page</h1>
+<body class="bg-white">
+
+    <!-- Header -->
+    <header class="bg-white mb-40">
+        <nav class="container mx-auto px-8 py-4 flex sm:space-x-6 items-center justify-between">
+          <h1 class="font-bold text-xl text-dark-green md:text-2xl">Lamuni</h1>
+         
+          <ul class="nav-menu first-letter flex flex-col absolute top-16 -left-full bg-white w-full
+          text-center shadow-md sm:shadow-none border-2 border-light-orange sm:border-0 
+          transition-all duration-300 mx-auto sm:w-auto sm:flex-row sm:static sm:space-x-6 items-center justify-between" >
+              <li class="sm:mx-4 my-2"> <a class="font-bold text-sm hover:text-dark-green" href="/education">Community</a></li>
+              <li class="sm:mx-4 my-2"> <a class="font-bold text-sm hover:text-dark-green">Pricing</a> </li>
+              <li class="sm:mx-4 my-2"> <a class="font-bold text-sm hover:text-dark-green">Features</a> </li>
+              <li class="sm:mx-4 my-2"> <a class="font-bold text-sm hover:text-dark-green">About Us</a> </li>
+          </ul>
+  
+        <!-- {#        <div class="absolute sm:flex sm:space-x-6">#}
+        {#          <a href="#" class="font-light text-sm">Community</a>#}
+        {#          <a href="#" class="font-light text-sm">Pricing</a>#}
+        {#          <a href="#" class="font-light text-sm">Features</a>#}
+        {#        </div>#} -->
+        
+          <div class="hidden sm:flex space-x-6">
+            <button class="px-4 py-2 rounded-md hover:text-dark-green">
+              <a href="#" class="font-bold text-sm lg:text-base">Sign In</a>
+            </button>
+            <button class="text-white bg-dark-green px-4 hover:bg-light-green py-2 rounded-md">
+              <a href="signup.html" class="font-bold text-sm lg:text-base">Sign Up</a>
+            </button>
+          </div>
+           <div class="block hamburger cursor-pointer sm:hidden ">
+             <span class="bar block h-1 w-6 bg-dark-black mx-auto my-1 transition-all duration-300 ease-in-out"></span>
+             <span class="bar block h-1 w-6 bg-dark-black mx-auto my-1 transition-all duration-300 ease-in-out"></span>
+             <span class="bar block h-1 w-6 bg-dark-black mx-auto my-1 transition-all duration-300 ease-in-out"></span>
+             
+           </div>
+        </nav>
+    </header>
+
+
+    <div class="container main-content mx-auto px-8 mt-20">
+        
+                
+        <div class="flex justify-evenly cursor-pointer hover:bg-dark-gray card mx-auto overflow-hidden rounded-lg">
+            
+            <div class="px-4 py-2 -mx-3">
+                <div class="mx-3">
+                    <!-- <span class="font-semibold text-emerald-500 dark:text-emerald-400">Success</span> -->
+                    <p class="text-sm text-gray-600 font-bold dark:text-gray-200">BUSSINESS MANAGEMENT</p>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-center text-dark-green w-12 bg-emerald-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
+        </div>
+        
+        
+    </div>
 </body>
 </html>
