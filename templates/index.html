@@ -10,42 +10,7 @@
   </head>
   <body>
     <!-- Header -->
-    <header class="bg-white">
-      <nav class="container mx-auto px-8 py-4 flex sm:space-x-6 items-center justify-between">
-        <h1 class="font-bold text-xl text-dark-green md:text-2xl">Lamuni</h1>
-       
-        <ul class="nav-menu first-letter flex flex-col absolute top-16 -left-full bg-white w-full
-        text-center shadow-md sm:shadow-none border-2 border-light-orange sm:border-0 
-        transition-all duration-300 mx-auto sm:w-auto sm:flex-row sm:static sm:space-x-6 items-center justify-between" >
-            <li class="sm:mx-4 my-2"> <a class="font-bold text-sm hover:text-dark-green" href="/education">Community</a></li>
-            <li class="sm:mx-4 my-2"> <a class="font-bold text-sm hover:text-dark-green">Pricing</a> </li>
-            <li class="sm:mx-4 my-2"> <a class="font-bold text-sm hover:text-dark-green">Features</a> </li>
-            <li class="sm:mx-4 my-2"> <a class="font-bold text-sm hover:text-dark-green">About Us</a> </li>
-        </ul>
-
-<!-- {#        <div class="absolute sm:flex sm:space-x-6">#}
-{#          <a href="#" class="font-light text-sm">Community</a>#}
-{#          <a href="#" class="font-light text-sm">Pricing</a>#}
-{#          <a href="#" class="font-light text-sm">Features</a>#}
-{#        </div>#} -->
-
-        <div class="hidden sm:flex space-x-6">
-          <button class="px-4 py-2 rounded-md hover:text-dark-green">
-            <a href="#" class="font-bold text-sm lg:text-base">Sign In</a>
-          </button>
-          <button class="text-white bg-dark-green px-4 hover:bg-light-green py-2 rounded-md">
-            <a href="signup.html" class="font-bold text-sm lg:text-base">Sign Up</a>
-          </button>
-        </div>
-         <div class="block hamburger cursor-pointer sm:hidden ">
-           <span class="bar block h-1 w-6 bg-dark-black mx-auto my-1 transition-all duration-300 ease-in-out"></span>
-           <span class="bar block h-1 w-6 bg-dark-black mx-auto my-1 transition-all duration-300 ease-in-out"></span>
-           <span class="bar block h-1 w-6 bg-dark-black mx-auto my-1 transition-all duration-300 ease-in-out"></span>
-           
-         </div>
-      </nav>
-    </header>
-
+   {% include 'components/header.html' %}
     <!-- Hero Section -->
 
     <section class="bg-white">
@@ -371,75 +336,8 @@
     </section>
 
     <!-- Footer÷\ -->
-    <footer class="bg-light-orange">
-      <div
-        class="container mx-auto px-8 py-12 flex space-y-6 sm:space-y-0 justify-between flex-col sm:flex-row sm:space-x-6"
-      >
-        <div class="flex flex-col space-y-8 max-w-sm">
-          <div>
-            <h2 class="text-xl font-bold">Lamuni</h2>
-            <p class="text-xs md:text-base text-dark-gray tracking-wide">
-              With fiber you can setup your personal portfolio in minutes with
-              dozen of premade, beautiful templates
-            </p>
-          </div>
-          <p class="text-lg text-dark-gray">
-            Made with
-            <span class="inline-flex items-baseline"
-              ><svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                  clip-rule="evenodd"
-                /></svg
-            ></span>
-            in Kano,Nigeria.
-          </p>
-        </div>
+    {% include 'components/footer.html' %}
 
-        <div class="flex flex-col space-y-2">
-          <h2 class="md:text-lg font-bold">Site Map</h2>
-          <a href="#" class="text-xs md:text-sm text-dark-gray"> Home Page</a>
-          <a href="#" class="text-xs md:text-sm text-dark-gray"> Pricing</a>
-          <a href="#" class="text-xs md:text-sm text-dark-gray">
-            Testimonials</a
-          >
-          <a href="#" class="text-xs md:text-sm text-dark-gray"> Features</a>
-        </div>
-
-        <div class="flex flex-col space-y-2 md">
-          <h2 class="md:text-lg font-bold">Resources</h2>
-          <a href="#" class="text-xs md:text-sm text-dark-gray">Support</a>
-          <a href="#" class="text-xs md:text-sm text-dark-gray">Contact</a>
-          <a href="#" class="text-xs md:text-sm text-dark-gray"> FAQ</a>
-        </div>
-
-        <div class="flex flex-col space-y-2">
-          <h2 class="md:text-lg font-bold">Company</h2>
-          <a href="#" class="text-xs md:text-sm text-dark-gray">About</a>
-          <a href="#" class="text-xs md:text-sm text-dark-gray"> Customers</a>
-          <a href="#" class="text-xs md:text-sm text-dark-gray">Blog</a>
-        </div>
-
-        <div class="flex flex-col space-y-2">
-          <h2 class="md:text-lg font-bold">Portfolio</h2>
-          <a href="#" class="text-xs md:text-sm text-dark-gray">
-            Abubakar Muhd</a
-          >
-          <a href="#" class="text-xs md:text-sm text-dark-gray"
-            >Auwal Abubakar
-          </a>
-          <a href="#" class="text-xs md:text-sm text-dark-gray">
-            Bukhari Auwal</a
-          >
-        </div>
-      </div>
-    </footer>
     <script src="{% static 'js/index.js' %}" type="text/javascript"></script>
 
   </body>
