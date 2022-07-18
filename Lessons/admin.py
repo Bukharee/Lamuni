@@ -8,3 +8,4 @@ from .models import Lesson
 @admin.register(Lesson)
 class LessonAdmin(TranslatableAdmin):
     search_fields = ['translations__title', 'translations__desc', ]
+    fields = ["title", "desc", "blog", "audio"]
