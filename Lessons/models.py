@@ -10,7 +10,7 @@ class Lesson(TranslatableModel):
         title=models.CharField(max_length=100, blank=False, null=False),
         desc=models.TextField(max_length=400, blank=False, null=False),
         blog=RichTextField('Blog', help_text='Edit and enter text just like MS Word.'),
-        audio=models.FileField(),
+        audio=models.FileField(upload_to='audio/%Y/%m/%d/', null=True, blank=True),
     )
     finished = models.ManyToManyField(get_user_model(), related_name='finishers', blank=True)
     date_published = models.DateTimeField(auto_now_add=True)
