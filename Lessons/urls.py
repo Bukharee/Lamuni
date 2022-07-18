@@ -1,9 +1,9 @@
 from django.urls import path
-from .views import lessons_list, lesson_detail
+from .views import lesson_detail, lessons_list
 
 app_name = 'Lessons'
 
 urlpatterns = [
-    path('lessons/', lessons_list, name='lessons'),
+    path('lessons/list/', lessons_list, name='lessons'),
     path('lesson/detail/<int:pk>/', lesson_detail, name='detail'),
 ]
