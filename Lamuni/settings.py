@@ -42,6 +42,10 @@ INSTALLED_APPS = [
 
     # apps
     "Users",
+    'Lessons',
+    'parler',
+    'ckeditor',  # HTML Editor
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -171,3 +175,24 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+# Only Image files are allowed for uploads
+CKEDITOR_ALLOW_NONIMAGE_FILES = False
+
+SITE_ID = 1
+
+PARLER_LANGUAGES = {
+    SITE_ID: (
+        {'code': 'en'},
+        {'code': 'ha'},
+        {'code': 'ya'},
+        {'code': 'ig'},
+    ),
+    'default': {
+        'fallback': 'en',
+        'hide_untranslated': False,
+    },
+}
+
+PARLER_DEFAULT_LANGUAGE_CODE = 'en'
