@@ -16,5 +16,5 @@ class Lesson(TranslatableModel):
     date_published = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return self.translations
+    # def __str__(self):
+    #     return self.translations
