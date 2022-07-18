@@ -13,3 +13,6 @@ def login(request):
 
 def singup(request):
     return render(request, "signup.html")
+
+def blog(request):
+    return render(request, "blog-detail.html")

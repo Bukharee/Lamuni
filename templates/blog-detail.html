@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+    <title>Lamuni:Blog</title>
+</head>
+<body>
+    <!-- heeder -->
+    {% include 'components/header.html' %}
+    <!-- header -->
+
+    <!-- HEADING SECTION -->
+    <section class="container mx-auto max-w-[950px] my-10 px-8">
+        <div class="flex flex-col items-center space-y-8 flex-wrap">
+            <div class="flex">
+                <h1 class="heading-1">Guide to css positions</h1>
+            </div>
+            <div class="flex flex-col sm:flex-row items-center justify-between space-x-4 text-dark-gray">
+
+                <div class="flex items-center justify-between space-x-2 my-2"> 
+                    <div class="flex items-center space-x-3">
+                    <img src="{% static 'img/profile-pic 1.png' %}" class="h-8 w-8 md:h-12 md:w-12" alt="profile-pic">
+                    <span class="text-sm md:text-base">abubakar</span>
+                </div>
+
+                <span>·</span>
+
+                <div><span class="text-sm md:text-base">Jul 18, 2022</span></div></div>
+               
+                
+                <span class="hidden sm:block">·</span>
+
+                <div class="flex items-center justify-between space-x-2 my-2">
+                    <div class="flex items-center space-x-2"><span><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                      </svg></span> <span>3 min read</span>
+                    </div>
+                    
+                      <span>·</span>
+                    
+                      <div class="flex items-center border-[1px] border-light-gray px-3 py-2 rounded-md space-x-2">
+                        <span><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110-18 9 9 0 010 18z" />
+                      </svg>
+                        </span>
+                      <span>more</span>
+                    </div>
+
+                </div>
+
+                
+
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Blog Image -->
+    <section class="container mx-auto max-w-[950px] my-10 px-8">
+        <img src="https://nikhilkhetan.hashnode.dev/_next/image?url=https%3A%2F%2Fcdn.hashnode.com%2Fres%2Fhashnode%2Fimage%2Fupload%2Fv1658120746723%2F7lCpoaKUJ.png%3Fw%3D1600%26h%3D840%26fit%3Dcrop%26crop%3Dentropy%26auto%3Dcompress%2Cformat%26format%3Dwebp&w=3840&q=75" alt="Blog Image">
+
+    </section>
+
+    <!-- Table of Content -->
+    <section class="container my-10 mx-auto max-w-[950px] items-start px-8">
+        <div class="border-2 border-light-gray p-6 space-y-4 rounded-md">
+            <div class="flex items-center space-x-2">
+                <span><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                  </svg></span>
+                  <h2 class="uppercase text-lg sm:text-xl">Table of Content</h2>
+            </div>
+            <div class="">
+                <ul class="border-l-[1px] border-l-light-gray">
+                    <li class="ml-4 hover:text-dark-green hover:shadow-lg p-2 rounded-md"><a href="#">Static :</a></li>
+                    <li class="ml-4 hover:text-dark-green hover:shadow-lg p-2 rounded-md"><a href="#">Absolute :</a></li>
+                    <li class="ml-4 hover:text-dark-green hover:shadow-lg p-2 rounded-md"><a href="#">Fixed :</a></li>
+                    <li class="ml-4 hover:text-dark-green hover:shadow-lg p-2 rounded-md"><a href="#">Relative :</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- main blog -->
+
+
+    <section class="container mx-auto max-w-[950px] px-8">
+        <!-- normal heading -->
+        <div class="flex my-2">
+            <h2 class="text-2xl sm:text-4xl font-medium my-2 sm:my-4">
+                What Is Position
+            </h2>
+        </div>
+        <!-- normal text -->
+        <div>
+            <p class="ul-item leading-loose">Position is the property of CSS which helps to position our HTML element.
+                With the help of this property we can locate any HTML element at any desired location. 
+                Following are the values of position property
+               </p>
+        </div>
+
+        <!-- normal list -->
+        <div class="my-10 capitalize">
+            <ul class="list-disc list-inside text-light-gray">
+                <li class="ul-item"><span class="text-black">Static</span></li>
+                <li class="ul-item"><span class="text-black">Absolute</span></li>
+                <li class="ul-item"><span class="text-black">Relative</span></li>
+                <li class="ul-item"><span class="text-black">Sticky</span></li>
+            </ul>
+        </div>
+
+
+        <!-- Embed Code -->
+        <div class="my-10 p-8 rounded-lg bg-marine-blue ">
+            <div class="text-white">
+                <code class="block text-base font-mono"> 
+                    #color3{
+                        position: absolute;
+                        top: 50px;
+                        left: 100px;
+                        right: 500px;
+                    }
+                </code>
+            </div>
+        </div>
+
+        <!-- number list -->
+        <div class="my-10 capitalize">
+            <ul class="list-decimal list-inside text-light-gray">
+                <li class="ul-item"><span class="text-black">Static</span></li>
+                <li class="ul-item"><span class="text-black">Absolute</span></li>
+                <li class="ul-item"><span class="text-black">Relative</span></li>
+                <li class="ul-item"><span class="text-black">Sticky</span></li>
+            </ul>
+        </div>
+        <!-- Im done will all components -->
+
+
+            <!-- normal heading -->
+        <div class="flex my-2">
+            <h2 class="text-2xl sm:text-4xl font-medium my-2 sm:my-4">
+                Position Relative
+            </h2>
+        </div>
+
+
+                <!-- Embed Code -->
+                <div class="my-10 p-8 rounded-lg bg-marine-blue ">
+            <div class="text-white">
+                <code class="block text-base font-mono"> 
+                    .relative {
+                          position: relative;
+                          top: 300px;
+                          left: 150px;
+                        }
+                </code>
+            </div>
+        </div>
+
+            <!-- normal text -->
+            <div>
+                <p class="ul-item leading-loose">Elements with <span class="rounded-md bg-stone-200 p-1 text-mono mx-2 font-light">position: relative </span> 
+                    remain in the normal flow of the document. But, 
+                    unlike static elements, the left, right, top, bottom and z-index
+                    properties affect the position of the element.
+                </p>
+            </div>
+
+                    <!-- tags -->
+        <div class="flex justify-start items-center text-white space-x-4 my-10 flex-wrap">
+            <div class="my-2">
+                <button class="bg-dark-green px-4 py-2 rounded-md shadow-inner hover:bg-green-700">Html</button>
+            </div>
+            <div class="my-2">
+                <button class="bg-dark-green px-4 py-2 rounded-md shadow-inner hover:bg-green-700">Development</button>
+            </div>
+            <div class="my-2">
+                <button class="bg-dark-green px-4 py-2 rounded-md shadow-inner hover:bg-green-700">FrontEnd</button>
+            </div>
+            <div class="my-2">
+                <button class="bg-dark-green px-4 py-2 rounded-md shadow-inner hover:bg-green-700">Css</button>
+            </div>
+        </div>
+
+
+        
+        
+    </section>
+
+<!-- footer -->
+
+    {% include 'components/footer.html' %}
+
+<!-- footer -->
+
+    <script src="{% static 'js/index.js' %}" type="text/javascript"></script>
+</body>
+</html>
