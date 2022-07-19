@@ -7,6 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'css/index.css' %}" />
     <title>Lamuni:Sign-Up</title>
+    <style>
+      li:last-child {
+        display: none;
+      }
+    </style>
   </head>
   <body>
     {% include 'components/header.html' %}
@@ -16,100 +21,138 @@
       <div
         class="flex flex-col space-y-4 lg:space-y-6 md:px-12 lg:px-20 py-12 bg-white md:w-1/2"
       >
-        <h1 class="text-3xl lg:text-4xl font-bold">
-          Create your Lamuni account
-        </h1>
-        <div class="flex flex-col space-y-3">
-          <div class="flex flex-col space-y-4">
-            <label class="text-xl" for="name">Name</label>
-            <input
-              class="px-3 py-3 border border-light-gray rounded-md text-light-gray focus:outline-dark-green"
-              type="text"
-              name="name"
-              id="name"
-              placeholder="Abubakar Muhd Sadiq"
-            />
-          </div>
-          <div class="flex flex-col space-y-4">
-            <label class="text-xl" for="name">Email</label>
-            <input
-              class="px-3 py-3 border border-light-gray rounded-md text-light-gray focus:outline-dark-green"
-              placeholder="bbkrmuhdsaddiq@gmail.com"
-              type="email"
-              name="email"
-              id="email"
-            />
-          </div>
-          <div class="flex flex-col space-y-4">
-            <label class="text-xl" for="name">Phone Number</label>
-            <input
-              class="px-3 py-3 border border-light-gray rounded-md text-light-gray focus:outline-dark-green"
-              placeholder="+2348028543654"
-              type="number"
-              name="number"
-              id="number"
-            />
-          </div>
-          <div class="flex flex-col lg:flex-row items-center justify-between">
-            <div class="flex flex-col space-y-4 w-full mb-2 lg:mb-0 lg:w-[48%]">
-              <label class="text-xl" for="name">Password</label>
+        <form action="" method="post">
+          {% if form.errors %} {% csrf_token %}
+          <h1 class="text-3xl lg:text-4xl font-bold">
+            Create your Lamuni account
+          </h1>
+          <div class="flex flex-col space-y-3">
+            <div class="flex flex-col space-y-4">
+              <label class="text-xl" for="name">Userame</label>
               <input
                 class="px-3 py-3 border border-light-gray rounded-md text-light-gray focus:outline-dark-green"
-                placeholder="At least 8 characters"
-                type="password"
-                name="password"
-                id="password"
+                type="text"
+                name="username"
+                maxlength="150"
+                autofocus=""
+                required=""
+                id="id_username"
+                placeholder="Username..."
               />
+              <p style="font-size: small; color: red">
+                {{ form.errors.username | striptags }}
+              </p>
             </div>
-            <div class="flex flex-col space-y-4 w-full lg:w-[48%]">
-              <label class="text-xl" for="name">Confirm Password</label>
+            <div class="flex flex-col space-y-4">
+              <label class="text-xl" for="name">Name</label>
               <input
                 class="px-3 py-3 border border-light-gray rounded-md text-light-gray focus:outline-dark-green"
-                placeholder="At least 8 characters"
-                type="password"
-                name="password-2"
-                id="password-2"
+                type="text"
+                name="name"
+                maxlength="100"
+                required=""
+                id="id_name"
+                placeholder="Full Name"
               />
+              <p style="font-size: small; color: red">
+                {{ form.errors.name | striptags }}
+              </p>
             </div>
-          </div>
-        </div>
 
-        <div class="flex items-center justify-between text-sm md:text-base">
-          <p class="align-middle">
-            <input
-              class="h-4 w-4 accent-dark-green border-light-gray"
-              type="checkbox"
-              name="check"
-              id="check"
-            />
-            by creating an account on lamuni you agree to the
-            <a
-              href="#"
-              class="font-bold text-dark-green underline underline-offset-2"
-            >
-              Terms & Conditions</a
-            >
-          </p>
-        </div>
-        <button class="px-6 py-4 bg-dark-green text-white font-bold rounded-md">
-          <a href="#">Create Lamuni Account</a>
-        </button>
-        <div class="flex items-center justify-center">
-          <p class="text-lg">
-            Already have an account ?<a
-              href="{% url 'login' %}"
-              class="font-bold text-dark-green"
-              >Log In</a
-            >
-          </p>
-        </div>
+            <div class="flex flex-col space-y-4">
+              <label class="text-xl" for="name">Phone Number</label>
+              <input
+                class="px-3 py-3 border border-light-gray rounded-md text-light-gray focus:outline-dark-green"
+                type="tel"
+                name="phone"
+                maxlength="128"
+                required=""
+                id="id_phone"
+                placeholder="+2348028543654"
+              />
+              <p style="font-size: small; color: red">
+                {{ form.errors.phone | striptags }}
+              </p>
+            </div>
+            <div class="flex flex-col lg:flex-row items-center justify-between">
+              <div
+                class="flex flex-col space-y-4 w-full mb-2 lg:mb-0 lg:w-[48%]"
+              >
+                <label class="text-xl" for="name">Password</label>
+                <input
+                  class="px-3 py-3 border border-light-gray rounded-md text-light-gray focus:outline-dark-green"
+                  type="password"
+                  name="password1"
+                  autocomplete="new-password"
+                  required=""
+                  id="id_password1"
+                  placeholder="At least 8 characters"
+                />
+                <p style="font-size: small; color: red">
+                  {{ form.errors.password1 | striptags }}
+                </p>
+              </div>
+              <div class="flex flex-col space-y-4 w-full lg:w-[48%]">
+                <label class="text-xl" for="name">Confirm Password</label>
+                <input
+                  class="px-3 py-3 border border-light-gray rounded-md text-light-gray focus:outline-dark-green"
+                  type="password"
+                  name="password2"
+                  autocomplete="new-password"
+                  required=""
+                  id="id_password2"
+                  placeholder="Rewrite Password"
+                />
+                <p style="font-size: small; color: red">
+                  {{ form.errors.password2 | striptags }}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between text-sm md:text-base">
+            <p class="align-middle">
+              <input
+                class="h-4 w-4 accent-dark-green border-light-gray"
+                type="checkbox"
+                name="check"
+                id="check"
+              />
+              by creating an account on lamuni you agree to the
+              <a
+                href="#"
+                class="font-bold text-dark-green underline underline-offset-2"
+              >
+                Terms & Conditions</a
+              >
+            </p>
+          </div>
+          <button
+            type="submit"
+            class="px-6 py-4 bg-dark-green text-white font-bold rounded-md"
+          >
+            Create Lamuni Account
+          </button>
+          <div class="flex items-center justify-center">
+            <p class="text-lg">
+              Already have an account ?<a
+                href="{% url 'login' %}"
+                class="font-bold text-dark-green"
+                >Log In</a
+              >
+            </p>
+          </div>
+          {% endif %}
+        </form>
       </div>
 
       <!-- Image -->
       <div
-        class="hidden bg-dark-green text-dark-green w-1/2 md:flex flex-col py-16 align-middle items-center"
+        class="hidden bg-dark-green text-white w-1/2 md:flex flex-col py-16 align-middle items-center"
       >
-        <div class="hidden md:flex flex-col py-16 align-middle items-center">
+        <div class="hidden md:flex flex-col py-8 align-middle items-center">
+          {% for field in form %} {{ field.help_text }} {% endfor %}
+
           <img
             class="w-4/5"
             src="{% static '/img/photo/planting.jpeg' %}"
