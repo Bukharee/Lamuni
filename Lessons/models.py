@@ -16,8 +16,8 @@ class Lesson(TranslatableModel):
     date_published = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return self.id
+    # def __str__(self):
+    #     return self.id
 
 
 ANSWER_CHOICES = (('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D'),)
@@ -32,10 +32,10 @@ class Quiz(TranslatableModel):
         option_d=models.CharField(max_length=300, blank=False, null=False),
     )
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
-    type = models.CharField(max_length=30, choices=ANSWER_CHOICES)
+    answer = models.CharField(max_length=30, choices=ANSWER_CHOICES)
 
-    def __str__(self):
-        return self.lesson.id
+    # def __str__(self):
+    #     return self.lesson.id
 
 
 class Score(models.Model):
@@ -45,5 +45,5 @@ class Score(models.Model):
     correct = models.ManyToManyField(Quiz, related_name='right', blank=True)
     total = models.PositiveIntegerField(default=0)
 
-    def __str__(self):
-        return self.lesson.id
+    # def __str__(self):
+    #     return self.lesson.id

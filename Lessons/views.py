@@ -37,21 +37,27 @@ def quiz(request, pk):
     if request.method == 'POST':
         print(request.POST)
         questions = Quiz.objects.filter(lesson=lesson)
-        score = 0
+        total = 0
         wrong = 0
         correct = 0
-        total = 0
+        percent = 0
+        score = Score.objects.create(lesson=lesson, user=request.user)
         for q in questions:
             total += 1
             print(request.POST.get(q.question))
-            print(q.ans)
-            print()
-            if q.ans == request.POST.get(q.question):
-                score += 10
+            print(q.answer)
+            if q.answer == request.POST.get(q.question):
+                score.correct.add(q)
+                score.save()
                 correct += 1
             else:
+                score.wrong.add(q)
+                score.save()
                 wrong += 1
-        percent = score / (total * 10) * 100
+            score.total = total
+            score.save()
+
+        percent = (correct / wrong) * 100
         context = {
             'score': score,
             'correct': correct,
@@ -60,6 +66,7 @@ def quiz(request, pk):
             'total': total
         }
         return render(request, 'quiz-result.html', context)
+
     else:
         questions = Quiz.objects.filter(lesson=lesson)
         context = {
