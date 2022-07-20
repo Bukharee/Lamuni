@@ -1,3 +1,4 @@
+from email import message
 import os
 from twilio.rest import Client
 from twilio.base.exceptions import TwilioRestException
@@ -19,3 +20,13 @@ def check(phone, code):
         # print('no')
         # return False
     return result.status == 'approved'
+
+def sms_reset(phone, code):
+         message = client.messages.create(
+                                        body=f'Hi, here is your reset password code {code}.\
+                                        Don\'nt share this code with anyone; our employees will \
+                                            never ask for it.',
+                                        from_='+2349155425705',
+                                        to=f'{phone}'
+                                    )
+         return message

@@ -1,16 +1,7 @@
-<!DOCTYPE html>
+{% extends '../base.html' %}
 {% load static %}
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
-    <title>Lamuni:LogIn</title>
-  </head>
-  <body>
-    {% include 'components/header.html' %}
-
+{% block title %} Login:Lamuni {% endblock %}
+{% block content %} 
     <section>
       <div class="flex flex-col md:flex-row md:space-x-12 px-6 md:px-0">
         <div class="hidden md:block bg-dark-green text-dark-green w-1/2">
@@ -120,7 +111,5 @@
         <!-- Image -->
       </div>
     </section>
-    {% include 'components/footer.html' %}
-    <script src="{% static 'js/index.js' %}" type="text/javascript"></script>
-  </body>
-</html>
+    {% endblock%}
+
