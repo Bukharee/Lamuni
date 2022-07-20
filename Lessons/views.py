@@ -1,8 +1,7 @@
 from django.shortcuts import render
-from .models import Lesson
+from .models import Lesson, Quiz, Score
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
-from django.views.generic.list import ListView
 
 
 # Create your views here.
@@ -29,3 +28,41 @@ def mark_lesson_completed(request, pk):
         lesson.save()
 
     return render(request, 'lesson-detail.html', {'lesson': lesson})
+
+
+@login_required
+def quiz(request, pk):
+    lesson = get_object_or_404(Lesson, pk=pk)
+
+    if request.method == 'POST':
+        print(request.POST)
+        questions = Quiz.objects.filter(lesson=lesson)
+        score = 0
+        wrong = 0
+        correct = 0
+        total = 0
+        for q in questions:
+            total += 1
+            print(request.POST.get(q.question))
+            print(q.ans)
+            print()
+            if q.ans == request.POST.get(q.question):
+                score += 10
+                correct += 1
+            else:
+                wrong += 1
+        percent = score / (total * 10) * 100
+        context = {
+            'score': score,
+            'correct': correct,
+            'wrong': wrong,
+            'percent': percent,
+            'total': total
+        }
+        return render(request, 'quiz-result.html', context)
+    else:
+        questions = Quiz.objects.filter(lesson=lesson)
+        context = {
+            'questions': questions
+        }
+        return render(request, 'quiz.html', context)

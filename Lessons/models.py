@@ -34,9 +34,16 @@ class Quiz(TranslatableModel):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     type = models.CharField(max_length=30, choices=ANSWER_CHOICES)
 
+    def __str__(self):
+        return self.lesson.id
+
 
 class Score(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, blank=True)
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
-    wrong = models.ManyToManyField(Quiz, related_name='wrong', blank=True, null=True)
-    correct = models.ManyToManyField(Quiz, related_name='right', blank=True, null=True)
+    wrong = models.ManyToManyField(Quiz, related_name='wrong', blank=True)
+    correct = models.ManyToManyField(Quiz, related_name='right', blank=True)
     total = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return self.lesson.id
