@@ -33,3 +33,10 @@ class Quiz(TranslatableModel):
     )
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     type = models.CharField(max_length=30, choices=ANSWER_CHOICES)
+
+
+class Score(models.Model):
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
+    wrong = models.ManyToManyField(Quiz, related_name='wrong', blank=True, null=True)
+    correct = models.ManyToManyField(Quiz, related_name='right', blank=True, null=True)
+    total = models.PositiveIntegerField(default=0)
