@@ -16,5 +16,20 @@ class Lesson(TranslatableModel):
     date_published = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
 
-    # def __str__(self):
-    #     return self.translations
+    def __str__(self):
+        return self.id
+
+
+ANSWER_CHOICES = (('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D'),)
+
+
+class Quiz(TranslatableModel):
+    translations = TranslatedFields(
+        question=models.CharField(max_length=300, blank=False, null=False),
+        option_a=models.CharField(max_length=300, blank=False, null=False),
+        option_b=models.CharField(max_length=300, blank=False, null=False),
+        option_c=models.CharField(max_length=300, blank=False, null=False),
+        option_d=models.CharField(max_length=300, blank=False, null=False),
+    )
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
+    type = models.CharField(max_length=30, choices=ANSWER_CHOICES)
