@@ -20,7 +20,7 @@
                 class="px-3 py-3 border border-light-gray rounded-md text-light-gray focus:outline-dark-green"
               type="text" name="code" maxlength="8" required="" id="id_code" placeholder="Enter Verification Code">
               <p style="font-size: small; color: red">
-                {% if form.error %} {{ form.error }} {%endif %}
+                {% if error %} {{ error }} {%endif %}
               </p>
             </div>
           </div>
