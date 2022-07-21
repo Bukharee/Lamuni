@@ -21,3 +21,7 @@ def education(request):
     return render(request, "education.html")
 
 
+def quiz(request):
+    return render(request, "quiz.html")
+
+
