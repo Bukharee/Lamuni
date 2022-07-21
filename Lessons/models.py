@@ -16,8 +16,8 @@ class Lesson(TranslatableModel):
     date_published = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
 
-    # def __str__(self):
-    #     return self.id
+    def __str__(self):
+        return str(self.title)
 
 
 ANSWER_CHOICES = (('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D'),)
