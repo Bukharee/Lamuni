@@ -4,11 +4,11 @@
 {% block content %} 
     <section>
       <div class="flex flex-col md:flex-row md:space-x-12 px-6 md:px-0">
-        <div class="hidden md:block bg-dark-green text-dark-green w-1/2">
-          <div class="hidden sm:flex flex-col py-16 items-center">
+        <div class="hidden md:block bg-dark-green text-dark-green md:w-2/5">
+          <div class="hidden sm:flex flex-col mt-32 items-center">
             <img
-              class="w-4/5"
-              src="{% static '/img/photo/planting.jpeg' %}"
+              class="w-4/5 align-middle"
+              src="{% static '/img/photo/planting money.png' %}"
               alt="image"
             />
           </div>
@@ -30,10 +30,8 @@
         </div>
         <!-- login form -->
 
-        <div
-          class="flex flex-col space-y-6 md:px-12 lg:px-20 py-12 bg-white md:w-1/2"
-        >
-          <form action="" method="post">
+        <div class="flex flex-row items-center justify-center md:w-3/5">
+          <form  class="flex flex-col space-y-6 md:px-12 lg:px-20 py-12 bg-white  " action="" method="post">
             {% csrf_token %}
 
             <h1 class="text-3xl lg:text-4xl font-bold">
@@ -43,7 +41,7 @@
               <div class="flex flex-col space-y-4">
                 <label class="text-xl" for="name">Username</label>
                 <input
-                  class="px-3 py-3 border border-light-gray rounded-md text-light-gray focus:outline-dark-green"
+                  class="px-3 py-3 border border-light-gray rounded-md text-dark-black focus:outline-dark-green"
                   type="text"
                   name="username"
                   autofocus=""
@@ -57,7 +55,7 @@
               <div class="flex flex-col space-y-4">
                 <label class="text-xl" for="name">Password</label>
                 <input
-                  class="px-3 py-3 border border-light-gray rounded-md text-light-gray focus:outline-dark-green"
+                  class="px-3 py-3 border border-light-gray rounded-md text-dark-black focus:outline-dark-green"
                   placeholder="At least 8 characters"
                   type="password"
                   name="password"
