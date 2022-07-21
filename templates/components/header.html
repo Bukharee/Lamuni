@@ -1,4 +1,4 @@
-<header class="bg-white">
+<header class="bg-white mb-10">
     <nav class="container mx-auto px-8 py-4 flex sm:space-x-6 items-center justify-between">
       <h1 class="font-bold text-xl text-dark-green md:text-2xl">Lamuni</h1>
      
@@ -6,13 +6,13 @@
       text-center shadow-md sm:shadow-none border-2 border-light-orange sm:border-0 
       transition-all duration-300 mx-auto sm:w-auto sm:flex-row sm:static sm:space-x-6 items-center justify-between" >
           <li class="sm:mx-4 my-2"> <a class="font-bold text-sm hover:text-dark-green">Community</a></li>
-          <li class="sm:mx-4 my-2"> <a class="font-bold text-sm hover:text-dark-green">Pricing</a> </li>
+          <li class="sm:mx-4 my-2"> <a href="{% url 'users:blog' %}" class="font-bold text-sm hover:text-dark-green">Blog</a> </li>
           <li class="sm:mx-4 my-2"> <a class="font-bold text-sm hover:text-dark-green">Features</a> </li>
           <li class="sm:mx-4 my-2"> <a class="font-bold text-sm hover:text-dark-green">About Us</a> </li>
-          <button class="sm:hidden px-4 py-2 rounded-md hover:text-dark-green">
+          <button class="sm:hidden px-4 py-2 rounded-md hover:text-dark-green my-2">
             <a href="{% url 'users:login' %}" class="font-bold text-sm lg:text-base">Sign In</a>
           </button>
-          <button class="sm:hidden text-white bg-dark-green px-4 hover:bg-light-green py-2 rounded-md">
+          <button class="sm:hidden text-white bg-dark-green px-4 hover:bg-green-700 py-2 rounded-md my-2">
             <a href="{% url 'users:signup' %}" class="font-bold text-sm lg:text-base">Sign Up</a>
           </button>
       </ul>
@@ -21,7 +21,7 @@
         <button class="px-4 py-2 rounded-md hover:text-dark-green">
           <a href="{% url 'users:login' %}" class="font-bold text-sm lg:text-base">Sign In</a>
         </button>
-        <button class="text-white bg-dark-green px-4 hover:bg-light-green py-2 rounded-md">
+        <button class="text-white bg-dark-green px-4 hover:bg-green-700 py-2 rounded-md">
           <a href="{% url 'users:signup' %}" class="font-bold text-sm lg:text-base">Sign Up</a>
         </button>
       </div>

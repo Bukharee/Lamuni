@@ -17,3 +17,10 @@
 .hamburger.active .bar:nth-child(3) {
     transform: translateY(-8px) rotate(-45deg);
 }
+
+.heading-1 {
+    @apply capitalize text-center text-3xl md:text-5xl font-medium
+}
+.ul-item {
+    @apply text-lg  sm:text-2xl sm:tracking-wide
+}
