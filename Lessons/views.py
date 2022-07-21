@@ -5,7 +5,6 @@ from django.shortcuts import get_object_or_404
 
 
 # Create your views here.
-
 def lessons_list(request):
     context = {"lessons": Lesson.objects.all().order_by("date_published")}
 
@@ -40,7 +39,6 @@ def quiz(request, pk):
         total = 0
         wrong = 0
         correct = 0
-        percent = 0
         score = Score.objects.create(lesson=lesson, user=request.user)
         for q in questions:
             total += 1
@@ -57,11 +55,11 @@ def quiz(request, pk):
             score.total = total
             score.save()
 
-        percent = (correct / wrong) * 100
+        percent = (correct / total) * 100
         context = {
             'score': score,
-            'correct': correct,
-            'wrong': wrong,
+            'correct': score.correct,
+            'wrong': score.wrong,
             'percent': percent,
             'total': total
         }
