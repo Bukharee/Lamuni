@@ -30,6 +30,8 @@ class Quiz(TranslatableModel):
         option_b=models.CharField(max_length=300, blank=False, null=False),
         option_c=models.CharField(max_length=300, blank=False, null=False),
         option_d=models.CharField(max_length=300, blank=False, null=False),
+        suggestion=RichTextField('Blog', help_text='Suggested reading when user fails the question.',
+                                 blank=False, null=False),
     )
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     answer = models.CharField(max_length=30, choices=ANSWER_CHOICES)
