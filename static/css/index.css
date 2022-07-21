@@ -1469,6 +1469,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
 }
 
+.space-y-12 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(3rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(3rem * var(--tw-space-y-reverse));
+}
+
 .space-y-reverse > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 1;
 }
@@ -1872,6 +1878,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(251 248 243 / var(--tw-border-opacity));
 }
 
+.border-emerald-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(16 185 129 / var(--tw-border-opacity));
+}
+
 .border-l-light-gray {
   --tw-border-opacity: 1;
   border-left-color: rgb(199 195 192 / var(--tw-border-opacity));
@@ -2079,6 +2090,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .p-\[4px\] {
   padding: 4px;
+}
+
+.p-10 {
+  padding: 2.5rem;
 }
 
 .px-8 {
@@ -2400,6 +2415,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(16 16 16 / var(--tw-text-opacity));
 }
 
+.text-dark-red {
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
+}
+
 .underline {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
@@ -2627,6 +2647,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .shadow-dark-green {
   --tw-shadow-color: #16a34a;
+  --tw-shadow: var(--tw-shadow-colored);
+}
+
+.shadow-dark-gray {
+  --tw-shadow-color: #4f4f4f;
   --tw-shadow: var(--tw-shadow-colored);
 }
 
@@ -3114,6 +3139,11 @@ Ensure the default browser behavior of the `hidden` attribute.
     padding-bottom: 0.5rem;
   }
 
+  .sm\:py-4 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
   .sm\:pl-2 {
     padding-left: 0.5rem;
   }
@@ -3140,6 +3170,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   .sm\:text-4xl {
     font-size: 2.25rem;
     line-height: 2.5rem;
+  }
+
+  .sm\:text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
   }
 
   .sm\:leading-loose {

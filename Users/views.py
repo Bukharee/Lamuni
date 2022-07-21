@@ -14,14 +14,20 @@ def singup(request):
     return render(request, "signup.html")
 
 
-def blog(request):
+def lesson_detail(request):
     return render(request, "blog-detail.html")
+
+def lesson_done(request):
+    return render(request, "lesson-done.html")
 
 def education(request):
     return render(request, "education.html")
 
-
 def quiz(request):
     return render(request, "quiz.html")
+
+def quiz_result(request):
+    return render(request, "quiz-result.html")
+
 
 
