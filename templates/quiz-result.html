@@ -12,6 +12,11 @@
     <p class="card-text">Incorrect answers: {{wrong.count}}</p>
     <p class="card-text">Total questions: {{total}}</p>
     <h5>All the best for next quiz!</h5>
+    <h5>Suggestions</h5>
+    {% for wrong in wrong_qs %}
+    {{wrong.suggestion|safe}}
+    <br>
+    {% endfor %}
 </div>
 </body>
 </html>

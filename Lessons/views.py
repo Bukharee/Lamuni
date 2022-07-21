@@ -40,6 +40,7 @@ def quiz(request, pk):
         wrong = 0
         correct = 0
         score = Score.objects.create(lesson=lesson, user=request.user)
+        wrong_q = []
         for q in questions:
             total += 1
             print(request.POST.get(q.question))
@@ -52,6 +53,7 @@ def quiz(request, pk):
                 score.wrong.add(q)
                 score.save()
                 wrong += 1
+                wrong_q.append(q)
             score.total = total
             score.save()
 
@@ -60,6 +62,7 @@ def quiz(request, pk):
             'score': score,
             'correct': score.correct,
             'wrong': score.wrong,
+            'wrong_qs': wrong_q,
             'percent': percent,
             'total': total
         }
