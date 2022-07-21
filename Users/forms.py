@@ -21,6 +21,10 @@ class CustomUserChangeForm(UserChangeForm):
 class VerifyForm(forms.Form):
     code = forms.CharField(max_length=8, required=True, help_text='Enter code')
 
-class ResetPasswordForm(forms.Form):
+class SendResetCodeForm(forms.Form):
         phone = forms.CharField(max_length=20, required=True, help_text='Phone number')
+
+class ResetPawsswordForm(forms.Form):
+        password1 = forms.CharField(max_length=128)
+        password2 = forms.CharField(max_length=128)
 

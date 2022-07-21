@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index, register,verify_code, send_reset_code
+from .views import index, register,verify_code, send_reset_code, reset_verify, reset_password
 from django.contrib.auth import views as auth_views
 
 
@@ -10,6 +10,8 @@ urlpatterns = [
                path("signup/", register, name="signup"),
             path('logout/', auth_views.LogoutView.as_view(template_name='registration/logout.html')),
             path('verify/<slug:username>/', verify_code, name="verify"),  # ← new
-            path('password_reset/', send_reset_code, name="reset_password")
+            path('send_reset/', send_reset_code, name="reset_code"),
+            path('reset_verify/<slug:username>/', reset_verify, name="reset_verify"),
+            path('password_reset/<slug:username>/<int:code>/', reset_password, name="reset_password"),
 ]
 

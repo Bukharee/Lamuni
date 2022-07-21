@@ -1,19 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic.edit import CreateView
+from django.contrib.auth import authenticate
 
 from Users.models import User
-from .forms import CustomUserCreationForm, VerifyForm, ResetPasswordForm
-from django.urls import reverse_lazy
+from .forms import CustomUserCreationForm, VerifyForm, SendResetCodeForm, ResetPawsswordForm
 from django.contrib.auth.decorators import login_required
 from .verify import send, check, sms_reset
 from django.contrib.auth import get_user_model
-from random import randint
 # Create your views here.
-
-def random_with_N_digits(n):
-    range_start = 10**(n-1)
-    range_end = (10**n)-1
-    return randint(range_start, range_end)
 
 @login_required
 def index(request):
@@ -33,7 +26,6 @@ def register(request):
     return render(request, 'registration/signup.html', {'form': form})
 
 
-@login_required
 def verify_code(request, username):
     if request.method == 'POST':
         form = VerifyForm(request.POST)
@@ -57,29 +49,55 @@ def verify_code(request, username):
 
 def send_reset_code(request):
         if request.method == "POST":
-            form = ResetPasswordForm(data=request.POST)
+            form = SendResetCodeForm(data=request.POST)
             if form.is_valid():
                 phone = form.cleaned_data.get('phone') #get the phone number
                 if User.objects.filter(phone=phone).exists(): #validate if it exist
                     user = get_object_or_404(get_user_model(), phone=phone) 
                     send(phone) #send the verification code to the phone number
-                    return redirect('users:verify', username=user.username) #redirect to verify 
+                    return redirect('users:reset_verify', username=user.username) #redirect to verify 
                 return render(request, 'registration/password_reset.html', {"form": form, 
                 "error": "this number isn't registered"})
         else:
-            form = ResetPasswordForm()
+            form = SendResetCodeForm()
             return render(request, 'registration/password_reset.html', {"form": form})
 
 
-def reset_password(request):
+def reset_verify(request, username):
     if request.method == "POST":
+        user = get_object_or_404(get_user_model(), username=username) 
         form = VerifyForm(data=request.POST)
         if form.is_valid():
-            #get the inputted code
-            #compare it with the one on the database
-            #if they match:
-                #redirect a user to a page where he can assign new password
-            #if not:
-               #tell the user that its not the correct code
+            code = str(form.cleaned_data.get('code')) #get the inputted code
+            #compare it with the one sent 
+            if check(user.phone, code): #if they match:
+                user.reset_code = code
+                user.save()
+                return redirect('users:reset_password', username=user.username, code=code)#redirect a user to a page where he can assign new password
+            return render(request, 'registration/reset_code_verify.html', {"form": form, "error": "invalid code"}) #if not: tell the user that its not the correct code
+    form = VerifyForm()
+    return render(request, "registration/reset_code_verify.html", {"form": form})
     #render the form 
-            pass
+
+
+def reset_password(request, username, code):
+    user = get_object_or_404(get_user_model(), username=username)
+    if user.reset_code == str(code):
+        print("code matched")
+        if request.method == "POST":
+            form = ResetPawsswordForm(data=request.POST)
+            if form.is_valid():
+                password1 = form.cleaned_data.get('password1')
+                password2 = form.cleaned_data.get('password2')
+                if password1 == password2:
+                    user.set_password(password1)
+                    authenticate(username=user.username, password=password1)
+                    user.reset_code = ""
+                    user.save()
+                    return redirect('users:index')
+                return render(request, 'registration/password_reset_temp.html', {"form": form, "error": "passwords dont match"})
+        form = ResetPawsswordForm()
+        return render(request, 'registration/password_reset_temp.html', {"form": form})
+    return render(request, 'registration/resend_code_error.html', {"error": "oops!, go get a reset code first!"})
+        
+
