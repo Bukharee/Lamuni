@@ -49,44 +49,9 @@
     </style>
 </head>
 <body class="bg-white">
-
-    <!-- Header -->
-    <header class="bg-white mb-40">
-        <nav class="container mx-auto px-8 py-4 flex sm:space-x-6 items-center justify-between">
-          <h1 class="font-bold text-xl text-dark-green md:text-2xl">Lamuni</h1>
-         
-          <ul class="nav-menu first-letter flex flex-col absolute top-16 -left-full bg-white w-full
-          text-center shadow-md sm:shadow-none border-2 border-light-orange sm:border-0 
-          transition-all duration-300 mx-auto sm:w-auto sm:flex-row sm:static sm:space-x-6 items-center justify-between" >
-              <li class="sm:mx-4 my-2"> <a class="font-bold text-sm hover:text-dark-green" href="/education">Community</a></li>
-              <li class="sm:mx-4 my-2"> <a class="font-bold text-sm hover:text-dark-green">Pricing</a> </li>
-              <li class="sm:mx-4 my-2"> <a class="font-bold text-sm hover:text-dark-green">Features</a> </li>
-              <li class="sm:mx-4 my-2"> <a class="font-bold text-sm hover:text-dark-green">About Us</a> </li>
-          </ul>
-  
-        <!-- {#        <div class="absolute sm:flex sm:space-x-6">#}
-        {#          <a href="#" class="font-light text-sm">Community</a>#}
-        {#          <a href="#" class="font-light text-sm">Pricing</a>#}
-        {#          <a href="#" class="font-light text-sm">Features</a>#}
-        {#        </div>#} -->
-        
-          <div class="hidden sm:flex space-x-6">
-            <button class="px-4 py-2 rounded-md hover:text-dark-green">
-              <a href="#" class="font-bold text-sm lg:text-base">Sign In</a>
-            </button>
-            <button class="text-white bg-dark-green px-4 hover:bg-light-green py-2 rounded-md">
-              <a href="signup.html" class="font-bold text-sm lg:text-base">Sign Up</a>
-            </button>
-          </div>
-           <div class="block hamburger cursor-pointer sm:hidden ">
-             <span class="bar block h-1 w-6 bg-dark-black mx-auto my-1 transition-all duration-300 ease-in-out"></span>
-             <span class="bar block h-1 w-6 bg-dark-black mx-auto my-1 transition-all duration-300 ease-in-out"></span>
-             <span class="bar block h-1 w-6 bg-dark-black mx-auto my-1 transition-all duration-300 ease-in-out"></span>
-             
-           </div>
-        </nav>
-    </header>
-
+<!-- heeder -->
+    {% include 'components/header.html' %}
+    <!-- header -->
 
     <div class="container main-content mx-auto px-8 mt-20">
         
@@ -142,5 +107,15 @@
         
         
     </div>
+
+
+
+<!-- footer -->
+
+    {% include 'components/footer.html' %}
+
+<!-- footer -->
+
+    <script src="{% static 'js/index.js' %}" type="text/javascript"></script>
 </body>
 </html>
