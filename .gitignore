@@ -5,5 +5,6 @@
 .idea
 /db.sqlite3
 !/media/5682-profile-picture-upload.gif
-/Users/migrations
-/Lessons/migrations
+
+/Lessons/migrations/
+/Users/migrations/

@@ -30,6 +30,8 @@ class Quiz(TranslatableModel):
         option_b=models.CharField(max_length=300, blank=False, null=False),
         option_c=models.CharField(max_length=300, blank=False, null=False),
         option_d=models.CharField(max_length=300, blank=False, null=False),
+        suggestion=RichTextField('Suggestion', help_text='Suggested reading when user fails the question.',
+                                 blank=False, null=False),
     )
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     answer = models.CharField(max_length=30, choices=ANSWER_CHOICES)
@@ -38,12 +40,15 @@ class Quiz(TranslatableModel):
     #     return self.lesson.id
 
 
-class Score(models.Model):
+class Score(TranslatableModel):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, blank=True)
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     wrong = models.ManyToManyField(Quiz, related_name='wrong', blank=True)
     correct = models.ManyToManyField(Quiz, related_name='right', blank=True)
     total = models.PositiveIntegerField(default=0)
+    translations = TranslatedFields(
+        feedback=models.TextField(max_length=400, blank=False, null=False),
+    )
 
     # def __str__(self):
     #     return self.lesson.id
