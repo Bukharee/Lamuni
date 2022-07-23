@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 {% load i18n %}
 <html lang="en">
 <head>
@@ -18,5 +19,58 @@
     <br>
     {% endfor %}
 </div>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <title>Lamuni:Quiz Result</title>
+</head>
+<body>
+ <!-- heeder -->
+    {% include 'components/header.html' %}
+    <!-- header -->
+
+    <section class="container mx-auto max-w-[950px] my-10 px-8 text-dark-black">
+        <div class="flex flex-col items-center justify-between space-y-12 border-2 border-emerald-500 p-10 bg-light-green shadow-sm shadow-dark-gray rounded-md">
+            <div class="">
+                <p class="text-lg sm:text-3xl text-dark-gray">Score: 50</p>
+            </div>
+            <div>
+                <p class="text-base sm:text-2xl text-dark-green">Correct Answers: 30</p>
+            </div>
+            <div>
+                <p class="text-base sm:text-2xl text-dark-red" >Incorrect Answers: 30</p>
+            </div>
+            <div>
+                <p class="text-base sm:text-2xl text-dark-orange">Total Questions: 60</p>
+            </div>
+            <div>
+                <p class="text-base sm:text-2xl text-dark-black">Comment: Nice Keep It Up</p>
+            </div>
+
+        </div>
+<!-- suggestions -->
+        <div class="lex flex-col items-center justify-between space-y-12 border-2 border-emerald-500 p-10 bg-light-green shadow-sm shadow-dark-gray my-5">
+            <div>
+                <p>Suggestions</p>
+
+            </div>
+        </div>
+
+        <div class="my-20 flex items-center justify-between">
+            <a href="#"><button class="sm:px-6 py-2 px-4 sm:py-4 border-2 border-dark-green text-dark-green bg-light-green hover:bg-dark-green focus:bg-dark-green hover:text-white focus:text-white font-bold rounded-md">Repeat Quiz</button></a>
+            <a href="{%  url 'users:lesson-detail' %}"><button class="sm:px-6 py-2 px-4 sm:py-4 border-2 border-dark-green text-dark-green bg-light-green hover:bg-dark-green focus:bg-dark-green hover:text-white focus:text-white font-bold rounded-md">Next Lesson</button></a>
+        </div>
+    </section>
+<!-- footer -->
+
+    {% include 'components/footer.html' %}
+
+<!-- footer -->
+    <script src="{% static 'js/index.js' %}" type="text/javascript"></script>
+
 </body>
 </html>

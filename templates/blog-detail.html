@@ -21,38 +21,16 @@
             </div>
             <div class="flex flex-col sm:flex-row items-center justify-between space-x-4 text-dark-gray">
 
-                <div class="flex items-center justify-between space-x-2 my-2"> 
-                    <div class="flex items-center space-x-3">
-                    <img src="{% static 'img/profile-pic 1.png' %}" class="h-8 w-8 md:h-12 md:w-12" alt="profile-pic">
-                    <span class="text-sm md:text-base">abubakar</span>
-                </div>
-
-                <span>·</span>
-
-                <div><span class="text-sm md:text-base">Jul 18, 2022</span></div></div>
-               
-                
-                <span class="hidden sm:block">·</span>
-
                 <div class="flex items-center justify-between space-x-2 my-2">
-                    <div class="flex items-center space-x-2"><span><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <div>
+                        <span class="text-sm md:text-base">Jul 18, 2022</span>
+                    </div>
+                <span>·</span>
+                    <div class="flex items-center space-x-2 text-dark-green"><span><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 " fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                       </svg></span> <span>3 min read</span>
                     </div>
-                    
-                      <span>·</span>
-                    
-                      <div class="flex items-center border-[1px] border-light-gray px-3 py-2 rounded-md space-x-2">
-                        <span><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110-18 9 9 0 010 18z" />
-                      </svg>
-                        </span>
-                      <span>more</span>
-                    </div>
-
                 </div>
-
-                
 
             </div>
         </div>
@@ -175,22 +153,31 @@
                     <!-- tags -->
         <div class="flex justify-start items-center text-white space-x-4 my-10 flex-wrap">
             <div class="my-2">
-                <button class="bg-dark-green px-4 py-2 rounded-md shadow-inner hover:bg-green-700">Html</button>
+                <button class="bg-dark-green px-4 md:px-6 py-2 rounded-full shadow-inner hover:bg-green-700">Html</button>
             </div>
             <div class="my-2">
-                <button class="bg-dark-green px-4 py-2 rounded-md shadow-inner hover:bg-green-700">Development</button>
+                <button class="bg-dark-green px-4 md:px-6 py-2 rounded-full  shadow-inner hover:bg-green-700">Development</button>
             </div>
             <div class="my-2">
-                <button class="bg-dark-green px-4 py-2 rounded-md shadow-inner hover:bg-green-700">FrontEnd</button>
+                <button class="bg-dark-green px-4 md:px-6 py-2 rounded-full shadow-inner hover:bg-green-700">FrontEnd</button>
             </div>
             <div class="my-2">
-                <button class="bg-dark-green px-4 py-2 rounded-md shadow-inner hover:bg-green-700">Css</button>
+                <button class="bg-dark-green px-4 md:px-6 py-2 rounded-full shadow-inner hover:bg-green-700">Css</button>
             </div>
         </div>
 
 
+
         
         
+    </section>
+    <section class="container mx-auto flex justify-center sm:justify-end ">
+
+          <a  href="{%  url 'users:lesson-done' %}" class=""> <button type="submit" class="flex items-center bg-light-green text-dark-green hover:bg-dark-green hover:text-white border-[1px] border-dark-green px-3 py-2 rounded-md space-x-2">
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            </span>Mark As Read</button></a>
+
     </section>
 
 <!-- footer -->
