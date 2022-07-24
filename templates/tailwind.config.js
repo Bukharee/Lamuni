@@ -1,6 +1,6 @@
 module.exports = {
   content: ["./**/*.{html,js}",
-            "./index.html"],
+    "./index.html"],
   theme: {
     extend: {
       colors: {
@@ -12,9 +12,12 @@ module.exports = {
         "dark-black": "#101010",
         "light-green": "#DEF7E5",
         "marine-blue": "#1f2937",
-         "dark-red": "#ef4444",
+        "dark-red": "#ef4444",
       },
-  },
-  plugins: [],
+    },
+    fontFamily: {
+      Poppins: ["Poppins, sans-serif"]
+    },
+    plugins: [],
   }
 }

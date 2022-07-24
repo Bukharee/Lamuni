@@ -1,4 +1,24 @@
 <!DOCTYPE html>
+
+{% load i18n %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Result</title>
+</head>
+<body>
+<div class="card-body">
+    <h5 class="card-title">Score: {{percent}}</h5>
+    <p class="card-text">Correct answers: {{correct.count}}</p>
+    <p class="card-text">Incorrect answers: {{wrong.count}}</p>
+    <p class="card-text">Total questions: {{total}}</p>
+    <h5>All the best for next quiz!</h5>
+    <h5>Suggestions</h5>
+    {% for wrong in wrong_qs %}
+    {{wrong.suggestion|safe}}
+    <br>
+    {% endfor %}
+</div>
 {% load static %}
 <html lang="en">
 <head>
@@ -51,5 +71,9 @@
 
 <!-- footer -->
     <script src="{% static 'js/index.js' %}" type="text/javascript"></script>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 450f0ad95d48b1bf2de46bb82b5df37100aef04a
 </body>
 </html>

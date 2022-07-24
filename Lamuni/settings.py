@@ -60,6 +60,7 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 
 ]
+AUTH_USER_MODEL = 'Users.User'
 
 ROOT_URLCONF = 'Lamuni.urls'
 

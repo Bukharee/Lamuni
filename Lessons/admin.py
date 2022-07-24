@@ -9,7 +9,6 @@ from .models import Lesson, Quiz, Score
 class LessonAdmin(TranslatableAdmin):
     search_fields = ['translations__title', 'translations__desc', ]
 
-
 @admin.register(Quiz)
 class QuizAdmin(TranslatableAdmin):
     list_display = ['question', ]
@@ -18,3 +17,4 @@ class QuizAdmin(TranslatableAdmin):
 @admin.register(Score)
 class ScoreAdmin(TranslatableAdmin):
     list_display = ['user', ]
+    fields = ["title", "desc", "blog", "audio"]
