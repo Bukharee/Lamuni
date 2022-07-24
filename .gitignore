@@ -3,7 +3,6 @@
 /venv
 /node_modules
 .idea
-/db.sqlite3
 !/media/5682-profile-picture-upload.gif
 
 /Lessons/migrations/
