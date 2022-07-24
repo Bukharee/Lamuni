@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 def lessons_list(request):
     context = {"lessons": Lesson.objects.all().order_by("date_published")}
 
-    return render(request, "lessons-list.html", context)
+    return render(request, "education.html", context)
 
 
 @login_required
