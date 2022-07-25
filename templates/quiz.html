@@ -1,6 +1,4 @@
 {% extends 'education_base.html' %}
-{% load i18n %}
-{% load l10n %}
 {% block title %}Lamuni:Quiz{% endblock %}
 {%  block content %}
 
@@ -10,11 +8,6 @@
                 <h1 class="heading-1">Lesson Quiz</h1>
             </div>
     </div>
-<form method="post">
-    {{ form.as_p }}
-    {% csrf_token %}
-    <input type="submit" value="submit"/>
-</form>
 <form method='post' action=''>
     {% csrf_token %}
     {% for q in questions %}
@@ -29,9 +22,9 @@
             <div class="question-list my-10 px-5 sm:px-10">
                 <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-6">
                     <div>
-                        <li class="inline text-left">
+                        <li class="inline text-left rounded-lg">
                             <label class="quiz-container text-justify relative" for="{{q.id}}-A" id="" >
-                               <input class="appearance-none"  id="{{q.id}}-A" type="radio" name="answer" value="A">
+                               <input class="appearance-none"  id="{{q.id}}-A" type="radio" name="{{q.question}}" value="A">
                                <div class="quiz-answer p-2 sm:p-4 md:p-6 border-[1px] border-light-gray relative">
                                    <span class="quiz-choice block max-w-none shadow-inner p-[4px] sm:py-2 text-center rounded-md bg-dark-green text-white w-8 sm:w-12">A</span>
                                <span class="quiz-checked hidden shadow-inner p-[4px] pr-0 sm:pl-2 sm:pr-1 sm:py-2 rounded-md  bg-dark-green w-8  sm:w-12">
@@ -47,7 +40,7 @@
                     <div>
                         <li class="inline text-left">
                             <label class="quiz-container text-justify relative" for="{{q.id}}-B" id="" >
-                               <input class="appearance-none"  id="{{q.id}}-B" type="radio" name="answer" value="B">
+                               <input class="appearance-none"  id="{{q.id}}-B" type="radio" name="{{q.question}}" value="B">
                                <div class="quiz-answer p-2 sm:p-4 md:p-6 border-[1px] border-light-gray relative">
                                    <span class="quiz-choice block max-w-none shadow-inner p-[4px] sm:py-2 text-center rounded-md bg-dark-green text-white w-8 sm:w-12">B</span>
                                <span class="quiz-checked hidden shadow-inner p-[4px] pr-0 sm:pl-2 sm:pr-1 sm:py-2 rounded-md  bg-dark-green w-8  sm:w-12">
@@ -63,7 +56,7 @@
                     <div>
                         <li class="inline text-left">
                             <label class="quiz-container text-justify relative" for="{{q.id}}-C" id="" >
-                               <input class="appearance-none"  id="{{q.id}}-C" type="radio" name="answer" value="C">
+                               <input class="appearance-none"  id="{{q.id}}-C" type="radio" name="{{q.question}}" value="C">
                                <div class="quiz-answer p-2 sm:p-4 md:p-6 border-[1px] border-light-gray relative">
                                     <span class="quiz-choice block max-w-none shadow-inner p-[4px] sm:py-2 text-center rounded-md bg-dark-green text-white w-8 sm:w-12">C</span>
                                <span class="quiz-checked hidden shadow-inner p-[4px] pr-0 sm:pl-2 sm:pr-1 sm:py-2 rounded-md  bg-dark-green w-8  sm:w-12">
@@ -79,7 +72,7 @@
                     <div>
                         <li class="inline text-left">
                             <label class="quiz-container text-justify relative" for="{{q.id}}-D" id="" >
-                               <input class="appearance-none"  id="{{q.id}}-D" type="radio" name="answer" value="D">
+                               <input class="appearance-none"  id="{{q.id}}-D" type="radio" name="{{q.question}}" value="D">
                                <div class="quiz-answer p-2 sm:p-4 md:p-6 border-[1px] border-light-gray relative">
                                     <span class="quiz-choice block max-w-none shadow-inner p-[4px] sm:py-2 text-center rounded-md bg-dark-green text-white w-8 sm:w-12">D</span>
                                <span class="quiz-checked hidden shadow-inner p-[4px] pr-0 sm:pl-2 sm:pr-1 sm:py-2 rounded-md  bg-dark-green w-8  sm:w-12">

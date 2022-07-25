@@ -1,14 +1,14 @@
 {% extends 'education_base.html' %}
 {% block title %}Quiz:List{% endblock %}
 {% block content %}
-    {% for q in quiz %}
-                <a href="{{ q.get_absolute_url }}">
+    {% for q in lessons %}
+                <a href="{{ q.get_quiz_url }}">
         <div class="flex justify-between transition ease-in-out delay-150 duration-300 cursor-pointer hover:bg-dark-gray topic-1 card mx-auto overflow-hidden rounded-lg">
 
                             <div class="px-4 py-2 -mx-3">
                                 <div class="mx-3">
                                     <span class="font-semibold text-emerald-500 dark:text-emerald-400"> Quiz</span>
-                                    <p class="text-sm text-gray-600 font-bold dark:text-gray-200">  {{ q.lesson }} </p>
+                                    <p class="text-sm text-gray-600 font-bold dark:text-gray-200">  {{ q.title }} </p>
                                 </div>
                             </div>
 

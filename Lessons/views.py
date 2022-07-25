@@ -25,7 +25,7 @@ def mark_lesson_completed(request, pk):
         lesson.finished.add(user)
         lesson.save()
 
-    return render(request, 'lesson-detail.html', {'lesson': lesson})
+    return render(request, 'lesson-done.html', {'lesson': lesson})
 
 
 @login_required
@@ -77,11 +77,5 @@ def quiz(request, pk):
 
 @login_required
 def quiz_list(request):
-    quiz = Quiz.objects.all()
-    return render(request, 'quiz_list.html', {'quiz': quiz})
-
-
-@login_required
-def lesson_done(request, pk):
-    lesson = get_object_or_404(Lesson, pk=pk)
-    return render(request, 'lesson-done.html', {"lesson": lesson})
+    context = {"lessons": Lesson.objects.all().order_by("date_published")}
+    return render(request, 'quiz_list.html', context)
