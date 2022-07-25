@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import index, register,verify_code, send_reset_code, reset_verify, reset_password, education, lesson_detail, lesson_done, quiz, quiz_result
+from .views import index, register,verify_code, send_reset_code, reset_verify,\
+    reset_password, education, lesson_detail, lesson_done, quiz, quiz_result, user_profile
 from django.contrib.auth import views as auth_views
 
 app_name = "users"
@@ -10,6 +11,7 @@ urlpatterns = [
     path("lesson-detail/", lesson_detail, name="lesson-detail"),
     path("lesson-done/", lesson_done, name="lesson-done"),
     path("quiz/", quiz, name="quiz"),
+    path("profile/", user_profile, name="quiz"),
     path("quiz-result/", quiz_result, name="quiz-result"),
     path("signup/", register, name="signup"),
     path('logout/', auth_views.LogoutView.as_view(template_name='registration/logout.html')),
