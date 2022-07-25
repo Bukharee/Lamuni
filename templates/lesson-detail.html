@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% load i18n %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{lesson.title}}</title>
+</head>
+<body>
+<div class="article-body">
+    {{lesson.blog|safe}}
+    {% for tag in lesson.tags.all %}
+    <p>{{tag.name}}</p>
+    {% endfor %}
+</div>
+</body>
+</html>

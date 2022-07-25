@@ -2,6 +2,7 @@ from django.db import models
 from parler.models import TranslatableModel, TranslatedFields
 from ckeditor.fields import RichTextField
 from django.contrib.auth import get_user_model
+from taggit.managers import TaggableManager
 
 
 # Create your models here.
@@ -15,6 +16,7 @@ class Lesson(TranslatableModel):
     finished = models.ManyToManyField(get_user_model(), related_name='finishers', blank=True)
     date_published = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
+    tags = TaggableManager()
 
     def __str__(self):
         return str(self.title)
