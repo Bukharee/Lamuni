@@ -1,62 +1,8 @@
-<!DOCTYPE html>
+{% extends 'education_base.html' %}
 {% load i18n %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Quiz</title>
-</head>
-<body>
-<form method='post' action=''>
-    {% csrf_token %}
-    {% for q in questions %}
-    <div class="form-group">
-        <label>{{q.question}}</label>
-    </div>
-    <div class="form-check">
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="{{q.question}}" value="A">
-            <label class="form-check-label" for="gridRadios1">
-                {{q.option_a}}
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="{{q.question}}" value="B">
-            <label class="form-check-label" for="gridRadios2">
-                {{q.option_b}}
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="{{q.question}}" id="gridRadios1" value="C">
-            <label class="form-check-label" for="gridRadios1">
-                {{q.option_c}}
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="{{q.question}}" id="gridRadios2" value="D">
-            <label class="form-check-label" for="gridRadios2">
-                {{q.option_d}}
-            </label>
-        </div>
-        <br>
-    </div>
-    {% endfor %}
-    <br>
-    <button type="submit">Submit</button>
-</form>
-=======
-{% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
-    <title>Lamuni:Quiz</title>
-</head>
-<body>
- <!-- heeder -->
-    {% include 'components/header.html' %}
-    <!-- header -->
+{% load l10n %}
+{% block title %}Lamuni:Quiz{% endblock %}
+{%  block content %}
 
 <section class="container mx-auto max-w-[950px] my-10 px-8 text-dark-black">
     <div class="flex flex-col items-center my-5 flex-wrap">
@@ -64,91 +10,87 @@
                 <h1 class="heading-1">Lesson Quiz</h1>
             </div>
     </div>
-
-
-
-        <div class="quiz-block my-10 ">
+<form method="post">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <input type="submit" value="submit"/>
+</form>
+<form method='post' action=''>
+    {% csrf_token %}
+    {% for q in questions %}
+       <div class="quiz-block my-10 ">
         <div class="quiz-question shadow-md p-2 sm:p-8">
-             <div class="shadow-sm shadow-dark-green p-8 text-center">
+            <div class="shadow-sm shadow-dark-green p-8 text-center">
                  <span class="text-sm sm:text-xl sm:tracking-wide  sm:leading-loose ">1 .</span>
-            <p class="text-sm  sm:text-xl sm:tracking-wide  sm:leading-loose inline ">Position is the property of CSS which helps to position our HTML element.
-                With the help of this property we can locate any HTML element at any desired location.
-                Following are the values of position property
+            <p class="text-sm  sm:text-xl sm:tracking-wide  sm:leading-loose inline ">{{ q.question }}
                </p>
           </div>
+
             <div class="question-list my-10 px-5 sm:px-10">
                 <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-6">
                     <div>
                         <li class="inline text-left">
-                            <label class="quiz-container text-justify relative" for="A" id="" >
-                               <input class="appearance-none"  id="A" type="radio" name="answer" value="A">
+                            <label class="quiz-container text-justify relative" for="{{q.id}}-A" id="" >
+                               <input class="appearance-none"  id="{{q.id}}-A" type="radio" name="answer" value="A">
                                <div class="quiz-answer p-2 sm:p-4 md:p-6 border-[1px] border-light-gray relative">
-                                   <span class="quiz-choice shadow-inner p-[4px] sm:py-2 px-2 sm:px-4 rounded-md bg-dark-green m-2 text-white">A</span>
-                                   <span class="quiz-checked hidden p-[4px] pr-0 sm:pl-2 sm:pr-1 sm:py-2 rounded-md  bg-dark-green m-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    </span>
-                                   position is the property of CSS which helps to position our HTML element.
+                                   <span class="quiz-choice block max-w-none shadow-inner p-[4px] sm:py-2 text-center rounded-md bg-dark-green text-white w-8 sm:w-12">A</span>
+                               <span class="quiz-checked hidden shadow-inner p-[4px] pr-0 sm:pl-2 sm:pr-1 sm:py-2 rounded-md  bg-dark-green w-8  sm:w-12">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h8 sm:w-8" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                  </svg>
+                               </span>
+                                   {{ q.option_a }}
                                </div>
                             </label>
                         </li>
-
-
                     </div>
                     <div>
                         <li class="inline text-left">
-                            <label class="quiz-container text-justify relative" for="B" id="" >
-                               <input class="appearance-none"  id="B" type="radio" name="answer" value="B">
+                            <label class="quiz-container text-justify relative" for="{{q.id}}-B" id="" >
+                               <input class="appearance-none"  id="{{q.id}}-B" type="radio" name="answer" value="B">
                                <div class="quiz-answer p-2 sm:p-4 md:p-6 border-[1px] border-light-gray relative">
-                                   <span class="quiz-choice shadow-inner p-[4px] sm:py-2 px-2 sm:px-4 rounded-md bg-dark-green m-2 text-white">B</span>
-                                   <span class="quiz-checked hidden p-[4px] pr-0 sm:pl-2 sm:pr-1 sm:py-2 rounded-md  bg-dark-green m-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    </span>
-                                   position is the property of CSS which helps to position our HTML element.
+                                   <span class="quiz-choice block max-w-none shadow-inner p-[4px] sm:py-2 text-center rounded-md bg-dark-green text-white w-8 sm:w-12">B</span>
+                               <span class="quiz-checked hidden shadow-inner p-[4px] pr-0 sm:pl-2 sm:pr-1 sm:py-2 rounded-md  bg-dark-green w-8  sm:w-12">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h8 sm:w-8" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                  </svg>
+                               </span>
+                                   {{ q.option_b }}
                                </div>
                             </label>
                         </li>
-
-
                     </div>
                     <div>
                         <li class="inline text-left">
-                            <label class="quiz-container text-justify relative" for="C" id="" >
-                               <input class="appearance-none"  id="C" type="radio" name="answer" value="C">
+                            <label class="quiz-container text-justify relative" for="{{q.id}}-C" id="" >
+                               <input class="appearance-none"  id="{{q.id}}-C" type="radio" name="answer" value="C">
                                <div class="quiz-answer p-2 sm:p-4 md:p-6 border-[1px] border-light-gray relative">
-                                   <span class="quiz-choice shadow-inner p-[4px] sm:py-2 px-2 sm:px-4 rounded-md bg-dark-green m-2 text-white">C</span>
-                                   <span class="quiz-checked hidden p-[4px] pr-0 sm:pl-2 sm:pr-1 sm:py-2 rounded-md  bg-dark-green m-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    </span>
-                                   position is the property of CSS which helps to position our HTML element.
+                                    <span class="quiz-choice block max-w-none shadow-inner p-[4px] sm:py-2 text-center rounded-md bg-dark-green text-white w-8 sm:w-12">C</span>
+                               <span class="quiz-checked hidden shadow-inner p-[4px] pr-0 sm:pl-2 sm:pr-1 sm:py-2 rounded-md  bg-dark-green w-8  sm:w-12">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h8 sm:w-8" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                  </svg>
+                               </span>
+                                 {{ q.option_c }}
                                </div>
                             </label>
                         </li>
-
-
                     </div>
                     <div>
                         <li class="inline text-left">
-                            <label class="quiz-container text-justify relative" for="D" id="" >
-                               <input class="appearance-none"  id="D" type="radio" name="answer" value="D">
+                            <label class="quiz-container text-justify relative" for="{{q.id}}-D" id="" >
+                               <input class="appearance-none"  id="{{q.id}}-D" type="radio" name="answer" value="D">
                                <div class="quiz-answer p-2 sm:p-4 md:p-6 border-[1px] border-light-gray relative">
-                                   <span class="quiz-choice shadow-inner p-[4px] sm:py-2 px-2 sm:px-4 rounded-md bg-dark-green m-2 text-white">D</span>
-                                   <span class="quiz-checked hidden p-[4px] pr-0 sm:pl-2 sm:pr-1 sm:py-2 rounded-md  bg-dark-green m-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    </span>
-                                   position is the property of CSS which helps to position our HTML element.
+                                    <span class="quiz-choice block max-w-none shadow-inner p-[4px] sm:py-2 text-center rounded-md bg-dark-green text-white w-8 sm:w-12">D</span>
+                               <span class="quiz-checked hidden shadow-inner p-[4px] pr-0 sm:pl-2 sm:pr-1 sm:py-2 rounded-md  bg-dark-green w-8  sm:w-12">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h8 sm:w-8" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                  </svg>
+                               </span>
+                                   {{ q.option_d }}
                                </div>
                             </label>
                         </li>
-
-
                     </div>
 
 
@@ -160,309 +102,13 @@
 
         </div>
     </div>
-
-        <div class="quiz-block my-10 ">
-        <div class="quiz-question shadow-md p-2 sm:p-8">
-             <div class="shadow-sm shadow-dark-green p-8 text-center">
-                 <span class="text-sm sm:text-xl sm:tracking-wide  sm:leading-loose ">1 .</span>
-            <p class="text-sm  sm:text-xl sm:tracking-wide  sm:leading-loose inline ">Position is the property of CSS which helps to position our HTML element.
-                With the help of this property we can locate any HTML element at any desired location.
-                Following are the values of position property
-               </p>
-          </div>
-            <div class="question-list my-10 px-5 sm:px-10">
-                <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-6">
-                    <div>
-                        <li class="inline text-left">
-                            <label class="quiz-container text-justify relative" for="A" id="" >
-                               <input class="appearance-none"  id="A" type="radio" name="answer" value="A">
-                               <div class="quiz-answer p-2 sm:p-4 md:p-6 border-[1px] border-light-gray relative">
-                                   <span class="quiz-choice shadow-inner p-[4px] sm:py-2 px-2 sm:px-4 rounded-md bg-dark-green m-2 text-white">A</span>
-                                   <span class="quiz-checked hidden p-[4px] pr-0 sm:pl-2 sm:pr-1 sm:py-2 rounded-md  bg-dark-green m-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    </span>
-                                   position is the property of CSS which helps to position our HTML element.
-                               </div>
-                            </label>
-                        </li>
-
-
-                    </div>
-                    <div>
-                        <li class="inline text-left">
-                            <label class="quiz-container text-justify relative" for="B" id="" >
-                               <input class="appearance-none"  id="B" type="radio" name="answer" value="B">
-                               <div class="quiz-answer p-2 sm:p-4 md:p-6 border-[1px] border-light-gray relative">
-                                   <span class="quiz-choice shadow-inner p-[4px] sm:py-2 px-2 sm:px-4 rounded-md bg-dark-green m-2 text-white">B</span>
-                                   <span class="quiz-checked hidden p-[4px] pr-0 sm:pl-2 sm:pr-1 sm:py-2 rounded-md  bg-dark-green m-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    </span>
-                                   position is the property of CSS which helps to position our HTML element.
-                               </div>
-                            </label>
-                        </li>
-
-
-                    </div>
-                    <div>
-                        <li class="inline text-left">
-                            <label class="quiz-container text-justify relative" for="C" id="" >
-                               <input class="appearance-none"  id="C" type="radio" name="answer" value="C">
-                               <div class="quiz-answer p-2 sm:p-4 md:p-6 border-[1px] border-light-gray relative">
-                                   <span class="quiz-choice shadow-inner p-[4px] sm:py-2 px-2 sm:px-4 rounded-md bg-dark-green m-2 text-white">C</span>
-                                   <span class="quiz-checked hidden p-[4px] pr-0 sm:pl-2 sm:pr-1 sm:py-2 rounded-md  bg-dark-green m-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    </span>
-                                   position is the property of CSS which helps to position our HTML element.
-                               </div>
-                            </label>
-                        </li>
-
-
-                    </div>
-                    <div>
-                        <li class="inline text-left">
-                            <label class="quiz-container text-justify relative" for="D" id="" >
-                               <input class="appearance-none"  id="D" type="radio" name="answer" value="D">
-                               <div class="quiz-answer p-2 sm:p-4 md:p-6 border-[1px] border-light-gray relative">
-                                   <span class="quiz-choice shadow-inner p-[4px] sm:py-2 px-2 sm:px-4 rounded-md bg-dark-green m-2 text-white">D</span>
-                                   <span class="quiz-checked hidden p-[4px] pr-0 sm:pl-2 sm:pr-1 sm:py-2 rounded-md  bg-dark-green m-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    </span>
-                                   position is the property of CSS which helps to position our HTML element.
-                               </div>
-                            </label>
-                        </li>
-
-
-                    </div>
-
-
-
-
-                </ul>
-
-            </div>
-
-        </div>
+    {% endfor %}
+<div class="my-20 flex items-center justify-end">
+    <button type="submit" class="sm:px-6 py-2 px-4 sm:py-4 border-2 border-dark-green text-dark-green bg-light-green hover:bg-dark-green focus:bg-dark-green hover:text-white focus:text-white font-bold rounded-md">Summit Quiz</button>
     </div>
 
-
-        <div class="quiz-block my-10 ">
-        <div class="quiz-question shadow-md p-2 sm:p-8">
-             <div class="shadow-sm shadow-dark-green p-8 text-center">
-                 <span class="text-sm sm:text-xl sm:tracking-wide  sm:leading-loose ">1 .</span>
-            <p class="text-sm  sm:text-xl sm:tracking-wide  sm:leading-loose inline ">Position is the property of CSS which helps to position our HTML element.
-                With the help of this property we can locate any HTML element at any desired location.
-                Following are the values of position property
-               </p>
-          </div>
-            <div class="question-list my-10 px-5 sm:px-10">
-                <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-6">
-                    <div>
-                        <li class="inline text-left">
-                            <label class="quiz-container text-justify relative" for="A" id="" >
-                               <input class="appearance-none"  id="A" type="radio" name="answer" value="A">
-                               <div class="quiz-answer p-2 sm:p-4 md:p-6 border-[1px] border-light-gray relative">
-                                   <span class="quiz-choice shadow-inner p-[4px] sm:py-2 px-2 sm:px-4 rounded-md bg-dark-green m-2 text-white">A</span>
-                                   <span class="quiz-checked hidden p-[4px] pr-0 sm:pl-2 sm:pr-1 sm:py-2 rounded-md  bg-dark-green m-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    </span>
-                                   position is the property of CSS which helps to position our HTML element.
-                               </div>
-                            </label>
-                        </li>
-
-
-                    </div>
-                    <div>
-                        <li class="inline text-left">
-                            <label class="quiz-container text-justify relative" for="B" id="" >
-                               <input class="appearance-none"  id="B" type="radio" name="answer" value="B">
-                               <div class="quiz-answer p-2 sm:p-4 md:p-6 border-[1px] border-light-gray relative">
-                                   <span class="quiz-choice shadow-inner p-[4px] sm:py-2 px-2 sm:px-4 rounded-md bg-dark-green m-2 text-white">B</span>
-                                   <span class="quiz-checked hidden p-[4px] pr-0 sm:pl-2 sm:pr-1 sm:py-2 rounded-md  bg-dark-green m-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    </span>
-                                   position is the property of CSS which helps to position our HTML element.
-                               </div>
-                            </label>
-                        </li>
-
-
-                    </div>
-                    <div>
-                        <li class="inline text-left">
-                            <label class="quiz-container text-justify relative" for="C" id="" >
-                               <input class="appearance-none"  id="C" type="radio" name="answer" value="C">
-                               <div class="quiz-answer p-2 sm:p-4 md:p-6 border-[1px] border-light-gray relative">
-                                   <span class="quiz-choice shadow-inner p-[4px] sm:py-2 px-2 sm:px-4 rounded-md bg-dark-green m-2 text-white">C</span>
-                                   <span class="quiz-checked hidden p-[4px] pr-0 sm:pl-2 sm:pr-1 sm:py-2 rounded-md  bg-dark-green m-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    </span>
-                                   position is the property of CSS which helps to position our HTML element.
-                               </div>
-                            </label>
-                        </li>
-
-
-                    </div>
-                    <div>
-                        <li class="inline text-left">
-                            <label class="quiz-container text-justify relative" for="D" id="" >
-                               <input class="appearance-none"  id="D" type="radio" name="answer" value="D">
-                               <div class="quiz-answer p-2 sm:p-4 md:p-6 border-[1px] border-light-gray relative">
-                                   <span class="quiz-choice shadow-inner p-[4px] sm:py-2 px-2 sm:px-4 rounded-md bg-dark-green m-2 text-white">D</span>
-                                   <span class="quiz-checked hidden p-[4px] pr-0 sm:pl-2 sm:pr-1 sm:py-2 rounded-md  bg-dark-green m-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    </span>
-                                   position is the property of CSS which helps to position our HTML element.
-                               </div>
-                            </label>
-                        </li>
-
-
-                    </div>
-
-
-
-
-                </ul>
-
-            </div>
-
-        </div>
-    </div>
-
-
-        <div class="quiz-block my-10 ">
-        <div class="quiz-question shadow-md p-2 sm:p-8">
-             <div class="shadow-sm shadow-dark-green p-8 text-center">
-                 <span class="text-sm sm:text-xl sm:tracking-wide  sm:leading-loose ">1 .</span>
-            <p class="text-sm  sm:text-xl sm:tracking-wide  sm:leading-loose inline ">Position is the property of CSS which helps to position our HTML element.
-                With the help of this property we can locate any HTML element at any desired location.
-                Following are the values of position property
-               </p>
-          </div>
-            <div class="question-list my-10 px-5 sm:px-10">
-                <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-6">
-                    <div>
-                        <li class="inline text-left">
-                            <label class="quiz-container text-justify relative" for="A" id="" >
-                               <input class="appearance-none"  id="A" type="radio" name="answer" value="A">
-                               <div class="quiz-answer p-2 sm:p-4 md:p-6 border-[1px] border-light-gray relative">
-                                   <span class="quiz-choice shadow-inner p-[4px] sm:py-2 px-2 sm:px-4 rounded-md bg-dark-green m-2 text-white">A</span>
-                                   <span class="quiz-checked hidden p-[4px] pr-0 sm:pl-2 sm:pr-1 sm:py-2 rounded-md  bg-dark-green m-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    </span>
-                                   position is the property of CSS which helps to position our HTML element.
-                               </div>
-                            </label>
-                        </li>
-
-
-                    </div>
-                    <div>
-                        <li class="inline text-left">
-                            <label class="quiz-container text-justify relative" for="B" id="" >
-                               <input class="appearance-none"  id="B" type="radio" name="answer" value="B">
-                               <div class="quiz-answer p-2 sm:p-4 md:p-6 border-[1px] border-light-gray relative">
-                                   <span class="quiz-choice shadow-inner p-[4px] sm:py-2 px-2 sm:px-4 rounded-md bg-dark-green m-2 text-white">B</span>
-                                   <span class="quiz-checked hidden p-[4px] pr-0 sm:pl-2 sm:pr-1 sm:py-2 rounded-md  bg-dark-green m-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    </span>
-                                   position is the property of CSS which helps to position our HTML element.
-                               </div>
-                            </label>
-                        </li>
-
-
-                    </div>
-                    <div>
-                        <li class="inline text-left">
-                            <label class="quiz-container text-justify relative" for="C" id="" >
-                               <input class="appearance-none"  id="C" type="radio" name="answer" value="C">
-                               <div class="quiz-answer p-2 sm:p-4 md:p-6 border-[1px] border-light-gray relative">
-                                   <span class="quiz-choice shadow-inner p-[4px] sm:py-2 px-2 sm:px-4 rounded-md bg-dark-green m-2 text-white">C</span>
-                                   <span class="quiz-checked hidden p-[4px] pr-0 sm:pl-2 sm:pr-1 sm:py-2 rounded-md  bg-dark-green m-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    </span>
-                                   position is the property of CSS which helps to position our HTML element.
-                               </div>
-                            </label>
-                        </li>
-
-
-                    </div>
-                    <div>
-                        <li class="inline text-left">
-                            <label class="quiz-container text-justify relative" for="D" id="" >
-                               <input class="appearance-none"  id="D" type="radio" name="answer" value="D">
-                               <div class="quiz-answer p-2 sm:p-4 md:p-6 border-[1px] border-light-gray relative">
-                                   <span class="quiz-choice shadow-inner p-[4px] sm:py-2 px-2 sm:px-4 rounded-md bg-dark-green m-2 text-white">D</span>
-                                   <span class="quiz-checked hidden p-[4px] pr-0 sm:pl-2 sm:pr-1 sm:py-2 rounded-md  bg-dark-green m-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    </span>
-                                   position is the property of CSS which helps to position our HTML element.
-                               </div>
-                            </label>
-                        </li>
-
-
-                    </div>
-
-
-
-
-                </ul>
-
-            </div>
-
-        </div>
-    </div>
-
-    <div class="my-20 flex items-center justify-end">
-        <a href="{% url 'users:quiz-result' %}">        <button class="sm:px-6 py-2 px-4 sm:py-4 border-2 border-dark-green text-dark-green bg-light-green hover:bg-dark-green focus:bg-dark-green hover:text-white focus:text-white font-bold rounded-md">Summit Quiz</button></a>
-    </div>
-
-
+</form>
 
     </section>
 
-
-
-
-<!-- footer -->
-
-    {% include 'components/footer.html' %}
-
-<!-- footer -->
-
-
-    <script src="{% static 'js/index.js' %}" type="text/javascript"></script>
-</body>
-</html>
+{% endblock %}

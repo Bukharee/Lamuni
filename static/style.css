@@ -41,5 +41,5 @@ body {
 
 
 .quiz-container input:checked ~ .quiz-answer .quiz-checked {
-    @apply inline text-white
+    @apply block text-white
 }

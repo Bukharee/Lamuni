@@ -1,0 +1,26 @@
+{% extends 'education_base.html' %}
+{% block title %}Quiz:List{% endblock %}
+{% block content %}
+    {% for q in quiz %}
+                <a href="{{ q.get_absolute_url }}">
+        <div class="flex justify-between transition ease-in-out delay-150 duration-300 cursor-pointer hover:bg-dark-gray topic-1 card mx-auto overflow-hidden rounded-lg">
+
+                            <div class="px-4 py-2 -mx-3">
+                                <div class="mx-3">
+                                    <span class="font-semibold text-emerald-500 dark:text-emerald-400"> Quiz</span>
+                                    <p class="text-sm text-gray-600 font-bold dark:text-gray-200">  {{ q.lesson }} </p>
+                                </div>
+                            </div>
+
+                             <div class="flex items-center justify-center text-dark-orange w-12 ">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-8 sm:w-8" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z" />
+                                    <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z" />
+                                </svg>
+                            </div>
+                        </div>
+</a>
+
+
+    {% endfor %}
+{% endblock %}

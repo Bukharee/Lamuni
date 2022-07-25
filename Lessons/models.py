@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from parler.models import TranslatableModel, TranslatedFields
 from ckeditor.fields import RichTextField
 from django.contrib.auth import get_user_model
@@ -19,6 +20,12 @@ class Lesson(TranslatableModel):
     def __str__(self):
         return str(self.title)
 
+    def get_absolute_url(self):
+        return reverse('lessons:detail', args=[self.pk])
+
+    def get_quiz_url(self):
+        return reverse('lessons:quiz', args=[self.pk])
+
 
 ANSWER_CHOICES = (('A', 'A'), ('B', 'B'), ('C', 'C'), ('D', 'D'),)
 
@@ -38,6 +45,9 @@ class Quiz(TranslatableModel):
 
     # def __str__(self):
     #     return self.lesson.id
+
+    def get_absolute_url(self):
+        return reverse('lessons:quiz', args=[self.pk])
 
 
 class Score(TranslatableModel):

@@ -7,8 +7,7 @@ from django.shortcuts import get_object_or_404
 # Create your views here.
 def lessons_list(request):
     context = {"lessons": Lesson.objects.all().order_by("date_published")}
-
-    return render(request, "education.html", context)
+    return render(request, "lessons-list.html", context)
 
 
 @login_required
@@ -74,3 +73,15 @@ def quiz(request, pk):
             'questions': questions
         }
         return render(request, 'quiz.html', context)
+
+
+@login_required
+def quiz_list(request):
+    quiz = Quiz.objects.all()
+    return render(request, 'quiz_list.html', {'quiz': quiz})
+
+
+@login_required
+def lesson_done(request, pk):
+    lesson = get_object_or_404(Lesson, pk=pk)
+    return render(request, 'lesson-done.html', {"lesson": lesson})
