@@ -18,6 +18,8 @@ class Beneficiaries(models.Model):
     time_payed = models.DateField()
     is_payed = models.DateTimeField()
     time_to_pay = models.DateTimeField() #oficailly the time the loan suppose to be paid
+    number_of_employee = models.PositiveIntegerField()
+
 
     
 class Loan(models.Model):
@@ -28,8 +30,7 @@ class Loan(models.Model):
     sectors = models.ManyToManyField(Sector)
     amount = models.PositiveIntegerField()
     beneficiaries = models.ManyToManyField(get_user_model())
-    is_active = models.BooleanField(default=False)
-    number_of_employee = models.PositiveIntegerField()
+    is_active = models.BooleanField(default=True)
     amount = models.PositiveBigIntegerField()
     paying_days = models.PositiveIntegerField()
     grace_period = models.PositiveIntegerField()
