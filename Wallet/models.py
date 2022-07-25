@@ -1,12 +1,10 @@
-from datetime import timezone
-
+from django.utils import timezone
+import random
+import string
 from django.core.exceptions import ValidationError
 from django.db import models
-from djmoney.models.fields import MoneyField
 from Users.models import User
-from djmoney.money import Money
 from django.shortcuts import get_object_or_404
-from .views import wallet_ref_code_generator
 
 OWNER_TYPE = (('FSP', 'FSP'),
               ('User', 'User'))
@@ -20,11 +18,10 @@ class Wallet(models.Model):
     owner_type = models.CharField(choices=OWNER_TYPE, max_length=10)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
-    balance = MoneyField(max_digits=14, decimal_places=2, default=Money(0, 'NGN'), default_currency='NGN')
+    balance = models.PositiveIntegerField(default=0)
 
     @classmethod
     def recharge_wallet(cls, amount, receiver, description):
-
         receiver_wallet = get_object_or_404(Wallet, owner=receiver)
         receiver_wallet.balance += amount
         receiver_wallet.save()
@@ -42,7 +39,6 @@ class Wallet(models.Model):
 
     @classmethod
     def withdraw_wallet(cls, amount, description, wallet_to_withdraw):
-
         if amount > wallet_to_withdraw.balance:
             raise ValidationError("Insufficient account balance, please try amount less than your balance")
 
@@ -61,9 +57,8 @@ class Wallet(models.Model):
 
     @classmethod
     def transfer_money(cls, amount, sender, receiver, description):
-
         sender_wallet = get_object_or_404(Wallet, owner=sender)
-        sender_wallet -= amount
+        sender_wallet.balance -= amount
 
         ref = wallet_ref_code_generator()
 
@@ -73,7 +68,7 @@ class Wallet(models.Model):
             receiver=receiver,
             transaction_type="Debit",
             date_created=timezone.now,
-            description=description,#
+            description=description,  #
             ref=ref,
         )
 
@@ -97,8 +92,7 @@ class Wallet(models.Model):
 class Transaction(models.Model):
     transaction_type = models.CharField(max_length=45, choices=TRANSACTION_TYPE, default='',
                                         verbose_name='Transaction Type')
-    amount = MoneyField(max_digits=14, decimal_places=2, default=Money(0, 'NGN'), default_currency='NGN',
-                        verbose_name='Amount')
+    amount = models.PositiveIntegerField(default=0, verbose_name='Amount')
     description = models.CharField(max_length=250, default='', help_text='write your description here',
                                    verbose_name='Description', blank=True, null=True)
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender',
@@ -106,4 +100,10 @@ class Transaction(models.Model):
     receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='receiver',
                                  verbose_name='Receiver')
     date_created = models.DateTimeField(auto_now_add=True, verbose_name='Transaction Date')
-    ref = models.CharField(max_length=400, unique=True)
+    ref = models.CharField(max_length=400)
+
+
+def wallet_ref_code_generator():
+    guess = ''.join(random.choices(string.ascii_uppercase + string.digits, k=20))
+    ref_code = 'WLT' + guess
+    return ref_code

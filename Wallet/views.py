@@ -1,37 +1,50 @@
-import random
-import string
+
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from .forms import FilterTransactionsForm, RechargeWallet, WithdrawWallet, TransferMoney
-from .models import Wallet
+from .forms import RechargeWallet, WithdrawWallet, TransferMoney
+from .models import Wallet, wallet_ref_code_generator
+from django.template import loader
 
 
 # Create your views here.
 def view_wallet(request):
     user = request.user
 
-    wallet = get_object_or_404(Wallet, owner=user)
+    try:
+        wallet = Wallet.objects.get(owner=user)
 
+    except Exception:
+
+        wallet = Wallet.objects.create(
+            owner=user,
+            owner_type="User", )
+
+    template = loader.get_template('wallet_cabinet.html')
+
+    # fill_up_wallet_form = RechargeWallet()
+    # withdraw_money_form = WithdrawWallet()
     context = {
         'wallet': wallet,
+        # 'fillUp_wallet_form': fill_up_wallet_form,
+        # 'withdraw_money_form': withdraw_money_form
     }
-    return render(request, 'wallet.html', context)
+
+    return HttpResponse(template.render(context, request))
 
 
-def recharge(request,  *args, **kwargs):
+def recharge(request, *args, **kwargs):
     if request.method == "POST":
         recharge_form = RechargeWallet(request.POST)
         if recharge_form.is_valid():
-            owner_id = request.user.wallet.id
-            direct = request.user.wallet.slug
+            owner = request.user
             amount = recharge_form.cleaned_data['amount']
             description = recharge_form.cleaned_data['description']
-            wallet = get_object_or_404(Wallet, id=owner_id)
+            wallet = get_object_or_404(Wallet, owner=owner)
             ref_code = wallet_ref_code_generator()
             # payment = pay_with_pay_stack(request, amount, ref_code)
-            if payment:
-                recharge_transaction = Wallet.recharge_wallet(amount, wallet, description)
-            return HttpResponseRedirect('/wallet/' + direct)
+            recharge_transaction = Wallet.recharge_wallet(amount, wallet, description)
+            return HttpResponseRedirect('/wallet/')
 
     else:
         recharge_form = RechargeWallet()
@@ -39,18 +52,18 @@ def recharge(request,  *args, **kwargs):
     context = {
         'recharge_form': recharge_form
     }
-    return render(request, 'wallets/recharge_form.html', context)
+    return render(request, 'recharge_form.html', context)
 
 
-def withdraw(request,  *args, **kwargs):
+def withdraw(request, *args, **kwargs):
     if request.method == "POST":
         withdraw_form = WithdrawWallet(request.POST)
         if withdraw_form.is_valid():
-            owner_id = request.user.wallet.id
+            owner = request.user
             direct = request.user.wallet.slug
             amount = withdraw_form.cleaned_data['amount']
             description = withdraw_form.cleaned_data['description']
-            wallet_to_withdraw = get_object_or_404(Wallet, id=owner_id)
+            wallet_to_withdraw = get_object_or_404(Wallet, owner=owner)
             withdraw_transaction = Wallet.withdraw_wallet(amount, description, wallet_to_withdraw)
             return HttpResponseRedirect('/wallet/' + direct)
 
@@ -60,23 +73,20 @@ def withdraw(request,  *args, **kwargs):
     context = {
         "withdraw_form": withdraw_form
     }
-    return render(request, 'wallets/withdraw_form.html', context)
+    return render(request, 'withdraw_form.html', context)
 
 
 def transfer(request, *args, **kwargs):
     if request.method == "POST":
         transfer_form = TransferMoney(request.POST)
-        owner_id = request.user.wallet.id
-        sender_wallet = request.user.wallet
-        direct = request.user.wallet.slug
+        sender = request.user
         if transfer_form.is_valid():
             amount = transfer_form.cleaned_data['amount']
             description = transfer_form.cleaned_data['description']
-            receiver = transfer_form.cleaned_data['receiver_wallet']
-            receiver_id = receiver.id
-            wallet_to_transfer = get_object_or_404(Wallet, id=receiver_id)
-            transfer_transaction = Wallet.transfer_money(amount, sender_wallet, receiver, description)
-            return HttpResponseRedirect('/wallet/' + direct)
+            receiver = transfer_form.cleaned_data['receiver']
+            wallet_to_transfer = get_object_or_404(Wallet, owner=receiver)
+            transfer_transaction = Wallet.transfer_money(amount, sender, receiver, description)
+            return HttpResponseRedirect('/wallet/')
 
     else:
         transfer_form = TransferMoney()
@@ -84,9 +94,4 @@ def transfer(request, *args, **kwargs):
     context = {
         "transfer_form": transfer_form,
     }
-    return render(request, "wallets/transfer_form.html", context)
-
-def wallet_ref_code_generator():
-    guess = ''.join(random.choices(string.ascii_uppercase + string.digits, k=20))
-    ref_code = 'WLT' + guess
-    return ref_code
+    return render(request, "transfer_form.html", context)

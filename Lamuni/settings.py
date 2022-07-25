@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'parler',
     'ckeditor',  # HTML Editor
     'ckeditor_uploader',
-    'djmoney',
 ]
 
 MIDDLEWARE = [
