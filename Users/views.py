@@ -53,12 +53,14 @@ def lesson_detail(request):
     return render(request, "lesson-detail.html")
 
 
+
 def lesson_done(request):
     return render(request, "lesson-done.html")
 
 
 def education(request):
     return render(request, "education_base.html")
+
 
 
 def send_reset_code(request):
@@ -75,6 +77,14 @@ def send_reset_code(request):
     else:
         form = SendResetCodeForm()
         return render(request, 'registration/password_reset.html', {"form": form})
+
+
+def quiz(request):
+    return render(request, "quiz.html")
+
+
+def quiz_result(request):
+    return render(request, "quiz-result.html")
 
 
 def reset_verify(request, username):
@@ -118,5 +128,9 @@ def reset_password(request, username, code):
     return render(request, 'registration/resend_code_error.html', {"error": "oops!, go get a reset code first!"})
 
 
-def user_profile(reqeust):
-    return render(reqeust, 'user-profile.html')
+def user_profile(request):
+    user = request.user
+
+    wallet = get_object_or_404(Wallet, owner=user)
+    context = {'user': user, }
+    return render(request, 'profile.html', context)
