@@ -6,6 +6,7 @@ from djmoney.models.fields import MoneyField
 from Users.models import User
 from djmoney.money import Money
 from django.shortcuts import get_object_or_404
+from .views import wallet_ref_code_generator
 
 OWNER_TYPE = (('FSP', 'FSP'),
               ('User', 'User'))
@@ -34,7 +35,7 @@ class Wallet(models.Model):
             transaction_type="Credit",
             date_created=timezone.now,
             description=description,
-
+            ref=wallet_ref_code_generator(),
         )
 
         return recharge_transaction
@@ -53,7 +54,7 @@ class Wallet(models.Model):
             transaction_type="Debit",
             date_created=timezone.now,
             description=description,
-
+            ref=wallet_ref_code_generator(),
         )
 
         return recharge_transaction
@@ -64,13 +65,16 @@ class Wallet(models.Model):
         sender_wallet = get_object_or_404(Wallet, owner=sender)
         sender_wallet -= amount
 
+        ref = wallet_ref_code_generator()
+
         transfer_transaction = Transaction.objects.create(
             amount=amount,
             sender=sender,
             receiver=receiver,
             transaction_type="Debit",
             date_created=timezone.now,
-            description=description,
+            description=description,#
+            ref=ref,
         )
 
         receiver_wallet = get_object_or_404(Wallet, owner=receiver)
@@ -82,6 +86,7 @@ class Wallet(models.Model):
             transaction_type="Credit",
             date_created=timezone.now,
             description=description,
+            ref=ref,
         )
 
         sender_wallet.save()
