@@ -50,7 +50,8 @@ def verify_code(request, username):
 
 
 def lesson_detail(request):
-    return render(request, "blog-detail.html")
+    return render(request, "lesson-detail.html")
+
 
 
 def lesson_done(request):
@@ -58,7 +59,8 @@ def lesson_done(request):
 
 
 def education(request):
-    return render(request, "education.html")
+    return render(request, "education_base.html")
+
 
 
 def send_reset_code(request):
