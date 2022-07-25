@@ -7,3 +7,9 @@ def index(request):
 
 def education(request):
     return render(request, "education.html")
+
+def chating(request):
+    return render(request, "chat.html")
+
+def conversation(request):
+    return render(request, "conversations.html")

@@ -12,6 +12,7 @@ module.exports = {
       "dark-black": "#101010",
       "light-green": "#60af7c",
       "dark-red": "#ef4444",
+      "light-color": "bg-slate-100"
     },
     extend: {},
   },

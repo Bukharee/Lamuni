@@ -1,0 +1,439 @@
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chat</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <style>
+        .container {
+           
+        }
+        .side-info {
+            
+            width: 100%;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            margin: 15px;
+            background-color: rgb(241, 241, 241);
+        }
+        .chat-body {
+            display: none;
+            margin-top: 0;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            background-color: rgb(241, 241, 241);
+        }
+
+        .friends, .header {
+            border-bottom: rgb(145, 146, 146) 1px solid; /* will be change after identifying the color */
+        }
+       .friends:hover {
+        background-color: white;
+        border-radius: 5px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+       }
+        #messages {
+            height: fit-content;
+        }
+        .person {
+            border: rgb(233, 232, 232);
+        }
+        .send {
+            background-color:#16a34a;
+        }
+        .send:hover {
+            background-color: #60af7c;
+        }
+        .boot, .me {
+            font-size: 14px;
+        }
+        .me {
+            border-bottom-left-radius: 5px;
+            }
+        @media screen and (min-width: 768px){
+            .container {
+                
+            }
+            .side-info {
+                width: 40%;
+                margin: 0;
+            }
+        }
+        @media screen and (min-width: 1020px) {
+            .container {
+                width: 70%;
+            }
+            .chat-body {
+                display: block;
+            }
+        }
+       
+      
+
+        .scrollbar-w-2::-webkit-scrollbar {
+            width: 0.25rem;
+            height: 0.25rem;
+        }
+          
+        .scrollbar-track-blue-lighter::-webkit-scrollbar-track {
+            --bg-opacity: 1;
+            background-color: #f7fafc;
+            background-color: rgba(247, 250, 252, var(--bg-opacity));
+        }
+          
+        .scrollbar-thumb-blue::-webkit-scrollbar-thumb {
+            --bg-opacity: 1;
+            background-color: #edf2f7;
+            background-color: rgba(237, 242, 247, var(--bg-opacity));
+        }
+          
+        .scrollbar-thumb-rounded::-webkit-scrollbar-thumb {
+            border-radius: 0.25rem;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    
+    <div class="container my-10  p-0 mx-auto  flex">
+        
+        <div class="side-info rounded-lg bg-slate-100 h-screen ">
+
+            <div class="relative mt-6 px-2.5">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-6">
+                    <svg class="w-5 h-5 text-black p" viewBox="0 0 24 24" fill="none">
+                        <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </span>
+    
+                <input type="text" class="w-full py-2 pl-12 pr-4 text-gray-900 bg-white rounded-full dark:text-gray-900 focus:border-green-400 dark:focus:border-green-300 focus:ring-green-300 focus:ring-opacity-40 focus:outline-none focus:ring" placeholder="Search"/>
+            </div>
+            
+
+
+            <div class="chat-friends   p-2 my-4 bg-slate-100 rounded-xl">
+                
+               <a href="/conversations.html">
+                    <div class="flex items-center my-4 justify-between p-1 friends cursor-pointer">
+
+                        <div class="flex items-center">
+                            <div class="border person relative flex items-center justify-evenly w-16 h-16 rounded-full select-none">
+                                <img class="object-cover object-center w-full h-full rounded-full"
+                                    src="{% static 'img/boy-girl-studying-together-tablet-260nw-300498140.webp' %}">
+                                <span aria-hidden="true" class="absolute bottom-0 left-0 w-3 h-3 rounded-full ring ring-white" style="background-color: #16a34a;"></span>
+                            </div>
+
+                            <div class="ml-2">
+                                <span>
+                                    <p class="font-bold text-zinc-500">Ala Jido</p>
+                                    <p class="text-zinc-400">What is your name</p>
+                                </span>
+                            </div>
+                        </div>
+                        
+
+                        <div class="text-dark">
+                            <p class="">09:00</p>
+                        </div>
+                    
+                    </div>
+               </a>
+                
+                <div class="flex items-center my-4 justify-between p-1 friends cursor-pointer">
+
+                    <div class="flex items-center">
+                        <div class="border person relative flex items-center justify-evenly w-16 h-16 rounded-full select-none">
+                            <img class="object-cover object-center w-full h-full rounded-full"
+                                src="{% static 'img/photo-1494790108377-be9c29b29330.jpg' %} ">
+                            <span aria-hidden="true" class="absolute bottom-0 left-0 w-3 h-3 rounded-full ring ring-white" style="background-color: #e42323;"></span>
+                        </div>
+
+                        <div class="ml-2">
+                            <span>
+                                <p class="font-bold text-zinc-500">Bukhari Auwal</p>
+                                <p class="text-zinc-400">Coding like ghust</p>
+                            </span>
+                        </div>
+                    </div>
+                    
+
+                    <div class="text-dark">
+                        <p class="">11:00</p>
+                    </div>
+                    
+                    
+                </div>
+                
+                <div class="flex items-center my-4 justify-between p-1 friends cursor-pointer ">
+
+                    <div class="flex items-center">
+                        <div class="border person relative flex items-center justify-evenly w-16 h-16 rounded-full select-none">
+                            <img class="object-cover object-center w-full h-full rounded-full"
+                                src="{% static 'img/male-avarta.jpg' %} ">
+                            <span aria-hidden="true" class="absolute bottom-0 left-0 w-3 h-3 rounded-full ring ring-white" style="background-color: #16a34a;"></span>
+                        </div>
+
+                        <div class="ml-2">
+                            <span>
+                                <p class="font-bold text-zinc-500">Mr Wudil</p>
+                                <p class="text-zinc-400">How was the jurney</p>
+                            </span>
+                        </div>
+                    </div>
+                    
+
+                    <div class="text-dark">
+                        <p class="">01:02</p>
+                        <span class="inline-block py-1 px-1.5 leading-none text-center whitespace-nowrap align-baseline text-white rounded-full ml-2" style="background-color: #16a34a;;">5</span>
+
+                    </div>
+                    
+                    
+                </div>
+
+                <div class="flex items-center my-4 justify-between p-1 friends cursor-pointer">
+
+                    <div class="flex items-center">
+                        <div class="border person relative flex items-center justify-evenly w-16 h-16 rounded-full select-none">
+                            <img class="object-cover object-center w-full h-full rounded-full"
+                                src="{% static 'img/male-avarta.jpg' %} ">
+                            <span aria-hidden="true" class="absolute bottom-0 left-0 w-3 h-3 rounded-full ring ring-white" style="background-color: #ff962a;"></span>
+                        </div>
+
+                        <div class="ml-2">
+                            <span>
+                                <p class="font-bold text-zinc-500">Muhd Physics</p>
+                                <p class="text-zinc-400">Hi, there is been long</p>
+                            </span>
+                        </div>
+                    </div>
+                    
+
+                    <div class="text-dark">
+                        <p class="">05:30</p>
+                        <span class="inline-block py-1 px-1.5 leading-none text-center whitespace-nowrap align-baseline text-white rounded-full ml-2" style="background-color: #16a34a;;">2</span>
+                    </div>
+                    
+                    
+                </div>
+               
+            </div>
+
+
+        </div>
+
+        <!-- chat body -->
+        <div class="chat-body rounded-lg  my-10 bg-slate-100 flex-grow">
+            
+            <!-- main chat body -->
+            <div class="flex-1 p:2 sm:p-6  flex flex-col  h-screen see">
+    
+                <div class="flex header sm:items-center justify-between py-3 bg-slate-100">
+                    <!-- header -->
+                    <div class="relative  flex items-center space-x-4">
+                        <div class="relative">
+                            <span class="absolute right-0 bottom-0" style="color: #16a34a;">
+                                <svg width="20" height="20">
+                                    <circle cx="8" cy="8" r="8" fill="currentColor"></circle>
+                                </svg>
+                            </span>
+                            <img src="{% static 'img/boy-girl-studying-together-tablet-260nw-300498140.webp' %}" alt="" class="w-10 sm:w-16 h-10 sm:h-16 rounded-full">
+                        </div>
+    
+                        <div class="flex flex-col leading-tight">
+                            <div class="text-2xl mt-1 flex items-center">
+                                <span class="text-gray-700 mr-3">Ala Jido</span>
+                            </div>
+                            <!-- <span class="text-lg text-gray-600">Junior Developer</span> -->
+                        </div>
+    
+                    </div>
+                
+                </div>
+                <!-- header ends here -->
+    
+                <!-- conversations -->
+                <div id="messages" class="flex mt-2 h-screen  relative justify-between msg flex-col space-y-4 px-2 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
+                    <div class="jist">
+                        <!-- boot chat -->
+                        <div class="chat-message">
+                            <div class="flex items-end">
+                                <div class="flex flex-col  my-2 space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
+                                    <div><span class="px-4 py-4 rounded-lg rounded-bl-none inline-block bg-white font-bold boot text-gray-600">What is your name</span></div>
+                                </div>
+                                <img src="{% static 'img/male-avarta.jpg' %} " alt="My profile" class="w-6 h-6 rounded-full order-1">
+                            </div>
+                        </div>
+    
+                        <!-- user reply -->
+                        <div class="chat-message">
+                            <div class="flex items-end justify-end">
+                                <div class="flex flex-col  my-2 space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
+                                    <div><span class="px-4 py-4 font-bold rounded-lg inline-block rounded-br-none me text-white" style="background-color: #16a34a;;">Ala Jido</span></div>
+                                </div>
+                                <img src="{% static 'img/boy-girl-studying-together-tablet-260nw-300498140.webp' %}" alt="My profile" class="w-6 h-6 rounded-full order-2">
+                            </div>
+                        </div>
+    
+                        <!-- boot chat -->
+                        <div class="chat-message">
+                            <div class="flex items-end">
+                                <div class="flex flex-col  my-2 space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
+                                    <div><span class="px-4 py-4 rounded-lg  rounded-bl-none inline-block bg-white font-bold boot text-gray-600">Your BVN please</span></div>
+                                </div>
+                                <img src="{% static 'img/male-avarta.jpg' %} " alt="My profile" class="w-6 h-6 rounded-full order-1">
+                            </div>
+                        </div>
+    
+                        <!-- user reply -->
+                        <div class="chat-message">
+                            <div class="flex items-end justify-end">
+                                <div class="flex flex-col  my-2 space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
+                                    <div><span class="px-4 py-4 font-bold rounded-lg inline-block rounded-br-none me text-white" style="background-color: #16a34a;;">9707235092468</span></div>
+                                </div>
+                                <img src="{% static 'img/boy-girl-studying-together-tablet-260nw-300498140.webp' %}" alt="My profile" class="w-6 h-6 rounded-full order-2">
+                            </div>
+                        </div>
+    
+                        <!-- boot chat -->
+                        <div class="chat-message">
+                            <div class="flex items-end">
+                                <div class="flex flex-col  my-2 space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
+                                    <div><span class="px-4 py-4 rounded-lg rounded-bl-none inline-block bg-white font-bold boot text-gray-600">Your NIN Number</span></div>
+                                </div>
+                                <img src="{% static 'img/male-avarta.jpg' %} " alt="My profile" class="w-6 h-6 rounded-full order-1">
+                            </div>
+                        </div>
+    
+                        <!-- user reply -->
+                         <div class="chat-message">
+                            <div class="flex items-end justify-end">
+                                <div class="flex flex-col  my-2 space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
+                                    <div><span class="px-4 py-4 font-bold rounded-lg inline-block rounded-br-none me text-white" style="background-color: #16a34a;;">23648971869</span></div>
+                                </div>
+                                <img src="{% static 'img/boy-girl-studying-together-tablet-260nw-300498140.webp' %}" alt="My profile" class="w-6 h-6 rounded-full order-2">
+                            </div>
+                        </div>
+    
+                        <!-- boot chat -->
+                        <div class="chat-message">
+                            <div class="flex items-end">
+                                <div class="flex flex-col space-y-2 my-2 text-xs max-w-xs mx-2 order-2 items-start">
+                                    <div><span class="px-4 py-4 rounded-lg rounded-bl-none inline-block bg-white font-bold boot text-gray-600">What type of business you do</span></div>
+                                </div>
+                                <img src="{% static 'img/male-avarta.jpg' %} " alt="My profile" class="w-6 h-6 rounded-full order-1">
+                            </div>
+                        </div>
+    
+                        <!-- user reply -->
+                        <div class="chat-message">
+                            <div class="flex items-end justify-end">
+                                <div class="flex flex-col  my-2 space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
+                                    <div><span class="px-4 py-4 font-bold rounded-lg rounded-bl-none inline-block rounded-br-none me text-white" style="background-color: #16a34a;;">Sell Indomie</span></div>
+                                </div>
+                                <img src="{% static 'img/boy-girl-studying-together-tablet-260nw-300498140.webp' %}" alt="My profile" class="w-6 h-6 rounded-full order-2">
+                            </div>
+                        </div>
+    
+                        <!-- boot chat -->
+                        <div class="chat-message">
+                            <div class="flex items-end">
+                                <div class="flex flex-col space-y-2 my-2 text-xs max-w-xs mx-2 order-2 items-start">
+                                    <div><span class="px-4 py-4 rounded-lg rounded-bl-none inline-block bg-white font-bold boot text-gray-600">Why do you need the loan</span></div>
+                                </div>
+                                <img src="{% static 'img/male-avarta.jpg' %} " alt="My profile" class="w-6 h-6 rounded-full order-1">
+                            </div>
+                        </div>
+    
+    
+                        <!-- user reply -->
+                        <div class="chat-message">
+                            <div class="flex items-end justify-end">
+                                <div class="flex flex-col  my-2 space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
+                                    <div><span class="px-4 py-4 font-bold rounded-lg rounded-bl-none inline-block rounded-br-none me text-white" style="background-color: #16a34a;">Need more capital</span></div>
+                                </div>
+                                <img src="{% static 'img/boy-girl-studying-together-tablet-260nw-300498140.webp' %}" alt="My profile" class="w-6 h-6 rounded-full order-2">
+                            </div>
+                        </div>
+    
+                    </div>
+                    <!-- conversations end -->
+    
+                    <!-- text area -->
+                    <div class="another sticky px-4 pt-4 sm:mb-0" style="bottom: 0;">
+                        <div class="relative flex">
+                            <!-- mic recorder -->
+                            <span class="ml-4 inset-y-0 bg-white mic rounded-md rounded-br-none items-center"> <!-- absolute -->
+                                <button type="button" class="inline-flex  items-center justify-center rounded-full h-12 w-12 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6 text-gray-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
+                                    </svg>
+                                </button>
+                            </span>
+    
+                           <div class="flex ">
+                                <span class="inset-y-0 bg-white mic items-center">
+                                    <button type="button" class="inline-flex mic mx-2 items-center justify-center rounded-full h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="mt-2 h-6 w-6 text-gray-600">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path>
+                                        </svg>
+                                    </button>
+                                </span>  
+                                
+                                <span class=" inset-y-0 bg-white mic  items-center">
+                                    <button type="button" class="inline-flex file items-center justify-center rounded-full h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6 text-gray-600">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        </svg>
+                                    </button>
+                                </span>
+                           </div>
+    
+                            <input type="text" placeholder="message" class="relative w-full focus:outline-none text rounded-bl-none focus:placeholder-gray-400 text-black placeholder-gray-600 pl-12 bg-white rounded-md py-3">
+    
+                            <div class="absolute flex right-0 justify-center icons items-center inset-y-0 "> <!-- hidden -->
+                                
+                                <!-- <button type="button" class="inline-flex mic items-center justify-center rounded-full h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6 text-gray-600">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path>
+                                    </svg>
+                                </button> -->
+                                
+                                <!-- <button type="button" class="inline-flex file items-center justify-center rounded-full h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6 text-gray-600">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                </button> -->
+                                
+                                <!-- <button type="button" class="inline-flex send items-center justify-center rounded-lg px-4 py-3 transition duration-500 ease-in-out text-white focus:outline-none"> -->
+                                    <!-- <span class="font-bold">Send</span> -->
+                                    <button type="button" class="inline-flex file items-center justify-center rounded-full h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 ml-2 text-gray-600 transform rotate-90">
+                                            <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
+                                        </svg>
+                                    </button>
+                                <!-- </button>  -->
+                            </div>
+                        </div>
+                </div>
+    
+    
+            </div> 
+        </div>
+    </div>
+ </div>
+ 
+ 
+ <script>
+     const el = document.getElementById('messages')
+     el.scrollTop = el.scrollHeight
+ </script>
+
+        </div>
+    </div>
+</body>
+</html>
