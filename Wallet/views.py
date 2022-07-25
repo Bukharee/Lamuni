@@ -40,10 +40,9 @@ def recharge(request, *args, **kwargs):
             owner = request.user
             amount = recharge_form.cleaned_data['amount']
             description = recharge_form.cleaned_data['description']
-            wallet = get_object_or_404(Wallet, owner=owner)
             ref_code = wallet_ref_code_generator()
             # payment = pay_with_pay_stack(request, amount, ref_code)
-            recharge_transaction = Wallet.recharge_wallet(amount, wallet, description)
+            recharge_transaction = Wallet.recharge_wallet(amount, owner, description)
             return HttpResponseRedirect('/wallet/')
 
     else:
@@ -60,12 +59,11 @@ def withdraw(request, *args, **kwargs):
         withdraw_form = WithdrawWallet(request.POST)
         if withdraw_form.is_valid():
             owner = request.user
-            direct = request.user.wallet.slug
             amount = withdraw_form.cleaned_data['amount']
             description = withdraw_form.cleaned_data['description']
             wallet_to_withdraw = get_object_or_404(Wallet, owner=owner)
             withdraw_transaction = Wallet.withdraw_wallet(amount, description, wallet_to_withdraw)
-            return HttpResponseRedirect('/wallet/' + direct)
+            return HttpResponseRedirect('/wallet/')
 
     else:
         withdraw_form = WithdrawWallet()

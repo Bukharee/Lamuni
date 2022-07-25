@@ -28,7 +28,7 @@ class Wallet(models.Model):
 
         recharge_transaction = Transaction.objects.create(
             amount=amount,
-            receiver_wallet=receiver,
+            receiver=receiver,
             transaction_type="Credit",
             date_created=timezone.now,
             description=description,
@@ -96,9 +96,9 @@ class Transaction(models.Model):
     description = models.CharField(max_length=250, default='', help_text='write your description here',
                                    verbose_name='Description', blank=True, null=True)
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender',
-                               verbose_name='Sender')
+                               verbose_name='Sender', null=True)
     receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='receiver',
-                                 verbose_name='Receiver')
+                                 verbose_name='Receiver', null=True)
     date_created = models.DateTimeField(auto_now_add=True, verbose_name='Transaction Date')
     ref = models.CharField(max_length=400)
 
