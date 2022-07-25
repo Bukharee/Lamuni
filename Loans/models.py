@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from multiselectfield import MultiSelectField
+
 # Create your models here.
 BUSSINESS_SIZE = (('MICRO', 'MICRO'),('SMALL', 'SMALL'),('MEDIUM', 'MEDIUM'),)
 
@@ -22,8 +24,8 @@ class Loan(models.Model):
     fsp = models.ForeignKey(FSP, on_delete=models.DO_NOTHING)
     date_created = models.DateTimeField(auto_now_add=True)
     program_title = models.CharField(max_length=200)
-    size = models.CharField(choices=BUSSINESS_SIZE, max_length=100)
-    sector = models.ForeignKey(Sector, on_delete=models.DO_NOTHING)
+    size = MultiSelectField(choices=BUSSINESS_SIZE, max_choices=3, max_length=100)
+    sectors = models.ManyToManyField(Sector)
     amount = models.PositiveIntegerField()
     beneficiaries = models.ManyToManyField(get_user_model())
     is_active = models.BooleanField(default=False)
