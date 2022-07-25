@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # apps
     "Users",
     'Lessons',
+    'Loans',
     'parler',
     'ckeditor',  # HTML Editor
     'ckeditor_uploader',
