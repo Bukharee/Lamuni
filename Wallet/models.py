@@ -18,7 +18,7 @@ class Wallet(models.Model):
     owner_type = models.CharField(choices=OWNER_TYPE, max_length=10)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
-    balance = models.PositiveIntegerField(default=0)
+    balance = models.DecimalField(max_digits=12, decimal_places=2, default=0)
 
     @classmethod
     def recharge_wallet(cls, amount, receiver, description):
@@ -92,7 +92,7 @@ class Wallet(models.Model):
 class Transaction(models.Model):
     transaction_type = models.CharField(max_length=45, choices=TRANSACTION_TYPE, default='',
                                         verbose_name='Transaction Type')
-    amount = models.PositiveIntegerField(default=0, verbose_name='Amount')
+    amount = models.DecimalField(max_digits=12, decimal_places=2, verbose_name="Amount", default=0)
     description = models.CharField(max_length=250, default='', help_text='write your description here',
                                    verbose_name='Description', blank=True, null=True)
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender',
