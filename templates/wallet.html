@@ -1,10 +1,15 @@
 <!DOCTYPE html>
+{% load i18n %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Wallet</title>
 </head>
 <body>
-2
+
+<h1> {{wallet.balance}}</h1>
+<h2> {{wallet.owner_type}}</h2>
+<h3> {{wallet.owner.name}}</h3>
+<h3> Last transaction date : {{wallet.date_updated}}</h3>
 </body>
 </html>
