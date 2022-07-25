@@ -126,6 +126,7 @@ def reset_password(request, username, code):
         form = ResetPawsswordForm()
         return render(request, 'registration/password_reset_temp.html', {"form": form})
     return render(request, 'registration/resend_code_error.html', {"error": "oops!, go get a reset code first!"})
+        
 
 
 def user_profile(request):
