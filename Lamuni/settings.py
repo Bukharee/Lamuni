@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     "Users",
     'Lessons',
     'Loans',
+    'Wallet',
+
+    # 3rd party
     'parler',
     'ckeditor',  # HTML Editor
     'ckeditor_uploader',

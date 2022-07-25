@@ -6,6 +6,8 @@ from .forms import CustomUserCreationForm, VerifyForm, SendResetCodeForm, ResetP
 from django.contrib.auth.decorators import login_required
 from .verify import send, check, sms_reset
 from django.contrib.auth import get_user_model
+
+
 # Create your views here.
 
 @login_required
@@ -47,54 +49,61 @@ def verify_code(request, username):
     return render(request, 'registration/verify.html', {'form': form})
 
 
-
 def lesson_detail(request):
-    return render(request, "blog-detail.html")
+    return render(request, "lesson-detail.html")
+
+
 
 def lesson_done(request):
     return render(request, "lesson-done.html")
 
+
 def education(request):
-    return render(request, "education.html")
+    return render(request, "education_base.html")
+
+
 
 def send_reset_code(request):
-        if request.method == "POST":
-            form = SendResetCodeForm(data=request.POST)
-            if form.is_valid():
-                phone = form.cleaned_data.get('phone') #get the phone number
-                if User.objects.filter(phone=phone).exists(): #validate if it exist
-                    user = get_object_or_404(get_user_model(), phone=phone) 
-                    send(phone) #send the verification code to the phone number
-                    return redirect('users:reset_verify', username=user.username) #redirect to verify 
-                return render(request, 'registration/password_reset.html', {"form": form, 
-                "error": "this number isn't registered"})
-        else:
-            form = SendResetCodeForm()
-            return render(request, 'registration/password_reset.html', {"form": form})
+    if request.method == "POST":
+        form = SendResetCodeForm(data=request.POST)
+        if form.is_valid():
+            phone = form.cleaned_data.get('phone')  # get the phone number
+            if User.objects.filter(phone=phone).exists():  # validate if it exist
+                user = get_object_or_404(get_user_model(), phone=phone)
+                send(phone)  # send the verification code to the phone number
+                return redirect('users:reset_verify', username=user.username)  # redirect to verify
+            return render(request, 'registration/password_reset.html', {"form": form,
+                                                                        "error": "this number isn't registered"})
+    else:
+        form = SendResetCodeForm()
+        return render(request, 'registration/password_reset.html', {"form": form})
+
 
 def quiz(request):
     return render(request, "quiz.html")
+
 
 def quiz_result(request):
     return render(request, "quiz-result.html")
 
 
-
 def reset_verify(request, username):
     if request.method == "POST":
-        user = get_object_or_404(get_user_model(), username=username) 
+        user = get_object_or_404(get_user_model(), username=username)
         form = VerifyForm(data=request.POST)
         if form.is_valid():
-            code = str(form.cleaned_data.get('code')) #get the inputted code
-            #compare it with the one sent 
-            if check(user.phone, code): #if they match:
+            code = str(form.cleaned_data.get('code'))  # get the inputted code
+            # compare it with the one sent
+            if check(user.phone, code):  # if they match:
                 user.reset_code = code
                 user.save()
-                return redirect('users:reset_password', username=user.username, code=code)#redirect a user to a page where he can assign new password
-            return render(request, 'registration/reset_code_verify.html', {"form": form, "error": "invalid code"}) #if not: tell the user that its not the correct code
+                return redirect('users:reset_password', username=user.username,
+                                code=code)  # redirect a user to a page where he can assign new password
+            return render(request, 'registration/reset_code_verify.html', {"form": form,
+                                                                           "error": "invalid code"})  # if not: tell the user that its not the correct code
     form = VerifyForm()
     return render(request, "registration/reset_code_verify.html", {"form": form})
-    #render the form 
+    # render the form
 
 
 def reset_password(request, username, code):
@@ -112,8 +121,17 @@ def reset_password(request, username, code):
                     user.reset_code = ""
                     user.save()
                     return redirect('users:index')
-                return render(request, 'registration/password_reset_temp.html', {"form": form, "error": "passwords dont match"})
+                return render(request, 'registration/password_reset_temp.html',
+                              {"form": form, "error": "passwords dont match"})
         form = ResetPawsswordForm()
         return render(request, 'registration/password_reset_temp.html', {"form": form})
     return render(request, 'registration/resend_code_error.html', {"error": "oops!, go get a reset code first!"})
         
+
+
+def user_profile(request):
+    user = request.user
+
+    wallet = get_object_or_404(Wallet, owner=user)
+    context = {'user': user, }
+    return render(request, 'profile.html', context)

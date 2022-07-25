@@ -1,0 +1,6 @@
+<form method="post" action="">
+    {% csrf_token %}
+    {{ recharge_form.as_p }}
+    <input type="hidden" name="wallet_hash" value="{{ wallet.slug }}"/>
+    <input type="submit" value="Recharge Wallet">
+</form>
