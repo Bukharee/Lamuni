@@ -1,0 +1,6 @@
+<form method="POST" action="">
+    {% csrf_token %}
+    {{ transfer_form.as_p }}
+    <input type="hidden" name="wallet_slug" value="{{ wallet.slug }}"/>
+    <input type="submit" value="Transfer Money">
+</form>

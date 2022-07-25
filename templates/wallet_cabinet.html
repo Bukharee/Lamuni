@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lag="en">
+<head>
+    <meta charset=UTF-8>
+    <title>
+
+    </title>
+    <link rel="stylesheet" href="bootstrap-4.3.1-dist\css\bootstrap.min.css">
+    <link rel="stylesheet" href="fontawesome-free-5.14.0-web\css\all.css">
+    <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/4.3.1/css/bootstrap.min.css ">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.css">
+</head>
+<body>
+<p> Time:{% now "jS F Y H:i" %}</p>
+<h1>Wallet Dashboard</h1><br/>
+Hello, {{ wallet.owner }}!<br/>
+<hr/>
+<div class="col-sm-12">
+    <h2>Wallet balance: {{ wallet.balance }}</h2><br>
+</div>
+<hr/>
+
+<h2>Recharge wallet</h2>
+{% url 'wallet:recharge' wallet.slug as recharge_url %}
+<a href="{{ recharge_url }}">Recharge</a>
+<hr/>
+<h2>Withdraw Money</h2>
+{% url 'wallet:withdraw' wallet.slug as withdraw_url %}
+<a href="{{ withdraw_url }}">Withdraw</a>
+<hr/>
+<h2>Transfer Money </h2>
+{% url 'wallet:transfer' wallet.slug as transfer_url %}
+<a href="{{ transfer_url }}">Transfer</a>
+
+
+</body>
+</html>
