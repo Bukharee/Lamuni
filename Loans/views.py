@@ -4,6 +4,9 @@ from .forms import CreateLoanForm, AddRecordForm, AddSalesRecordForm
 from .models import Beneficiaries, FinancialRecord, Record, SalesRecord
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
+from django.views.generic import View
+from .process import html_to_pdf
 
 
 # Create your views here.
@@ -118,4 +121,13 @@ def fs(request):
 
 def fr(request, pk):
     record = get_object_or_404(SalesRecord, pk=pk)
-    print(record.get_profit)
+    print(record.get_profit)  #
+
+
+class GeneratePdf(View):
+    def get(self, request, *args, **kwargs):
+        # getting the template
+        pdf = html_to_pdf('result.html')
+
+        # rendering the template
+        return HttpResponse(pdf, content_type='application/pdf')
