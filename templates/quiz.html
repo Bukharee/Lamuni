@@ -1,0 +1,107 @@
+{% extends 'education_base.html' %}
+{% block title %}Lamuni:Quiz{% endblock %}
+{%  block content %}
+
+<section class="container mx-auto max-w-[950px] my-10 px-8 text-dark-black">
+    <div class="flex flex-col items-center my-5 flex-wrap">
+            <div class="flex">
+                <h1 class="heading-1">Lesson Quiz</h1>
+            </div>
+    </div>
+<form method='post' action=''>
+    {% csrf_token %}
+    {% for q in questions %}
+       <div class="quiz-block my-10 ">
+        <div class="quiz-question shadow-md p-2 sm:p-8">
+            <div class="shadow-sm shadow-dark-green p-8 text-center">
+                 <span class="text-sm sm:text-xl sm:tracking-wide  sm:leading-loose ">1 .</span>
+            <p class="text-sm  sm:text-xl sm:tracking-wide  sm:leading-loose inline ">{{ q.question }}
+               </p>
+          </div>
+
+            <div class="question-list my-10 px-5 sm:px-10">
+                <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-6">
+                    <div>
+                        <li class="inline text-left rounded-lg">
+                            <label class="quiz-container text-justify relative" for="{{q.id}}-A" id="" >
+                               <input class="appearance-none"  id="{{q.id}}-A" type="radio" name="{{q.question}}" value="A">
+                               <div class="quiz-answer p-2 sm:p-4 md:p-6 border-[1px] border-light-gray relative">
+                                   <span class="quiz-choice block max-w-none shadow-inner p-[4px] sm:py-2 text-center rounded-md bg-dark-green text-white w-8 sm:w-12">A</span>
+                               <span class="quiz-checked hidden shadow-inner p-[4px] pr-0 sm:pl-2 sm:pr-1 sm:py-2 rounded-md  bg-dark-green w-8  sm:w-12">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h8 sm:w-8" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                  </svg>
+                               </span>
+                                   {{ q.option_a }}
+                               </div>
+                            </label>
+                        </li>
+                    </div>
+                    <div>
+                        <li class="inline text-left">
+                            <label class="quiz-container text-justify relative" for="{{q.id}}-B" id="" >
+                               <input class="appearance-none"  id="{{q.id}}-B" type="radio" name="{{q.question}}" value="B">
+                               <div class="quiz-answer p-2 sm:p-4 md:p-6 border-[1px] border-light-gray relative">
+                                   <span class="quiz-choice block max-w-none shadow-inner p-[4px] sm:py-2 text-center rounded-md bg-dark-green text-white w-8 sm:w-12">B</span>
+                               <span class="quiz-checked hidden shadow-inner p-[4px] pr-0 sm:pl-2 sm:pr-1 sm:py-2 rounded-md  bg-dark-green w-8  sm:w-12">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h8 sm:w-8" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                  </svg>
+                               </span>
+                                   {{ q.option_b }}
+                               </div>
+                            </label>
+                        </li>
+                    </div>
+                    <div>
+                        <li class="inline text-left">
+                            <label class="quiz-container text-justify relative" for="{{q.id}}-C" id="" >
+                               <input class="appearance-none"  id="{{q.id}}-C" type="radio" name="{{q.question}}" value="C">
+                               <div class="quiz-answer p-2 sm:p-4 md:p-6 border-[1px] border-light-gray relative">
+                                    <span class="quiz-choice block max-w-none shadow-inner p-[4px] sm:py-2 text-center rounded-md bg-dark-green text-white w-8 sm:w-12">C</span>
+                               <span class="quiz-checked hidden shadow-inner p-[4px] pr-0 sm:pl-2 sm:pr-1 sm:py-2 rounded-md  bg-dark-green w-8  sm:w-12">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h8 sm:w-8" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                  </svg>
+                               </span>
+                                 {{ q.option_c }}
+                               </div>
+                            </label>
+                        </li>
+                    </div>
+                    <div>
+                        <li class="inline text-left">
+                            <label class="quiz-container text-justify relative" for="{{q.id}}-D" id="" >
+                               <input class="appearance-none"  id="{{q.id}}-D" type="radio" name="{{q.question}}" value="D">
+                               <div class="quiz-answer p-2 sm:p-4 md:p-6 border-[1px] border-light-gray relative">
+                                    <span class="quiz-choice block max-w-none shadow-inner p-[4px] sm:py-2 text-center rounded-md bg-dark-green text-white w-8 sm:w-12">D</span>
+                               <span class="quiz-checked hidden shadow-inner p-[4px] pr-0 sm:pl-2 sm:pr-1 sm:py-2 rounded-md  bg-dark-green w-8  sm:w-12">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h8 sm:w-8" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                  </svg>
+                               </span>
+                                   {{ q.option_d }}
+                               </div>
+                            </label>
+                        </li>
+                    </div>
+
+
+
+
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+    {% endfor %}
+<div class="my-20 flex items-center justify-end">
+    <button type="submit" class="sm:px-6 py-2 px-4 sm:py-4 border-2 border-dark-green text-dark-green bg-light-green hover:bg-dark-green focus:bg-dark-green hover:text-white focus:text-white font-bold rounded-md">Summit Quiz</button>
+    </div>
+
+</form>
+
+    </section>
+
+{% endblock %}

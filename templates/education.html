@@ -50,53 +50,17 @@
 </head>
 <body class="bg-white">
 
-    <!-- Header -->
-    <header class="bg-white mb-40">
-        <nav class="container mx-auto px-8 py-4 flex sm:space-x-6 items-center justify-between">
-          <h1 class="font-bold text-xl text-dark-green md:text-2xl">Lamuni</h1>
-         
-          <ul class="nav-menu first-letter flex flex-col absolute top-16 -left-full bg-white w-full
-          text-center shadow-md sm:shadow-none border-2 border-light-orange sm:border-0 
-          transition-all duration-300 mx-auto sm:w-auto sm:flex-row sm:static sm:space-x-6 items-center justify-between" >
-              <li class="sm:mx-4 my-2"> <a class="font-bold text-sm hover:text-dark-green" href="/education">Community</a></li>
-              <li class="sm:mx-4 my-2"> <a class="font-bold text-sm hover:text-dark-green">Pricing</a> </li>
-              <li class="sm:mx-4 my-2"> <a class="font-bold text-sm hover:text-dark-green">Features</a> </li>
-              <li class="sm:mx-4 my-2"> <a class="font-bold text-sm hover:text-dark-green">About Us</a> </li>
-          </ul>
-  
-        <!-- {#        <div class="absolute sm:flex sm:space-x-6">#}
-        {#          <a href="#" class="font-light text-sm">Community</a>#}
-        {#          <a href="#" class="font-light text-sm">Pricing</a>#}
-        {#          <a href="#" class="font-light text-sm">Features</a>#}
-        {#        </div>#} -->
-        
-          <div class="hidden sm:flex space-x-6">
-            <button class="px-4 py-2 rounded-md hover:text-dark-green">
-              <a href="#" class="font-bold text-sm lg:text-base">Sign In</a>
-            </button>
-            <button class="text-white bg-dark-green px-4 hover:bg-light-green py-2 rounded-md">
-              <a href="signup.html" class="font-bold text-sm lg:text-base">Sign Up</a>
-            </button>
-          </div>
-           <div class="block hamburger cursor-pointer sm:hidden ">
-             <span class="bar block h-1 w-6 bg-dark-black mx-auto my-1 transition-all duration-300 ease-in-out"></span>
-             <span class="bar block h-1 w-6 bg-dark-black mx-auto my-1 transition-all duration-300 ease-in-out"></span>
-             <span class="bar block h-1 w-6 bg-dark-black mx-auto my-1 transition-all duration-300 ease-in-out"></span>
-             
-           </div>
-        </nav>
-    </header>
-
 
     <div class="container main-content mx-auto px-8 mt-20">
         
-                
+        {% for lesson in lessons %} 
+       <a href="/lesson/detail/{{ lesson.id }}">
         <div class="flex justify-evenly transition ease-in-out delay-150 duration-300 cursor-pointer hover:bg-dark-gray topic-1 card mx-auto overflow-hidden rounded-lg">
             
             <div class="px-4 py-2 -mx-3">
                 <div class="mx-3">
-                     <span class="font-semibold text-emerald-500 dark:text-emerald-400">Success</span>
-                    <p class="text-sm text-gray-600 font-bold dark:text-gray-200">BUSSINESS MANAGEMENT</p>
+                     <span class="font-semibold text-emerald-500 dark:text-emerald-400">{{ lesson.title }}</span>
+                    <p class="text-sm text-gray-600 font-bold dark:text-gray-200">{{ lesson.desc }}</p>
                 </div>
             </div>
 
@@ -107,40 +71,10 @@
             </div>
         </div>
         
-        <div class="flex justify-evenly transition ease-in-out delay-150 duration-300 cursor-pointer hover:bg-dark-gray topic-2 card mx-auto overflow-hidden rounded-lg">
-            
-            <div class="px-4 py-2 -mx-3">
-                <div class="mx-3">
-                    <span class="font-semibold text-emerald-500 dark:text-emerald-400">In progress</span>
-                    <p class="text-sm text-gray-600 font-bold dark:text-gray-200">ANOTHER TOPIC</p>
-                </div>
-            </div>
+       </a>
 
-            <div class="flex items-center justify-center text-dark-orange w-12 bg-emerald-500">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z" />
-                    <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z" />
-                </svg>
-            </div>
-        </div>
-        
-        <div class="flex justify-evenly transition ease-in-out delay-150 duration-300 cursor-pointer hover:bg-dark-gray topic-3 card mx-auto overflow-hidden rounded-lg">
-            
-            <div class="px-4 py-2 -mx-3">
-                <div class="mx-3">
-                    <span class="font-semibold text-emerald-500 dark:text-emerald-400">Not yet</span>
-                    <p class="text-sm text-gray-600 font-bold dark:text-gray-200">ANOTHER TOPIC</p>
-                </div>
-            </div>
-
-            <div class="flex items-center justify-center not topic w-12 bg-emerald-500">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-                  </svg>
-            </div>
-        </div>
-        
-        
+        {% empty %}
+        <p class="text-center">No Lesson Yet</p>
+        {% endfor %}
     </div>
-</body>
-</html>
+    {% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'education_base.html' %}
+{% block title %}{% endblock %}
+
+{% block content  %}
+
+    <section class="container mx-auto max-w-[950px] my-10 px-8 text-dark-black">
+        <div class="flex flex-col items-center justify-between space-y-12 border-2 border-emerald-500 p-10 bg-light-green shadow-sm shadow-dark-gray rounded-md">
+            <div class="">
+                <p class="text-lg sm:text-3xl text-dark-gray">Score: {{percent}}</p>
+            </div>
+            <div>
+                <p class="text-base sm:text-2xl text-dark-green">Correct Answers: {{correct.count}}</p>
+            </div>
+            <div>
+                <p class="text-base sm:text-2xl text-dark-red" >Incorrect Answers:  {{wrong.count}}</p>
+            </div>
+            <div>
+                <p class="text-base sm:text-2xl text-dark-orange">Total Questions: {{total}}</p>
+            </div>
+
+                 <div>
+                <p class="text-base sm:text-2xl text-dark-black">Comment: Very good</p>
+            </div>
+
+        </div>
+<!-- suggestions -->
+        <div class="lex flex-col items-center justify-between space-y-12 border-2 border-emerald-500 p-10 bg-light-green shadow-sm shadow-dark-gray my-5">
+              {% for wrong in wrong_qs %}
+            <div>
+                <p>{{wrong.suggestion|safe}}</p>
+            </div>
+                {% endfor %}
+        </div>
+
+        <div class="my-20 flex items-center justify-between">
+            <a href="#"><button class="sm:px-6 py-2 px-4 sm:py-4 border-2 border-dark-green text-dark-green bg-light-green hover:bg-dark-green focus:bg-dark-green hover:text-white focus:text-white font-bold rounded-md">Repeat Quiz</button></a>
+            <a href=""><button class="sm:px-6 py-2 px-4 sm:py-4 border-2 border-dark-green text-dark-green bg-light-green hover:bg-dark-green focus:bg-dark-green hover:text-white focus:text-white font-bold rounded-md">Next Lesson</button></a>
+        </div>
+    </section>
+{% endblock %}
