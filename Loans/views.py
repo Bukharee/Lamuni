@@ -64,7 +64,7 @@ def add_record(request):
             category = add_record_form.cleaned_data['category']
             record = Record.objects.create(amount=amount, category=category)
             f_record.record.add(record)
-            return HttpResponseRedirect('/accounts/profile/')
+            return HttpResponseRedirect('/accounts/user_profile/')
 
     else:
         add_record_form = AddRecordForm()
