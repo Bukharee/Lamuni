@@ -109,10 +109,12 @@ class FinancialRecord(models.Model):
     def get_total_expenses(self):
 
         total_expenses = 0
+        start_date = datetime.today()
+        end_date = start_date - timedelta(days=30)
 
         all_records = self.records.all()
 
-        for record in all_records:
+        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date):
 
             if record.category == "Expenses":
                 total_expenses += record.amount
@@ -125,8 +127,10 @@ class FinancialRecord(models.Model):
         total_incomes = 0
 
         all_records = self.records.all()
+        start_date = datetime.today()
+        end_date = start_date - timedelta(days=30)
 
-        for record in all_records:
+        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date):
 
             if record.category == "Income":
                 total_incomes += record.amount
@@ -140,7 +144,10 @@ class FinancialRecord(models.Model):
 
         all_records = self.records.all()
 
-        for record in all_records:
+        start_date = datetime.today()
+        end_date = start_date - timedelta(days=30)
+
+        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date):
 
             if record.category == "Purchase":
                 total_purchase += record.amount
@@ -154,7 +161,10 @@ class FinancialRecord(models.Model):
 
         all_records = self.records.all()
 
-        for record in all_records:
+        start_date = datetime.today()
+        end_date = start_date - timedelta(days=30)
+
+        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date):
 
             if record.category == "Tax":
                 total_tax += record.amount
@@ -167,7 +177,10 @@ class FinancialRecord(models.Model):
 
         all_records = self.sales_records.all()
 
-        for record in all_records:
+        start_date = datetime.today()
+        end_date = start_date - timedelta(days=30)
+
+        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date):
             total += record.get_total_cost
 
         return total
@@ -178,7 +191,10 @@ class FinancialRecord(models.Model):
 
         all_records = self.sales_records.all()
 
-        for record in all_records:
+        start_date = datetime.today()
+        end_date = start_date - timedelta(days=30)
+
+        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date):
             total += record.get_total_sales
 
         return total
