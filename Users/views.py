@@ -130,7 +130,14 @@ def reset_password(request, username, code):
 def user_profile(request):
     user = request.user
 
-    wallet = get_object_or_404(Wallet, owner=user)
+    try:
+        wallet = Wallet.objects.get(owner=user)
+
+    except Exception:
+
+        wallet = Wallet.objects.create(
+            owner=user,
+            owner_type="User", )
 
     transactions1 = Transaction.objects.filter(receiver=user)
     transactions2 = Transaction.objects.filter(sender=user)
