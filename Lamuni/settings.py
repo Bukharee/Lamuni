@@ -43,9 +43,14 @@ INSTALLED_APPS = [
     # apps
     "Users",
     'Lessons',
+    'Loans',
+    'Wallet',
+
+    # 3rd party
     'parler',
     'ckeditor',  # HTML Editor
     'ckeditor_uploader',
+    'taggit',
 ]
 
 MIDDLEWARE = [

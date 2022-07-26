@@ -1,20 +1,8 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
-    <title>Lamuni:Lesson Done</title>
-</head>
-<body>
- <!-- heeder -->
-    {% include 'components/header.html' %}
-    <!-- header -->
+{% extends 'education_base.html' %}
 
-
-    <section class="container mx-auto max-w-[950px] my-10 px-8 text-dark-black">
+{% block title %}Lamuni:Lesson Done{% endblock %}
+{% block content %}
+       <section class="container mx-auto max-w-[950px] my-10 px-8 text-dark-black">
         <div class="flex flex-col items-center justify-between space-y-12 border-2 border-emerald-500 p-10 bg-light-green shadow-sm shadow-dark-gray my-5">
             <div class="">
                 <p class="text-lg sm:text-3xl text-dark-green">Lesson 5 Completed</p>
@@ -22,23 +10,14 @@
             <div>
                 <p class="text-base sm:text-2xl text-dark-black">Comment: Nice Keep It Up</p>
             </div>
-            <a class="block" href="{% url 'users:quiz' %}"><button class="sm:px-6 py-2 px-4 sm:py-4 border-2 border-dark-green text-dark-green bg-light-green hover:bg-dark-green focus:bg-dark-green hover:text-white focus:text-white font-bold rounded-md">Take Quiz</button></a>
+            <a class="block" href="{{ lesson.get_quiz_url }}"><button class="sm:px-6 py-2 px-4 sm:py-4 border-2 border-dark-green text-dark-green bg-light-green hover:bg-dark-green focus:bg-dark-green hover:text-white focus:text-white font-bold rounded-md">Take Quiz</button></a>
 
         </div>
 
         <div class="my-20 flex items-center justify-between">
             <a href="#"><button class="sm:px-6 py-2 px-4 sm:py-4 border-2 border-dark-green text-dark-green bg-light-green hover:bg-dark-green focus:bg-dark-green hover:text-white focus:text-white font-bold rounded-md">Read Again</button></a>
-            <a href="{% url 'users:lesson-detail' %}"><button class="sm:px-6 py-2 px-4 sm:py-4 border-2 border-dark-green text-dark-green bg-light-green hover:bg-dark-green focus:bg-dark-green hover:text-white focus:text-white font-bold rounded-md">Next Lesson</button></a>
+            <a href=""><button class="sm:px-6 py-2 px-4 sm:py-4 border-2 border-dark-green text-dark-green bg-light-green hover:bg-dark-green focus:bg-dark-green hover:text-white focus:text-white font-bold rounded-md">Next Lesson</button></a>
         </div>
     </section>
 
-
-
-<!-- footer -->
-
-    {% include 'components/footer.html' %}
-
-<!-- footer -->
-    <script src="{% static 'js/index.js' %}" type="text/javascript"></script>
-</body>
-</html>
+{% endblock %}
