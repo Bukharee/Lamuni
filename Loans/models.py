@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from multiselectfield import MultiSelectField
-from decimal import Decimal
+from datetime import datetime, timedelta
 
 # Create your models here.
 BUSINESS_SIZE = (('MICRO', 'MICRO'), ('SMALL', 'SMALL'), ('MEDIUM', 'MEDIUM'),)
@@ -55,11 +55,15 @@ class SalesRecord(models.Model):
     quantity = models.PositiveIntegerField(default=1)
     cost_price_per_item = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     selling_price_per_item = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    date = models.DateTimeField(auto_now=True)
 
     @property
     def get_profit(self):
         total_costs = self.quantity * self.cost_price_per_item
         total_sales = self.quantity * self.selling_price_per_item
+
+        # print(total_sales)
+        # print(total_costs)
 
         return total_sales - total_costs
 
@@ -88,9 +92,15 @@ class FinancialRecord(models.Model):
     def get_ideal_profit(self):
         profit = 0
 
+        start_date = datetime.today()
+        end_date = start_date - timedelta(days=30)
+
         all_sales_records = self.sales_records.all()
 
-        for sales_record in all_sales_records:
+        # print(all_sales_records)
+        all_sales_records.filter(date__gte=end_date).filter(date__lte=start_date)
+
+        for sales_record in all_sales_records.filter(date__gte=end_date).filter(date__lte=start_date):
             profit += sales_record.get_profit
 
         return profit
@@ -200,4 +210,4 @@ class FinancialRecord(models.Model):
                                               + self.get_total_tax
                                               + self.get_total_purchase)
 
-        return  total
+        return total

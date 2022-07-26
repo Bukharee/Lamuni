@@ -108,3 +108,14 @@ def add_sales_record(request):
         'add_sales_form': add_sales_form
     }
     return render(request, 'add_sales_record.html', context)
+
+
+def fs(request):
+    user = request.user
+    f_record = get_object_or_404(FinancialRecord, user=user)
+    print(f_record.get_ideal_profit)
+
+
+def fr(request, pk):
+    record = get_object_or_404(SalesRecord, pk=pk)
+    print(record.get_profit)
