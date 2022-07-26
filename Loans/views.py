@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.views.generic import View
 from .process import html_to_pdf
+from django.template.loader import render_to_string
 
 
 # Create your views here.
@@ -126,8 +127,15 @@ def fr(request, pk):
 
 class GeneratePdf(View):
     def get(self, request, *args, **kwargs):
+
+        user = request.user
+
+        f_record = get_object_or_404(FinancialRecord, user=user)
+
+        open('templates/temp.html', "w").write(render_to_string('result.html', {'f_record': f_record}))
+
         # getting the template
-        pdf = html_to_pdf('result.html')
+        pdf = html_to_pdf('temp.html')
 
         # rendering the template
         return HttpResponse(pdf, content_type='application/pdf')
