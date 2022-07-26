@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate
+from Wallet.models import Wallet
 
 from Users.models import User
 from .forms import CustomUserCreationForm, VerifyForm, SendResetCodeForm, ResetPawsswordForm
@@ -59,6 +60,13 @@ def lesson_done(request):
 
 
 def education(request):
+    return render(request, "education.html")
+
+def chating(request):
+    return render(request, "chat.html")
+
+def conversation(request):
+    return render(request, "conversations.html")
     return render(request, "education_base.html")
 
 
