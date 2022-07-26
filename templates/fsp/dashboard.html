@@ -1,0 +1,5 @@
+{% for loan in loans %}
+<p>
+    <a href="/fsp/loan-details/{{ loan.id }}">{{ loan.program_title }}</a>
+</p>
+{% endfor %}
