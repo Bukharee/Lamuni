@@ -3,6 +3,7 @@ from django.shortcuts import render
 from .forms import CreateLoanForm, AddRecordForm, AddSalesRecordForm
 from .models import Beneficiaries, FinancialRecord, Record, SalesRecord
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
 
 
 # Create your views here.
