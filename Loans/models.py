@@ -52,7 +52,7 @@ class Record(models.Model):
 
 
 class SalesRecord(models.Model):
-    item_name = models.TextField(max_length=200, blank=False, null=True)
+    item_name = models.CharField(max_length=200, blank=False, null=True)
     quantity = models.PositiveIntegerField(default=1)
     cost_price_per_item = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     selling_price_per_item = models.DecimalField(max_digits=12, decimal_places=2, default=0)

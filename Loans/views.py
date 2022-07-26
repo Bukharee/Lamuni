@@ -1,9 +1,8 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from .forms import CreateLoanForm
-from .models import Beneficiaries, FinancialRecord, Record
+from .forms import CreateLoanForm, AddRecordForm, AddSalesRecordForm
+from .models import Beneficiaries, FinancialRecord, Record, SalesRecord
 from django.contrib.auth.decorators import login_required
-from .forms import AddRecordForm
 
 
 # Create your views here.
@@ -73,3 +72,38 @@ def add_record(request):
         'add_record_form': add_record_form
     }
     return render(request, 'add_record.html', context)
+
+
+@login_required()
+def add_sales_record(request):
+    user = request.user
+
+    try:
+
+        f_record = FinancialRecord.objects.get(user=user)
+
+    except Exception:
+
+        f_record = FinancialRecord.objects.create(user=user)
+
+    if request.method == "POST":
+        add_sales_form = AddSalesRecordForm(request.POST)
+        if add_sales_form.is_valid():
+            name = add_sales_form.cleaned_data['item_name']
+            quantity = add_sales_form.cleaned_data['quantity']
+            cost_price = add_sales_form.cleaned_data['cost_price_per_item']
+            sales_price = add_sales_form.cleaned_data['selling_price_per_item']
+            record = SalesRecord.objects.create(item_name=name,
+                                                quantity=quantity,
+                                                cost_price_per_item=cost_price,
+                                                selling_price_per_item=sales_price)
+            f_record.sales_records.add(record)
+            return HttpResponseRedirect('/accounts/user_profile/')
+
+    else:
+        add_sales_form = AddSalesRecordForm()
+
+    context = {
+        'add_sales_form': add_sales_form
+    }
+    return render(request, 'add_sales_record.html', context)
