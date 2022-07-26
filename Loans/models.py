@@ -31,7 +31,6 @@ class Loan(models.Model):
     amount = models.PositiveIntegerField()
     beneficiaries = models.ManyToManyField(get_user_model())
     is_active = models.BooleanField(default=True)
-    amount = models.PositiveBigIntegerField()
     paying_days = models.PositiveIntegerField()
     grace_period = models.PositiveIntegerField()
     collateral = models.CharField(max_length=200, blank=True, null=True)
