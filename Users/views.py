@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate
+from Wallet.models import Wallet
 
 from Users.models import User
 from .forms import CustomUserCreationForm, VerifyForm, SendResetCodeForm, ResetPawsswordForm
@@ -51,7 +52,8 @@ def verify_code(request, username):
 
 
 def lesson_detail(request):
-    return render(request, "blog-detail.html")
+    return render(request, "lesson-detail.html")
+
 
 
 def lesson_done(request):
@@ -60,6 +62,14 @@ def lesson_done(request):
 
 def education(request):
     return render(request, "education.html")
+
+def chating(request):
+    return render(request, "chat.html")
+
+def conversation(request):
+    return render(request, "conversations.html")
+    return render(request, "education_base.html")
+
 
 
 def send_reset_code(request):
@@ -125,8 +135,9 @@ def reset_password(request, username, code):
         form = ResetPawsswordForm()
         return render(request, 'registration/password_reset_temp.html', {"form": form})
     return render(request, 'registration/resend_code_error.html', {"error": "oops!, go get a reset code first!"})
+        
 
-
+@login_required
 def user_profile(request):
     user = request.user
 

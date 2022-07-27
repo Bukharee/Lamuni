@@ -23,6 +23,7 @@ urlpatterns = i18n_patterns(
     path("", include("Users.urls")),
     path("", include("Wallet.urls")),
     path("accounts/", include("Users.urls")),
+    path("fsp/", include("Loans.urls")),
     path('', include("Lessons.urls")),
     path('accounts/', include('django.contrib.auth.urls')),
     path('i18n/', include('django.conf.urls.i18n')),
