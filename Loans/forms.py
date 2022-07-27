@@ -1,7 +1,7 @@
 from ast import Mod
 from dataclasses import field
 from django import forms
-from django.forms import forms, ModelForm
+from django.forms import  ModelForm
 
 from Loans.models import Loan, Sector, Record, SalesRecord
 
