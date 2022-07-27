@@ -1,9 +1,12 @@
+from ast import Mod
 from dataclasses import field
+from django import forms
 from django.forms import forms, ModelForm
-from .models import Record, SalesRecord
+
+from Loans.models import Loan, Sector, Record, SalesRecord
 
 
-class CreateLoanForm(forms.Form):
+class CreateLoanForm(ModelForm):
     class Meta:
         fields = ["program_title", "size", "sectors", "amount", "amount",
                   "paying_days", "grace_period",
@@ -37,3 +40,13 @@ class AddSalesRecordForm(ModelForm):
             self.add_error('selling_price_per_item', 'The field "Selling Price" should be greater than 0.')
         else:
             return self.cleaned_data['selling_price_per_item']
+        model = Loan
+        fields = ["program_title", "size", "sectors", "amount", "amount", 
+        "paying_days", "grace_period",
+        "collateral"]
+
+    sectors = forms.ModelMultipleChoiceField(
+            queryset=Sector.objects.all(),
+            widget=forms.CheckboxSelectMultiple
+
+        )
