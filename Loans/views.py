@@ -1,3 +1,4 @@
+from PyPDF3.pdf import BytesIO
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from .forms import CreateLoanForm, AddRecordForm, AddSalesRecordForm
@@ -8,6 +9,8 @@ from django.http import HttpResponse
 from django.views.generic import View
 from .process import html_to_pdf
 from django.template.loader import render_to_string
+from django.core.files import File
+from django.core.files.base import ContentFile
 
 
 # Create your views here.
@@ -137,5 +140,9 @@ class GeneratePdf(View):
         # getting the template
         pdf = html_to_pdf('temp.html')
 
+        receipt_file = BytesIO(pdf.content)
+
+        user.financial_record = File(receipt_file, "filename2.pdf")
+        user.save()
         # rendering the template
         return HttpResponse(pdf, content_type='application/pdf')
