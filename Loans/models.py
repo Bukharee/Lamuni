@@ -234,8 +234,8 @@ class FinancialRecord(models.Model):
 
         return total
 
-    def __str__(self) -> str:
-        return str(self.program_title)
+    # def __str__(self) -> str:
+    #     return str(self.program_title)
 
     def get_sector_data(self):
         beneficiaries = self.beneficiaries.all()
