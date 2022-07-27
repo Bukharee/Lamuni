@@ -1,4 +1,3 @@
-
 from .views import chating, index, register,verify_code, send_reset_code, reset_verify,\
  reset_password, education,lesson_detail, lesson_done,  user_profile, chating, conversation
 from django.contrib.auth import views as auth_views
