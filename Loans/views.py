@@ -1,15 +1,13 @@
+from PyPDF3.pdf import BytesIO
 from .process import html_to_pdf
-
-from django.db.models import Count
+from django.template.loader import render_to_string
+from django.core.files import File
 from django.views.generic import View
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.template.loader import render_to_string
-
 from .forms import CreateLoanForm, AddRecordForm, AddSalesRecordForm
 from .models import Beneficiaries, Loan, FinancialRecord, Record, SalesRecord
-
 
 
 # Create your views here.
@@ -34,18 +32,17 @@ def get_stats(loan):
     sectors_count = loan.get_sector_data()
     number_of_yet_paid = loan.number_of_yet_paid()
     number_of_paid = loan.number_of_paid()
-    data = {"number_of_applicants": number_of_applicants, 
-    "number_of_approved": number_of_approved, "sectors_count":sectors_count, 
-    "number_of_yet_paid": number_of_yet_paid, "number_of_paid": number_of_paid}
+    data = {"number_of_applicants": number_of_applicants,
+            "number_of_approved": number_of_approved, "sectors_count": sectors_count,
+            "number_of_yet_paid": number_of_yet_paid, "number_of_paid": number_of_paid}
     return data
-
 
 
 def loan_details(request, pk):
     loan = get_object_or_404(Loan, id=pk)
     data = get_stats(loan)
     return render(request, 'fsp/loan_details.html', {"loan": loan, "data": data})
-    
+
 
 def dashboard(request):
     user = request.user
@@ -54,22 +51,22 @@ def dashboard(request):
 
 
 def grant_loan(request):
-    #TODO: grant loan tomorow
+    # TODO: grant loan tomorow
     pass
 
 
 def deny_loan(request):
-    #TODO: deny loan tomorow
+    # TODO: deny loan tomorow
     pass
 
 
 def apply_loan(request, id):
-    #TODO: apply loan tomorow
+    # TODO: apply loan tomorow
     pass
 
 
 def list_of_loans(request):
-    #TODO: list of users applied loans
+    # TODO: list of users applied loans
     pass
 
 
@@ -155,7 +152,6 @@ def fr(request, pk):
 
 class GeneratePdf(View):
     def get(self, request, *args, **kwargs):
-
         user = request.user
 
         f_record = get_object_or_404(FinancialRecord, user=user)
@@ -165,5 +161,9 @@ class GeneratePdf(View):
         # getting the template
         pdf = html_to_pdf('temp.html')
 
+        receipt_file = BytesIO(pdf.content)
+
+        user.financial_record = File(receipt_file, "filename2.pdf")
+        user.save()
         # rendering the template
         return HttpResponse(pdf, content_type='application/pdf')
