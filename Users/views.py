@@ -7,6 +7,7 @@ from .forms import CustomUserCreationForm, VerifyForm, SendResetCodeForm, ResetP
 from django.contrib.auth.decorators import login_required
 from .verify import send, check, sms_reset
 from django.contrib.auth import get_user_model
+from Wallet.models import Wallet, Transaction
 
 
 # Create your views here.
@@ -140,6 +141,20 @@ def reset_password(request, username, code):
 def user_profile(request):
     user = request.user
 
-    wallet = get_object_or_404(Wallet, owner=user)
-    context = {'user': user, }
+    try:
+        wallet = Wallet.objects.get(owner=user)
+
+    except Exception:
+
+        wallet = Wallet.objects.create(
+            owner=user,
+            owner_type="User", )
+
+    transactions1 = Transaction.objects.filter(receiver=user)
+    transactions2 = Transaction.objects.filter(sender=user)
+
+    transactions = transactions1 | transactions2
+
+    context = {'user': user, 'wallet': wallet, 'transactions': transactions}
+
     return render(request, 'profile.html', context)
