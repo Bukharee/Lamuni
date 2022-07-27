@@ -143,3 +143,8 @@ def user_profile(request):
     wallet = get_object_or_404(Wallet, owner=user)
     context = {'user': user, }
     return render(request, 'profile.html', context)
+
+
+def financialStatement(request):
+    return render(request, "financialStatement.html")
+
