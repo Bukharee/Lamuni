@@ -1,17 +1,7 @@
 from PyPDF3.pdf import BytesIO
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
-from .forms import CreateLoanForm, AddRecordForm, AddSalesRecordForm
-from .models import Beneficiaries, FinancialRecord, Record, SalesRecord
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
-from django.views.generic import View
 from .process import html_to_pdf
 from django.template.loader import render_to_string
 from django.core.files import File
-from django.core.files.base import ContentFile
-from django.db.models import Count
 from django.views.generic import View
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
@@ -35,6 +25,7 @@ def create_loan(request):
     print(form, "form")
     return render(request, "fsp/create_loan.html", {"form": form})
 
+
 def get_stats(loan):
     number_of_applicants = loan.beneficiaries.count()
     number_of_approved = loan.number_of_approved()
@@ -42,8 +33,8 @@ def get_stats(loan):
     number_of_yet_paid = loan.number_of_yet_paid()
     number_of_paid = loan.number_of_paid()
     data = {"number_of_applicants": number_of_applicants,
-    "number_of_approved": number_of_approved, "sectors_count":sectors_count,
-    "number_of_yet_paid": number_of_yet_paid, "number_of_paid": number_of_paid}
+            "number_of_approved": number_of_approved, "sectors_count": sectors_count,
+            "number_of_yet_paid": number_of_yet_paid, "number_of_paid": number_of_paid}
     return data
 
 
@@ -60,22 +51,22 @@ def dashboard(request):
 
 
 def grant_loan(request):
-    #TODO: grant loan tomorow
+    # TODO: grant loan tomorow
     pass
 
 
 def deny_loan(request):
-    #TODO: deny loan tomorow
+    # TODO: deny loan tomorow
     pass
 
 
 def apply_loan(request, id):
-    #TODO: apply loan tomorow
+    # TODO: apply loan tomorow
     pass
 
 
 def list_of_loans(request):
-    #TODO: list of users applied loans
+    # TODO: list of users applied loans
     pass
 
 
@@ -161,7 +152,6 @@ def fr(request, pk):
 
 class GeneratePdf(View):
     def get(self, request, *args, **kwargs):
-
         user = request.user
 
         f_record = get_object_or_404(FinancialRecord, user=user)
