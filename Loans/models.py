@@ -9,11 +9,10 @@ from Users.models import Sector
 BUSINESS_SIZE = (('MICRO', 'MICRO'), ('SMALL', 'SMALL'), ('MEDIUM', 'MEDIUM'),)
 
 
-  
-
-
 class FSP(models.Model):
-    user = models.ForeignKey(get_user_model(), on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(get_user_model(), on_delete=models.DO_NOTHING, related_name='fsp_user')
+
+
 # class FSP(models.Model):
 #     user = models.ForeignKey(get_user_model(), on_delete=models.DO_NOTHING)
 
@@ -29,7 +28,7 @@ class Beneficiaries(models.Model):
 
     def __str__(self) -> str:
         return str(self.user.username)
-    
+
 
 class Loan(models.Model):
     fsp = models.ForeignKey(get_user_model(), on_delete=models.DO_NOTHING, related_name="fsp")
@@ -234,6 +233,7 @@ class FinancialRecord(models.Model):
                                               + self.get_total_purchase)
 
         return total
+
     def __str__(self) -> str:
         return str(self.program_title)
 
@@ -248,7 +248,7 @@ class FinancialRecord(models.Model):
             else:
                 data[sector] += 1
         return data
-    
+
     # number_of_approved = loan.beneficiaries.filter(is_given=True).count()
 
     def number_of_approved(self):
@@ -266,7 +266,7 @@ class FinancialRecord(models.Model):
             if not beneficiary.is_payed:
                 count += 1
         return count
-    
+
     def number_of_paid(self):
         beneficiaries = self.beneficiaries.all()
         count = 0

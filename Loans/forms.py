@@ -1,7 +1,7 @@
 from ast import Mod
 from dataclasses import field
 from django import forms
-from django.forms import forms, ModelForm
+from django.forms import ModelForm
 
 from Loans.models import Loan, Sector, Record, SalesRecord
 
@@ -41,12 +41,12 @@ class AddSalesRecordForm(ModelForm):
         else:
             return self.cleaned_data['selling_price_per_item']
         model = Loan
-        fields = ["program_title", "size", "sectors", "amount", "amount", 
-        "paying_days", "grace_period",
-        "collateral"]
+        fields = ["program_title", "size", "sectors", "amount", "amount",
+                  "paying_days", "grace_period",
+                  "collateral"]
 
     sectors = forms.ModelMultipleChoiceField(
-            queryset=Sector.objects.all(),
-            widget=forms.CheckboxSelectMultiple
+        queryset=Sector.objects.all(),
+        widget=forms.CheckboxSelectMultiple
 
-        )
+    )
