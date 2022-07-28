@@ -1,6 +1,4 @@
 {% extends 'fsp/fsp-base.html' %}
-
-
 {% block content %}
 <div class="flex flex-col-reverse md:flex-row">
                     <!-- Line Chart -->
@@ -44,5 +42,34 @@
 
 
                 </div>
+
+
+
+<!-- Chart line -->
+<script>
+  const labels = ["January", "February", "March", "April", "May", "June"];
+  const data = {
+    labels: labels,
+    datasets: [
+      {
+        label: "My First dataset",
+        backgroundColor: "#1634a",
+        borderColor: "#16a34a",
+        data: [0, 10, 5, 2, 20, 30, 45],
+      },
+    ],
+  };
+
+  const configLineChart = {
+    type: "line",
+    data,
+    options: {},
+  };
+
+  var chartLine = new Chart(
+    document.getElementById("chartLine"),
+    configLineChart
+  );
+</script>
 
 {% endblock %}

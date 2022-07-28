@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <!-- Required chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
      <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
    <title>{% block title %}Lamuni:Dashbord{% endblock  %}</title>
     <style>
@@ -27,7 +29,7 @@
     </style>
 </head>
 <body>
-<section class="h-screen">
+<section class="h-screen relative">
         <!-- heading -->
         <div class=" bg-white shadow py-2 relative" >
             <div x-data="{open: false}" class="mx-6 flex flex-row items-center justify-between">
@@ -141,8 +143,8 @@
              <!--end of navigation -->
 
              <!-- main section -->
-            <div class="md:basis-4/5 flex flex-col bg-slate-100 px-4 sm:px-10 overflow-hidden">
-                {# constent block #}
+            <div class=" md:basis-4/5 w-full flex flex-col bg-slate-100 px-4 sm:px-10 h-screen overflow-y-auto overflow-x-hidden">
+                    {# constent block #}
                 {% block content %}
 
                 {% endblock %}
@@ -166,35 +168,6 @@
 
 
 
-<!-- Required chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<!-- Chart line -->
-<script>
-  const labels = ["January", "February", "March", "April", "May", "June"];
-  const data = {
-    labels: labels,
-    datasets: [
-      {
-        label: "My First dataset",
-        backgroundColor: "#1634a",
-        borderColor: "#16a34a",
-        data: [0, 10, 5, 2, 20, 30, 45],
-      },
-    ],
-  };
-
-  const configLineChart = {
-    type: "line",
-    data,
-    options: {},
-  };
-
-  var chartLine = new Chart(
-    document.getElementById("chartLine"),
-    configLineChart
-  );
-</script>
 
 
 

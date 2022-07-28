@@ -16,6 +16,7 @@ def create_loan(request):
             form.save()
             return redirect('loan_details', pk=form.id)
     form = CreateLoanForm()
+    print(form.as_p())
     print(form, "form")
     return render(request, "fsp/create_loan.html", {"form": form})
 

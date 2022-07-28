@@ -1,9 +1,100 @@
-<p>Program:{{ loan.program_title }} Amount: {{ loan.amount }}</p>
-<p>{{ loan.sectors }}</p>
-<p>number_of_applicants: {{ data.number_of_applicants }}</p>
-<p>number_of_approved: {{ data.number_of_approved }}</p>
-<p>number_of_yet_paid: {{ data.number_of_yet_paid }}</p>
-<p>number_of_paid: {{ data.number_of_paid }}</p>
-Sector Counts
- {{data.sectors_count}}
- <p>List Of Applicants</p>
+{% extends 'fsp/fsp-base.html' %}
+{% block title %}Lamuni:Loans{% endblock %}
+
+{% block content %}
+<div class="bg-white my-4 p-4 rounded-lg shadow text-dark-gray">
+<div class="flex flex-col space-y-2 sm:flex-row sm:items-center sm:justify-around">
+    <p>Program Name: <span>{{ loan.program_title }}</span></p>
+    <p>Loan Amount: <span>{{ loan.amount }}</span></p>
+    <p>Loan Sector: <span>{{ loan.sectors }}</span></p>
+</div>
+
+</div>
+                <!-- loans stats -->
+                <div class="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 justify-around mt-10">
+                    <!-- children -->
+                <div class="flex flex-col w-full sm:w-1/4 space-y-4 py-5 px-6 sm:py-10 sm:px-8 bg-white rounded-lg">
+                        <h3 class="text-base md:text-2xl text-dark-gray">Loan Applicants</h3>
+                        <div class="flex items-center justify-between">
+                            <p class="text-sm sm:text-base text-dark-green">{{ data.number_of_applicants }}</p>
+                            <p class="text-sm">+25%</p>
+                        </div>
+
+                    </div>
+
+                   <div class="flex flex-col w-full sm:w-1/4 space-y-4 py-5 px-6 sm:py-10 sm:px-8 bg-white rounded-lg">
+                        <h3 class="text-base md:text-2xl text-dark-gray">Loans Approved </h3>
+                        <div class="flex items-center justify-between">
+                            <p class="text-sm sm:text-base text-dark-green">{{ data.number_of_approved }}</p>
+                            <p class="text-sm">+25%</p>
+
+                        </div>
+
+                    </div>
+                    <div class="flex flex-col w-full sm:w-1/4  space-y-4 py-5 px-6 sm:py-10 sm:px-8 bg-white rounded-lg">
+                        <h3 class="text-base md:text-2xl text-dark-gray">Loans Paid</h3>
+                        <div class="flex items-center justify-between">
+                            <p class="text-sm sm:text-base text-dark-green">{{ data.number_of_paid }}</p>
+                            <p class="text-sm">+25%</p>
+
+                        </div>
+
+                    </div>
+                 <div class="flex flex-col w-full sm:w-1/4  space-y-4 py-5 px-6 sm:py-10 sm:px-8 bg-white rounded-lg">
+                        <h3 class="text-base md:text-2xl text-dark-gray">Loans Yet-Payed</h3>
+                        <div class="flex items-center justify-between">
+                            <p class="text-sm sm:text-base text-dark-green">{{ data.number_of_yet_paid }}</p>
+                            <p class="text-sm">+25%</p>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+                  <!-- chart Section -->
+                <div class="w-full">
+                <div class="shadow-lg rounded-lg overflow-hidden my-10 bg-white">
+                    <div class="py-3 px-5 ">Sector chart: {{data.sectors_count}}</div>
+                    <canvas class="p-10" id="chartBar"></canvas>
+                  </div>
+                </div>
+
+
+
+
+    <!-- Chart bar -->
+ <script>
+    const labelsBarChart = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+    ];
+    const dataBarChart = {
+      labels: labelsBarChart,
+      datasets: [
+        {
+          label: "My First dataset",
+          backgroundColor: "#16a34a",
+          borderColor: "hsl(252, 82.9%, 67.8%)",
+          data: [0, 10, 5, 2, 20, 30, 45],
+        },
+      ],
+    };
+
+    const configBarChart = {
+      type: "bar",
+      data: dataBarChart,
+      options: {},
+    };
+
+    var chartBar = new Chart(
+      document.getElementById("chartBar"),
+      configBarChart
+    );
+  </script>
+{% endblock %}

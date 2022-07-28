@@ -2,7 +2,8 @@ module.exports = {
   content: ["./**/*.{html,js}",
     "./index.html"],
   theme: {
-    colors: {
+    extend: {
+       colors: {
       "light-orange": "#fbf8f3",
       white: "#ffffff",
       "dark-green": "#16a34a",
@@ -13,6 +14,7 @@ module.exports = {
       "light-green": "#60af7c",
       "dark-red": "#ef4444",
       "light-color": "bg-slate-100"
+    },
     },
     fontFamily: {
       Poppins: ["Poppins, sans-serif"]
