@@ -56,7 +56,6 @@ def lesson_detail(request):
     return render(request, "lesson-detail.html")
 
 
-
 def lesson_done(request):
     return render(request, "lesson-done.html")
 
@@ -64,13 +63,14 @@ def lesson_done(request):
 def education(request):
     return render(request, "education.html")
 
+
 def chating(request):
     return render(request, "chat.html")
+
 
 def conversation(request):
     return render(request, "conversations.html")
     return render(request, "education_base.html")
-
 
 
 def send_reset_code(request):
@@ -136,7 +136,7 @@ def reset_password(request, username, code):
         form = ResetPawsswordForm()
         return render(request, 'registration/password_reset_temp.html', {"form": form})
     return render(request, 'registration/resend_code_error.html', {"error": "oops!, go get a reset code first!"})
-        
+
 
 @login_required
 def user_profile(request):
@@ -160,12 +160,6 @@ def user_profile(request):
 
     return render(request, 'profile.html', context)
 
-<<<<<<< HEAD
+
 def financial_statement(request):
     return render(request, "financial-statement.html")
-=======
-
-def financialStatement(request):
-    return render(request, "financialStatement.html")
-
->>>>>>> main
