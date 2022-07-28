@@ -8,6 +8,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import CreateLoanForm, AddRecordForm, AddSalesRecordForm
 from .models import Beneficiaries, Loan, FinancialRecord, Record, SalesRecord
+from django.utils.decorators import method_decorator
 
 
 # Create your views here.
@@ -150,6 +151,7 @@ def fr(request, pk):
     print(record.get_profit)  #
 
 
+@method_decorator(login_required, name='dispatch')
 class GeneratePdf(View):
     def get(self, request, *args, **kwargs):
         user = request.user
