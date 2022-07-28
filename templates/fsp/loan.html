@@ -100,14 +100,15 @@
                                          </div>
                                         </a>
                                      </td>
-                                      {% if  loan.is_active %}
-                                    <td class="px-6 py-4 text-sm">
 
+                                    <td class="px-6 py-4 text-sm">
+                                           {% if  loan.is_active %}
                                         <span class="px-4 py-1 text-green-600 bg-green-200 rounded-full">Yes</span>
                                         {% else %}
                                         <span class="px-4 py-1 text-red-600 bg-red-200 rounded-full">No</span>
+                                            {% endif %}
                                     </td>
-                                    {% endif %}
+
                                     <td class="px-6 py-4 text-sm text-gray-500">
                                         {{ loan.paying_days }}
                                     </td>

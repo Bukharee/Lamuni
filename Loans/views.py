@@ -9,15 +9,15 @@ from django.db.models import Count
 def create_loan(request):
     if request.method == "POST":
         form = CreateLoanForm(data=request.POST)
+        print(form.errors)
         if form.is_valid():
+            print(form)
             form = form.save(commit=False)
             user = request.user
             form.fsp = user
             form.save()
             return redirect('loan_details', pk=form.id)
     form = CreateLoanForm()
-    print(form.as_p())
-    print(form, "form")
     return render(request, "fsp/create_loan.html", {"form": form})
 
 
@@ -49,6 +49,12 @@ def loans_list(request):
     user = request.user
     loans = Loan.objects.filter(fsp=user)
     return render(request, 'fsp/loan.html', {"loans": loans})
+
+
+def fsp_profile(request):
+    user = request.user
+    loans = Loan.objects.filter(fsp=user)
+    return render(request, 'fsp/fsp_profile.html', {"loans": loans, "user": user})
 
 
 def grant_loan(request):

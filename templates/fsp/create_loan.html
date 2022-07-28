@@ -7,7 +7,7 @@
 {% extends 'fsp/fsp-base.html' %}
 {% block title %}Lamuni:Create-Loan{% endblock %}
 {% block content %}
-    <div class="max-w-2xl bg-white  mt-5">
+    <div class="max-w-2xl bg-white mx-auto w-full mt-5">
         <div class="p-8 rounded border border-gray-200">
             <h1 class="font-medium text-3xl">Create Loan</h1>
             <p class="text-green-600 mt-6">Fill each field with the appropriate data</p>
@@ -15,12 +15,15 @@
             <form class="">
               <div class="mt-8 grid grid-cols-1 gap-4">
                 <div>
-                  <label for="name" class="text-sm text-gray-700 block mb-1 font-medium">Program Name</label>
-                  <input type="text" name="name" id="name" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full" placeholder="Enter your program name" />
+                  <label for="name" class="text-sm text-gray-700 block mb-1 font-medium">Program Name:</label>
+                  <input type="text" name="name" id="name" required class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full" placeholder="Enter your program name" />
+                    <p style="font-size: small; color: red">
+                {% if form.errors %} {{ form.errors.program_name | striptags }} {% endif %}
+              </p>
                 </div>
 
                 <div>
-                  <label for="size" class="text-sm text-gray-700 block mb-1 font-medium">Size</label>
+                  <label for="size" class="text-sm text-gray-700 block mb-1 font-medium">Size:</label>
                   <select name="size" id="size" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full">
                     <option value="small">Small</option>
                     <option value="medium">medium</option>
@@ -29,7 +32,7 @@
                 </div>
 
                 <div>
-                  <label for="sector" class="text-sm text-gray-700 block mb-1 font-medium">Loan Sector</label>
+                  <label for="sector" class="text-sm text-gray-700 block mb-1 font-medium">Loan Sector:</label>
                   <select name="sector" id="size" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full">
                     <option value="agric">Agric</option>
                     <option value="medicine">Medicine</option>
@@ -38,21 +41,21 @@
                 </div>
 
                 <div>
-                  <label for="amount" class="text-sm text-gray-700 block mb-1 font-medium">Loan Amount</label>
+                  <label for="amount" class="text-sm text-gray-700 block mb-1 font-medium">Loan Amount:</label>
                   <input type="text" name="amount" id="amount" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full" placeholder="Amount" />
                 </div>
 
                 <div>
-                    <label for="beneficiaries" class="text-sm text-gray-700 block mb-1 font-medium">Beneficiaries</label>
+                    <label for="beneficiaries" class="text-sm text-gray-700 block mb-1 font-medium">Beneficiaries:</label>
                     <input type="text" name="beneficiaries" id="beneficiaries" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full" placeholder="beneficiaries" />
                   </div>
 
                   <div>
-                    <label for="paying-days" class="text-sm text-gray-700 block mb-1 font-medium">Paying Days </label>
+                    <label for="paying-days" class="text-sm text-gray-700 block mb-1 font-medium">Paying Days:</label>
                     <input type="text" name="paying-days" id="paying-days" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full" placeholder="paying-days" />
                   </div>
                   <div>
-                    <label for="grace-period" class="text-sm text-gray-700 block mb-1 font-medium">Grace Period </label>
+                    <label for="grace-period" class="text-sm text-gray-700 block mb-1 font-medium">Grace Period:</label>
                     <input type="text" name="grace-period" id="grace-period" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full" placeholder="grace-period" />
                   </div>
               </div>
