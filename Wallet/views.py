@@ -8,11 +8,7 @@ from django.template import loader
 from django.contrib.auth.decorators import login_required
 
 
-<<<<<<< HEAD
-# Create your views here
-=======
 # Create your views here.
->>>>>>> 5eb3cb95c50409bcd8a64e17a40db8579185e845
 @login_required
 def view_wallet(request):
     user = request.user
