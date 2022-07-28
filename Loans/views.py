@@ -41,7 +41,7 @@ def loan_details(request, pk):
 def dashboard(request):
     user = request.user
     loans = Loan.objects.filter(fsp=user)
-    return render(request, 'fsp/dashboard.html', {"loans": loans})
+    return render(request, 'fsp/fsp-home.html', {"loans": loans})
 
 def grant_loan(request):
     #TODO: grant loan tomorow
