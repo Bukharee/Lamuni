@@ -36,4 +36,4 @@ class User(AbstractUser):
     business_certificate = models.FileField(upload_to='business_certificate/%Y/%m/', null=True, blank=True)
     financial_record = models.FileField(upload_to='financial_record/%Y/%m/', null=True, blank=True)
     time_in_business = models.CharField(max_length=30, choices=TIME_IN_BUSINESS_CHOICES, blank=True, null=True)
-    sector = models.ForeignKey(Sector, on_delete=models.DO_NOTHING, null=True)
+    sector = models.ForeignKey(Sector, on_delete=models.DO_NOTHING, blank=True, null=True)
