@@ -7,58 +7,92 @@
 {% extends 'fsp/fsp-base.html' %}
 {% block title %}Lamuni:Create-Loan{% endblock %}
 {% block content %}
+
     <div class="max-w-2xl bg-white mx-auto w-full mt-5">
         <div class="p-8 rounded border border-gray-200">
             <h1 class="font-medium text-3xl">Create Loan</h1>
             <p class="text-green-600 mt-6">Fill each field with the appropriate data</p>
 
-            <form class="">
+            <form class="" method="post">
+            {% csrf_token %}
               <div class="mt-8 grid grid-cols-1 gap-4">
-                <div>
-                  <label for="name" class="text-sm text-gray-700 block mb-1 font-medium">Program Name:</label>
-                  <input type="text" name="name" id="name" required class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full" placeholder="Enter your program name" />
-                    <p style="font-size: small; color: red">
-                {% if form.errors %} {{ form.errors.program_name | striptags }} {% endif %}
+                <p>
+                <label for="id_program_title" class="text-sm text-gray-700 block mb-1 font-medium" >Program title:</label>
+                <input class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full" type="text" name="program_title" maxlength="200" required id="id_program_title" placeholder="Enter your program name">
+
+
               </p>
-                </div>
 
-                <div>
-                  <label for="size" class="text-sm text-gray-700 block mb-1 font-medium">Size:</label>
-                  <select name="size" id="size" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full">
-                    <option value="small">Small</option>
-                    <option value="medium">medium</option>
-                    <option value="large">Large</option>
-                  </select>
-                </div>
 
-                <div>
-                  <label for="sector" class="text-sm text-gray-700 block mb-1 font-medium">Loan Sector:</label>
-                  <select name="sector" id="size" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full">
-                    <option value="agric">Agric</option>
-                    <option value="medicine">Medicine</option>
-                    <option value="finance">Finance</option>
-                  </select>
-                </div>
+                      <p>
+                        <label  class="text-sm text-gray-700 block mb-1 font-medium">Size:</label>
+                        <div id="id_size" class="grid sm:grid-cols-3">
+                    <div>
+                        <label for="id_size_0"><input class="accent-dark-green"  type="checkbox" name="size" value="MICRO" id="id_size_0">
+                     MICRO</label>
 
-                <div>
-                  <label for="amount" class="text-sm text-gray-700 block mb-1 font-medium">Loan Amount:</label>
-                  <input type="text" name="amount" id="amount" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full" placeholder="Amount" />
-                </div>
-
-                <div>
-                    <label for="beneficiaries" class="text-sm text-gray-700 block mb-1 font-medium">Beneficiaries:</label>
-                    <input type="text" name="beneficiaries" id="beneficiaries" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full" placeholder="beneficiaries" />
-                  </div>
-
+                    </div>
                   <div>
-                    <label for="paying-days" class="text-sm text-gray-700 block mb-1 font-medium">Paying Days:</label>
-                    <input type="text" name="paying-days" id="paying-days" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full" placeholder="paying-days" />
-                  </div>
+                        <label for="id_size_1"><input class="accent-dark-green"  type="checkbox" name="size" value="SMALL" id="id_size_1">
+                     SMALL</label>
+
+                    </div>
                   <div>
-                    <label for="grace-period" class="text-sm text-gray-700 block mb-1 font-medium">Grace Period:</label>
-                    <input type="text" name="grace-period" id="grace-period" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full" placeholder="grace-period" />
-                  </div>
-              </div>
+                        <label for="id_size_2"><input class="accent-dark-green" type="checkbox" name="size" value="MEDIUM" id="id_size_2">
+                     MEDIUM</label>
+
+                    </div>
+                    </div>
+              </p>
+
+                  <p>
+                  <label  class="text-sm text-gray-700 block mb-1 font-medium">Sectors:</label>
+
+                 <div id="id_sectors" class="grid sm:grid-cols-3">
+                   {% for sector in sectors %}
+                  <div>
+                <label for="id_sectors_{{ sector.id }}"><input class="accent-dark-green"  type="checkbox" name="sectors" value="{{ sector.id }}" id="id_sectors_{{ sector.id }}">
+             {{ sector.name }}</label>
+                      </div>
+                  {% endfor %}
+
+            </div>
+              </p>
+
+
+                  <p>
+    <label for="id_amount"  class="text-sm text-gray-700 block mb-1 font-medium">Amount:</label>
+    <input type="number" name="amount" min="0" required id="id_amount" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full" >
+
+
+  </p>
+
+
+  <p>
+    <label for="id_paying_days"  class="text-sm text-gray-700 block mb-1 font-medium">Paying days:</label>
+    <input type="number" name="paying_days" min="0" required id="id_paying_days" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full" >
+
+
+  </p>
+
+
+  <p>
+    <label for="id_grace_period"  class="text-sm text-gray-700 block mb-1 font-medium">Grace period:</label>
+    <input type="number" name="grace_period" min="0" required id="id_grace_period" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full" >
+
+
+  </p>
+
+
+  <p>
+    <label for="id_collateral"  class="text-sm text-gray-700 block mb-1 font-medium">Collateral:</label>
+    <input type="text" name="collateral" maxlength="200" id="id_collateral" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full" >
+
+
+
+
+  </p>
+    </div>
 
               <div class="space-x-4 mt-8">
                 <button type="submit" class="py-2 px-4 bg-green-500 text-white rounded hover:bg-green-600 active:bg-blue-700 disabled:opacity-50">Create Loan</button>

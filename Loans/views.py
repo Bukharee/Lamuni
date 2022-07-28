@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from .forms import CreateLoanForm
-from .models import Beneficiaries, Loan
+from .models import Beneficiaries, Loan, Sector
 from django.db.models import Count
 
 
@@ -9,16 +9,15 @@ from django.db.models import Count
 def create_loan(request):
     if request.method == "POST":
         form = CreateLoanForm(data=request.POST)
-        print(form.errors)
         if form.is_valid():
-            print(form)
             form = form.save(commit=False)
             user = request.user
             form.fsp = user
             form.save()
-            return redirect('loan_details', pk=form.id)
+            return redirect('loans:loan_details', pk=form.id)
     form = CreateLoanForm()
-    return render(request, "fsp/create_loan.html", {"form": form})
+    sectors = Sector.objects.all()
+    return render(request, "fsp/create_loan.html", {"form": form, "sectors": sectors})
 
 
 def get_stats(loan):
