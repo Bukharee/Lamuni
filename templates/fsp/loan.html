@@ -1,0 +1,211 @@
+{% extends 'fsp/fsp-base.html' %}
+{% block title %}Laminu:Dashbord{% endblock %}
+
+{% block content %}
+    <div class="bg-slate-100">
+      <section class=" container mx-auto max-w-[1280px] my-10 px-8 text-dark-black">
+
+    <div class="">
+
+        <!-- create Loan -->
+        <div class=" flex justify-between my-10 mx-10">
+            <form class="flex items-center rounded-lg shadow bg-dark-green">
+                <input class="bg-white py-6 px-8 rounded-lg focus:outline focus:outline-dark-green focus:border-dark-green hover:ring-1 ring-dark-green" type="search" name="loan" id="loan" placeholder="Search Loan">
+                <button class="py-6 px-6 text-white font-semibold" type="submit" value="">Search</button>
+            </form>
+            <a href="/create_loan.html" >
+            <div class=" bg-white rounded-lg shadow max-w-xs p-6 hover:bg-gray-300">
+
+                    <div class=" flex items-center justify-between space-x-4">
+                        <h2 class="text-gray-500">Create New Loan Program</h2>
+                        <div class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                              </svg>
+                        </div>
+                    </div>
+
+
+            </div>
+            </a>
+
+
+
+        </div>
+        <!-- end of create loan -->
+
+        <div class="m-10">
+            <h1 class="text-4xl text-dark-gray">List of Loans</h1>
+        </div>
+
+        <!-- loan table -->
+        <div class="flex justify-center">
+            <div class="flex flex-col">
+                <div class="w-full">
+                    <div class="border-b border-gray-200 shadow">
+                        <table class="divide-y divide-gray-300 ">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-2 text-xs text-gray-500">
+                                        ID
+                                    </th>
+                                    <th class="px-6 py-2 text-xs text-gray-500">
+                                        Program Title
+                                    </th>
+                                    <th class="px-6 py-2 text-xs text-gray-500">
+                                        Size
+                                    </th>
+                                    <th class="px-6 py-2 text-xs text-gray-500">
+                                        Sector
+                                    </th>
+                                    <th class="px-6 py-2 text-xs text-gray-500">
+                                        Amount
+                                    </th>
+                                    <th class="px-6 py-2 text-xs text-gray-500">
+                                        Beneficiaries
+                                    </th>
+                                    <th class="px-6 py-2 text-xs text-gray-500">
+                                        Active
+                                    </th>
+                                    <th class="px-6 py-2 text-xs text-gray-500">
+                                        Paying Days
+                                    </th><th class="px-6 py-2 text-xs text-gray-500">
+                                       Grace period
+                                    </th><th class="px-6 py-2 text-xs text-gray-500">
+                                        Collateral
+                                    </th>
+                                </tr>
+                            </thead>
+
+
+                            <tbody class="bg-white divide-y divide-gray-300">
+                                <tr class="whitespace-nowrap">
+                                    <td class="px-6 py-4 text-sm text-gray-500">
+                                        1
+                                    </td>
+                                    <td class="px-6 py-4">
+                                       <a href="/loan-detail.html">
+                                        <div class="text-sm text-gray-900 bg-gray-200 px-4 py-1 rounded-full">
+                                            tallafin Noma
+                                        </div>
+                                       </a>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="text-sm text-gray-500">medium</div>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">
+                                        Agric
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">
+                                        20,000
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <a href="/beneficiaries.html">
+                                         <div class="text-sm text-blue-900 bg-blue-200 px-4 py-1 rounded-full">
+                                             30,000
+                                         </div>
+                                        </a>
+                                     </td>
+                                    <td class="px-6 py-4 text-sm">
+                                        <span class="px-4 py-1 text-green-600 bg-green-200 rounded-full">Yes</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">
+                                        30 days
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">
+                                       20 days
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">
+                                       HHh don't pay
+                                    </td>
+                                </tr>
+
+                                <tr class="whitespace-nowrap">
+                                    <td class="px-6 py-4 text-sm text-gray-500">
+                                        1
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="text-sm text-gray-900 bg-gray-200 px-4 py-1 rounded-full">
+                                            tallafin Noma
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="text-sm text-gray-500">medium</div>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">
+                                        Agric
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">
+                                        20,000
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">
+                                        30,000
+                                    </td>
+                                    <td class="px-6 py-4 text-sm">
+                                        <span class="px-4 py-1 text-green-600 bg-green-200 rounded-full">Yes</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">
+                                        30 days
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">
+                                       20 days
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">
+                                       HHh don't pay
+                                    </td>
+                                </tr>
+
+
+                                <tr class="whitespace-nowrap">
+                                    <td class="px-6 py-4 text-sm text-gray-500">
+                                        1
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="text-sm text-gray-900 bg-gray-200 px-4 py-1 rounded-full">
+                                            tallafin Noma
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="text-sm text-gray-500">medium</div>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">
+                                        Agric
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">
+                                        20,000
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">
+                                        30,000
+                                    </td>
+                                    <td class="px-6 py-4 text-sm">
+                                        <span class="px-4 py-1 text-green-600 bg-green-200 rounded-full">Yes</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">
+                                        30 days
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">
+                                       20 days
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-500">
+                                       HHh don't pay
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+          <!-- end loan table -->
+
+
+
+
+    </div>
+
+</section>
+
+    </div>
+{% endblock %}
