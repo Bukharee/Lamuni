@@ -1,5 +1,9 @@
 from .views import chating, index, register,verify_code, send_reset_code, reset_verify,\
+<<<<<<< HEAD
  reset_password, education,lesson_detail, lesson_done,  user_profile, chating, conversation, financial_statement
+=======
+ reset_password, education,lesson_detail, lesson_done,  user_profile, chating, conversation, financialStatement
+>>>>>>> main
 from django.contrib.auth import views as auth_views
 from django.urls import path
 
@@ -16,6 +20,10 @@ urlpatterns = [
     path('user_profile/', user_profile, name="profile"),
     path("bot/", chating, name="bot"),
     path("conversation/", conversation, name="conversation"),
+<<<<<<< HEAD
     path("financial-statement/", financial_statement, name="financial-statement")
+=======
+    path("financial-statement/", financialStatement, name="financialStatement"),
+>>>>>>> main
 ]
 

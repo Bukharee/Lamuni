@@ -160,5 +160,12 @@ def user_profile(request):
 
     return render(request, 'profile.html', context)
 
+<<<<<<< HEAD
 def financial_statement(request):
     return render(request, "financial-statement.html")
+=======
+
+def financialStatement(request):
+    return render(request, "financialStatement.html")
+
+>>>>>>> main
