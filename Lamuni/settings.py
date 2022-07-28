@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'ckeditor',  # HTML Editor
     'ckeditor_uploader',
     'taggit',
+    'rosetta',
 ]
 
 MIDDLEWARE = [
