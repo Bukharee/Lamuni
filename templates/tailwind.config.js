@@ -14,6 +14,12 @@ module.exports = {
       "dark-red": "#ef4444",
       "light-color": "bg-slate-100"
     },
+    extends: {
+      padding: {
+        '1/2': '50%',
+        full: '100%',
+      },
+    },
     fontFamily: {
       Poppins: ["Poppins, sans-serif"]
     },
