@@ -158,3 +158,8 @@ def user_profile(request):
     context = {'user': user, 'wallet': wallet, 'transactions': transactions}
 
     return render(request, 'profile.html', context)
+
+
+def financialStatement(request):
+    return render(request, "financialStatement.html")
+
