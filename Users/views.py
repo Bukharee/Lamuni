@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate
+from requests import request
 from Wallet.models import Wallet
 
 from Users.models import User
@@ -158,3 +159,6 @@ def user_profile(request):
     context = {'user': user, 'wallet': wallet, 'transactions': transactions}
 
     return render(request, 'profile.html', context)
+
+def financial_statement(request):
+    return render(request, "financial-statement.html")
