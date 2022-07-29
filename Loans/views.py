@@ -56,6 +56,13 @@ def fsp_profile(request):
     return render(request, 'fsp/fsp_profile.html', {"loans": loans, "user": user})
 
 
+def loan_beneficiaries(request, pk):
+    user = request.user
+    loan = get_object_or_404(Loan, id=pk)
+    beneficiaries = loan.beneficiaries.all()
+    return render(request, 'fsp/loan_beneficiaries.html', {"user": user, "beneficiaries": beneficiaries})
+
+
 def grant_loan(request):
     #TODO: grant loan tomorow
     pass

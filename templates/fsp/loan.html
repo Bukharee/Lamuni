@@ -78,7 +78,7 @@
                                         1
                                     </td>
                                     <td class="px-6 py-4">
-                                       <a href="{% url 'loans:loan_details' 1 %}">
+                                       <a href="{% url 'loans:loan_details' loan.id %}">
                                         <div class="text-sm text-gray-900 bg-gray-200 px-4 py-1 rounded-full">
                                             {{ loan.program_title }}
                                         </div>
@@ -94,9 +94,9 @@
                                         {{ loan.amount }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        <a href="/beneficiaries.html">
+                                        <a href="{% url 'loans:beneficiaries' loan.id %}">
                                          <div class="text-sm text-blue-900 bg-blue-200 px-4 py-1 rounded-full">
-                                             {{ loan.beneficiaries }}
+                                             {{ loan.beneficiaries.all.count }}
                                          </div>
                                         </a>
                                      </td>
@@ -155,41 +155,6 @@
                                     </td>
                                 </tr>
 
-
-                                <tr class="whitespace-nowrap">
-                                    <td class="px-6 py-4 text-sm text-gray-500">
-                                        1
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div class="text-sm text-gray-900 bg-gray-200 px-4 py-1 rounded-full">
-                                            tallafin Noma
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div class="text-sm text-gray-500">medium</div>
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">
-                                        Agric
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">
-                                        20,000
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">
-                                        30,000
-                                    </td>
-                                    <td class="px-6 py-4 text-sm">
-                                        <span class="px-4 py-1 text-green-600 bg-green-200 rounded-full">Yes</span>
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">
-                                        30 days
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">
-                                       20 days
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-gray-500">
-                                       HHh don't pay
-                                    </td>
-                                </tr>
                             </tbody>
                             {% endfor %}
                         </table>

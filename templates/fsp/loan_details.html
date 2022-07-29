@@ -6,7 +6,7 @@
 <div class="flex flex-col space-y-2 sm:flex-row sm:items-center sm:justify-around">
     <p>Program Name: <span>{{ loan.program_title }}</span></p>
     <p>Loan Amount: <span>{{ loan.amount }}</span></p>
-    <p>Loan Sector: <span>{{ loan.sectors }}</span></p>
+    <p>Loan Sector: {% for sector in loan.sectors.all %} <span>{{  sector.name }},</span> {% endfor %}</p>
 </div>
 
 </div>
