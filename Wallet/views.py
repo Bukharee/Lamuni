@@ -5,9 +5,11 @@ from django.shortcuts import get_object_or_404
 from .forms import RechargeWallet, WithdrawWallet, TransferMoney
 from .models import Wallet, wallet_ref_code_generator
 from django.template import loader
+from django.contrib.auth.decorators import login_required
 
 
-# Create your views here.
+# Create your views here
+@login_required
 def view_wallet(request):
     user = request.user
 
