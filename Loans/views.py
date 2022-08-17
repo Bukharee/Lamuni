@@ -1,13 +1,14 @@
+from django.shortcuts import redirect, render, get_object_or_404
+from django.db.models import Count
 from PyPDF3.pdf import BytesIO
 from .process import html_to_pdf
 from django.template.loader import render_to_string
 from django.core.files import File
 from django.views.generic import View
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import CreateLoanForm, AddRecordForm, AddSalesRecordForm
-from .models import Beneficiaries, Loan, FinancialRecord, Record, SalesRecord
+from .models import Beneficiaries, Loan, FinancialRecord, Record, SalesRecord,  Sector
 from django.utils.decorators import method_decorator
 
 
@@ -21,10 +22,10 @@ def create_loan(request):
             user = request.user
             form.fsp = user
             form.save()
-            return redirect('loan_details', pk=form.id)
+            return redirect('loans:loan_details', pk=form.id)
     form = CreateLoanForm()
-    print(form, "form")
-    return render(request, "fsp/create_loan.html", {"form": form})
+    sectors = Sector.objects.all()
+    return render(request, "fsp/create_loan.html", {"form": form, "sectors": sectors})
 
 
 def get_stats(loan):
@@ -48,7 +49,27 @@ def loan_details(request, pk):
 def dashboard(request):
     user = request.user
     loans = Loan.objects.filter(fsp=user)
-    return render(request, 'fsp/dashboard.html', {"loans": loans})
+    return render(request, 'fsp/fsp-home.html', {"loans": loans})
+
+
+def loans_list(request):
+    user = request.user
+    loans = Loan.objects.filter(fsp=user)
+    return render(request, 'fsp/loan.html', {"loans": loans})
+
+
+def fsp_profile(request):
+    user = request.user
+    loans = Loan.objects.filter(fsp=user)
+    return render(request, 'fsp/fsp_profile.html', {"loans": loans, "user": user})
+
+
+def loan_beneficiaries(request, pk):
+    user = request.user
+    loan = get_object_or_404(Loan, id=pk)
+    beneficiaries = loan.beneficiaries.all()
+    return render(request, 'fsp/loan_beneficiaries.html', {"user": user, "beneficiaries": beneficiaries})
+
 
 
 def grant_loan(request):

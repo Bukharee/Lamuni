@@ -37,7 +37,7 @@ class Loan(models.Model):
     size = MultiSelectField(choices=BUSINESS_SIZE, max_choices=3, max_length=100)
     sectors = models.ManyToManyField(Sector)
     amount = models.PositiveIntegerField()
-    beneficiaries = models.ManyToManyField(get_user_model())
+    beneficiaries = models.ManyToManyField(Beneficiaries)
     is_active = models.BooleanField(default=True)
     paying_days = models.PositiveIntegerField()
     grace_period = models.PositiveIntegerField()
