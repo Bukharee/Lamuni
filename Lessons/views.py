@@ -13,7 +13,7 @@ def lessons_list(request):
 @login_required
 def lesson_detail(request, pk):
     lesson = get_object_or_404(Lesson, pk=pk)
-    return render(request, 'blog-detail.html', {'lesson': lesson})
+    return render(request, 'lesson-detail.html', {'lesson': lesson})
 
 
 @login_required
