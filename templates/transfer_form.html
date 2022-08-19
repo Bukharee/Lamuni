@@ -1,6 +1,93 @@
-<form method="POST" action="">
-    {% csrf_token %}
-    {{ transfer_form.as_p }}
-    <input type="hidden" name="wallet_slug" value="{{ wallet.slug }}"/>
-    <input type="submit" value="Transfer Money">
-</form>
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Wallet:Lamuni {% endblock %}
+{% block content %} 
+    <section>
+      <div class="flex flex-col md:flex-row md:space-x-12 px-6 md:px-0">
+        <div class="hidden md:block bg-dark-green text-dark-green md:w-2/5">
+          <div class="hidden sm:flex flex-col md:mt-48 lg:mt-24 items-center">
+            <img
+              class="w-4/5 align-middle"
+              src="{% static 'img/photo/planting.jpeg' %}"
+              alt="image"
+            />
+          </div>
+
+        </div>
+        <!-- login form -->
+
+        <div class="flex flex-row items-center justify-center md:w-3/5">
+          <form  class="flex flex-col space-y-6 md:px-12 lg:px-20 py-12 bg-white  " action="" method="post">
+            {% csrf_token %}
+
+            <h1 class="text-3xl lg:text-4xl font-bold">
+              Recharge Your Wallet Account
+            </h1>
+
+            <div class="flex flex-col space-y-4">
+
+                <div class="flex flex-col space-y-4">
+                    <label class="text-xl" for="number">Amount</label>
+                    <input
+                        class="px-3 py-3 border border-light-gray rounded-md text-dark-black focus:outline-dark-green"
+                        type="number"
+                        name="amount"
+                        autofocus=""
+                        id="number"
+                        required
+                    />
+                </div>
+
+                <div class="flex flex-col space-y-4">
+                    <label class="text-xl" for="id_receiver">Receiver</label>
+                    <select class="px-3 py-4 border border-light-gray rounded-md text-dark-black focus:outline-dark-green" 
+                        name="receiver" 
+                        required id="id_receiver">
+                        <option value="" selected>--------</option>
+                        <option value="1">bukhari</option>
+                        <option value="1">habuGoma</option>
+                    </select>
+                </div>
+
+                <div class="flex flex-col space-y-4">
+                    <label class="text-xl" for="discription">Discription</label>
+                    <textarea 
+                        class="px-3 py-3 border border-light-gray rounded-md text-dark-black focus:outline-dark-green"
+                        name="message" 
+                        id="discription" 
+                        cols="30" 
+                        rows="2" 
+                        placeholder="Write your discription here">
+                    </textarea>
+                </div>
+
+            </div>
+
+            {% if form.errors %}
+            <p style="font-size: small; color: red">
+              username or password not correct
+            </p>
+            {% endif %}
+            
+
+            <input
+              type="submit"
+              value="Transfer Money"
+              class="px-6 py-4 border-2 bg-dark-green text-white font-bold rounded-md"
+            />
+
+            <div class="flex items-center justify-center">
+            </div>
+          </form>
+        </div>
+
+        <!-- Image -->
+      </div>
+    </section>
+    <form method="POST" action="">
+        <!-- {% csrf_token %}
+        {{ transfer_form.as_p }}
+        <input type="hidden" name="wallet_slug" value="{{ wallet.slug }}"/>
+        <input type="submit" value="Transfer Money">
+    </form> -->
+    {% endblock%}

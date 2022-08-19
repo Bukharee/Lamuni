@@ -8,7 +8,7 @@
       class="nav-menu first-letter flex flex-col absolute top-16 -left-full bg-white w-full text-center shadow-md sm:shadow-none border-2 border-light-orange sm:border-0 transition-all duration-300 mx-auto sm:w-auto sm:flex-row sm:static sm:space-x-6 items-center justify-between"
     >
       <li class="sm:mx-4 my-2">
-        <a class="font-bold text-sm hover:text-dark-green">Loan</a>
+        <a href="{% url 'loans:dashboard' %}" class="font-bold text-sm hover:text-dark-green">Loan</a>
       </li>
       <li class="sm:mx-4 my-2">
         <a
@@ -17,9 +17,7 @@
           >Education</a
         >
       </li>
-      <li class="sm:mx-4 my-2">
-        <a class="font-bold text-sm hover:text-dark-green">Profile</a>
-      </li>
+
       <li class="sm:mx-4 my-2">
         <a class="font-bold text-sm hover:text-dark-green">About Us</a>
       </li>
@@ -27,51 +25,50 @@
 <li class="sm:mx-4 my-2">
 <a href="{% url 'users:profile' %}" class="font-bold text-sm hover:text-dark-green">{{ user.username |title }}'s Profile</a>
 </li>
-<button
-class="sm:hidden px-4 py-2 bg-slate-200 rounded-md hover:text-dark-green my-2"
->
+
 <a href="{% url 'logout' %}" class="font-bold text-sm lg:text-base"
-  >Logout</a
+  ><button
+class="sm:hidden px-4 py-2 text-white bg-dark-green rounded-md hover:bg-green-700 my-2"
+>Logout</button></a
 >
-</button>
+
 {% else %}
-<button
-class="sm:hidden px-4 py-2 rounded-md hover:text-dark-green my-2"
->
+
 <a href="{% url 'login' %}" class="font-bold text-sm lg:text-base"
-  >Sign In</a
+  ><button
+class="sm:hidden px-4 py-2 rounded-md hover:text-dark-green my-2"
+>Sign In</button></a
 >
-</button>
-<button
-class="sm:hidden text-white bg-dark-green px-4 hover:bg-green-700 py-2 rounded-md my-2"
->
+
 <a href="/accounts/signup" class="font-bold text-sm lg:text-base"
-  >Sign Up</a
+  ><button
+class="sm:hidden text-white bg-dark-green px-4 hover:bg-green-700 py-2 rounded-md my-2"
+>Sign Up</button></a
 >
-</button>
+
 {% endif %}
     </ul>
 
     <div class="hidden sm:flex space-x-6">
      {% if request.user.is_authenticated %}
-     <button class="px-4 py-2 bg-slate-200 rounded-md hover:text-dark-green my-2">
-    <a href="{% url 'logout' %}" class="font-bold text-sm lg:text-base">Logout</a>
-    </button>
+
+    <a href="{% url 'logout' %}" class="font-bold text-sm lg:text-base">
+        <button class="px-4 py-2 text-white bg-dark-green rounded-md hover:bg-green-700 my-2">Logout</button></a>
+
      {% else %}
-     <button class="px-4 py-2 rounded-md hover:text-dark-green">
+
       <a href="{% url 'login' %}" class="font-bold text-sm lg:text-base"
-        >Sign In</a
+      ><button class="px-4 py-2 rounded-md hover:text-dark-green">Sign In</button></a
       >
-    </button>
-    <button
-      class="text-white bg-dark-green px-4 hover:bg-green-700 py-2 rounded-md"
-    >
+
       <a
         href="{% url 'users:signup' %}"
         class="font-bold text-sm lg:text-base"
-        >Sign Up</a
+        ><button
+      class="text-white bg-dark-green px-4 hover:bg-green-700 py-2 rounded-md"
+      >Sign Up</button></a
       >
-    </button>
+
     {% endif %}
     </div>
     <div class="block hamburger cursor-pointer sm:hidden">
