@@ -1,4 +1,3 @@
-
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
@@ -6,6 +5,9 @@ from .forms import RechargeWallet, WithdrawWallet, TransferMoney
 from .models import Wallet, wallet_ref_code_generator
 from django.template import loader
 from django.contrib.auth.decorators import login_required
+import sys
+import json
+import requests
 
 
 # Create your views here
@@ -21,6 +23,38 @@ def view_wallet(request):
         wallet = Wallet.objects.create(
             owner=user,
             owner_type="User", )
+    headers = {
+        "Authorization": "dskjdks",
+        "Content-Type": "application/json",
+        "sandbox-key": "iA2AJuzAxaPw8VE0PYMTAFbVUTKQ4WAN1661622415",
+    }
+    url = "https://fsi.ng/api/v1/flutterwave/v3/virtual-account-numbers"
+    data = ({
+        "email": user.email,
+        "is_permanent": True,
+        "bvn": user.bvn,
+        "phonenumber": user.phone,
+        "firstname": user.first_name,
+        "lastname": user.last_name,
+        "narration": "Lamuni",
+    })
+
+    my_data = requests.request("POST", url, json=data, headers=headers)
+    print(my_data)
+    if my_data.status_code not in [200, 203]:
+        print("There was an error retrieving the data from Linkshare: {}:{}".format(
+            my_data.status_code, my_data.text
+        )
+        )
+
+    data = (json.loads(my_data.text)["data"])
+
+    print(data)
+    wallet.account_number = data['account_number']
+    wallet.account_name = data['note']
+    wallet.bank = data['bank_name']
+
+    wallet.save()
 
     template = loader.get_template('wallet_cabinet.html')
 
