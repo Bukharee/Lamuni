@@ -19,6 +19,9 @@ class Wallet(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
     balance = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    account_number = models.TextField(max_length=11, blank=True)
+    bank = models.TextField(blank=True, default="Flutterwave")
+    account_name = models.CharField(max_length=200, blank=True)
 
     @classmethod
     def recharge_wallet(cls, amount, receiver, description):
