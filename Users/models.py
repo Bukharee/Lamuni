@@ -2,6 +2,7 @@ from pyexpat import model
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
+from .validators import validate_phone_number
 
 
 
@@ -22,14 +23,17 @@ TIME_IN_BUSINESS_CHOICES = (('Less than 1 year', 'Less than 1 year'),
 
 
 class User(AbstractUser):
-    name = models.CharField(max_length=100)
-    phone = models.TextField(max_length=20, blank=False, unique=True, null=True)
+    middle_name = models.CharField(max_length=100)
+    phone = models.CharField(max_length=20, blank=False, unique=True, null=True)
+    image = models.ImageField(default='default.png', upload_to='profile_photo/%Y/%m/%d/')
     is_verified = models.BooleanField(default=False)
     is_number_verified = models.BooleanField(default=False)
     reset_code = models.CharField(max_length=8, help_text='Enter code')
     is_kyc_verified = models.BooleanField(default=False)
     date_of_birth = models.DateTimeField(blank=True, null=True)
     address = models.TextField(max_length=200, blank=True, null=True)
+    state = models.CharField(max_length=100, blank=True, null=True)
+    occupation = models.CharField(max_length=100, blank=True, null=True)
     bvn = models.PositiveIntegerField(blank=True, null=True)
     nin = models.PositiveIntegerField(blank=True, null=True)
     nin_file = models.FileField(upload_to='nins/%Y/%m/', null=True, blank=True)
