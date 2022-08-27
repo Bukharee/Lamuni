@@ -49,6 +49,12 @@ def loan_details(request, pk):
 
 
 @login_required
+def user_loan_details(request, pk):
+    loan = get_object_or_404(Loan, id=pk)
+    return render(request, 'fsp/loan_details.html', {"loan": loan, "data": data})
+
+
+@login_required
 def dashboard(request):
     user = request.user
     if request.user.is_staff or request.user.is_superuser:
@@ -57,7 +63,6 @@ def dashboard(request):
     else:
         loans = Loan.objects.all()
         return render(request, 'user/user_loan.html', {"loans": loans})
-
 
 
 @login_required
