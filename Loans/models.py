@@ -274,3 +274,155 @@ class FinancialRecord(models.Model):
             if beneficiary.is_payed:
                 count += 1
         return count
+
+    # Previous month stuffs
+    @property
+    def get_prev_ideal_profit(self):
+        profit = 0
+
+        start_date = datetime.today()
+        end_date = start_date - timedelta(days=60)
+
+        all_sales_records = self.sales_records.all()
+
+        # print(all_sales_records)
+        all_sales_records.filter(date__gte=end_date).filter(date__lte=start_date)
+
+        for sales_record in all_sales_records.filter(date__gte=end_date).filter(date__lte=start_date):
+            profit += sales_record.get_profit
+
+        return profit
+
+    @property
+    def get_prev_total_expenses(self):
+
+        total_expenses = 0
+        start_date = datetime.today()
+        end_date = start_date - timedelta(days=60)
+
+        all_records = self.records.all()
+
+        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date):
+
+            if record.category == "Expenses":
+                total_expenses += record.amount
+
+        return total_expenses
+
+    @property
+    def get_prev_total_incomes(self):
+
+        total_incomes = 0
+
+        all_records = self.records.all()
+        start_date = datetime.today()
+        end_date = start_date - timedelta(days=60)
+
+        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date):
+
+            if record.category == "Income":
+                total_incomes += record.amount
+
+        return total_incomes
+
+    @property
+    def get_prev_total_purchase(self):
+
+        total_purchase = 0
+
+        all_records = self.records.all()
+
+        start_date = datetime.today()
+        end_date = start_date - timedelta(days=60)
+
+        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date):
+
+            if record.category == "Purchase":
+                total_purchase += record.amount
+
+        return total_purchase
+
+    @property
+    def get_prev_total_tax(self):
+
+        total_tax = 0
+
+        all_records = self.records.all()
+
+        start_date = datetime.today()
+        end_date = start_date - timedelta(days=60)
+
+        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date):
+
+            if record.category == "Tax":
+                total_tax += record.amount
+
+        return total_tax
+
+    @property
+    def total_prev_costs(self):
+        total = 0
+
+        all_records = self.sales_records.all()
+
+        start_date = datetime.today()
+        end_date = start_date - timedelta(days=60)
+
+        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date):
+            total += record.get_total_cost
+
+        return total
+
+    @property
+    def total_prev_sales(self):
+        total = 0
+
+        all_records = self.sales_records.all()
+
+        start_date = datetime.today()
+        end_date = start_date - timedelta(days=60)
+
+        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date):
+            total += record.get_total_sales
+
+        return total
+
+    @property
+    def get_prev_gross_profit(self):
+
+        """Gross profit is the profit a business makes after subtracting all the costs that are related to
+        manufacturing and selling its products or services. You can calculate gross profit by deducting the cost of
+        goods sold (COGS) from your total sales. """
+
+        total = 0
+
+        total = self.total_prev_sales - self.total_prev_costs
+
+        return total
+
+    @property
+    def get_prev_net_profit(self):
+
+        """Net profit is the amount of money your business earns after deducting all operating, interest,
+        and tax expenses over a given period of time. To arrive at this value, you need to know a company’s gross
+        profit. If the value of net profit is negative, then it is called net loss. """
+
+        total = 0
+
+        total = (self.get_prev_gross_profit
+                 + self.get_prev_total_incomes) - (self.get_prev_total_expenses
+                                                   + self.get_prev_total_tax
+                                                   + self.get_prev_total_purchase)
+
+        return total
+
+    @property
+    def get_appreciation(self):
+
+        """Return the company's Appreciation / Depreciation based on Profits"""
+
+        appr = 0
+
+        apr = self.get_net_profit - self.get_prev_net_profit
+
+        return apr
