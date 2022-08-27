@@ -23,7 +23,7 @@
       </li>
 {% if request.user.is_authenticated %}
 <li class="sm:mx-4 my-2">
-<a href="{% url 'users:profile' %}" class="font-bold text-sm hover:text-dark-green">{{ user.username |title }}'s Profile</a>
+<a href="{% url 'users:profile' %}" class="font-bold text-sm hover:text-dark-green">Profile</a>
 </li>
 
 <a href="{% url 'logout' %}" class="font-bold text-sm lg:text-base"

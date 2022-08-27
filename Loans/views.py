@@ -13,7 +13,7 @@ from django.utils.decorators import method_decorator
 
 
 # Create your views here.
-
+@login_required
 def create_loan(request):
     if request.method == "POST":
         form = CreateLoanForm(data=request.POST)
@@ -27,7 +27,7 @@ def create_loan(request):
     sectors = Sector.objects.all()
     return render(request, "fsp/create_loan.html", {"form": form, "sectors": sectors})
 
-
+@login_required
 def get_stats(loan):
     number_of_applicants = loan.beneficiaries.count()
     number_of_approved = loan.number_of_approved()
@@ -39,31 +39,31 @@ def get_stats(loan):
             "number_of_yet_paid": number_of_yet_paid, "number_of_paid": number_of_paid}
     return data
 
-
+@login_required
 def loan_details(request, pk):
     loan = get_object_or_404(Loan, id=pk)
     data = get_stats(loan)
     return render(request, 'fsp/loan_details.html', {"loan": loan, "data": data})
 
-
+@login_required
 def dashboard(request):
     user = request.user
     loans = Loan.objects.filter(fsp=user)
     return render(request, 'fsp/fsp-home.html', {"loans": loans})
 
-
+@login_required
 def loans_list(request):
     user = request.user
     loans = Loan.objects.filter(fsp=user)
     return render(request, 'fsp/loan.html', {"loans": loans})
 
-
+@login_required
 def fsp_profile(request):
     user = request.user
     loans = Loan.objects.filter(fsp=user)
     return render(request, 'fsp/fsp_profile.html', {"loans": loans, "user": user})
 
-
+@login_required
 def loan_beneficiaries(request, pk):
     user = request.user
     loan = get_object_or_404(Loan, id=pk)

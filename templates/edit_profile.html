@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block content %}
+       <section class="container mx-auto">
+        <div class="flex flex-col md:flex-row sm:space-x-6 my-5 sm:my-10 px-4 sm:px-8 text-dark-black  max-w-[1280px]">
+                 <!-- Profile section -->
+                 <div class="flex flex-col  mt-10 sm:mt-0 md:w-3/5 mx-auto">
+                    <!-- profile heading -->
+                    <div class="shadow-md shadow-light-gray bg-white rounded-b-lg border-t-8 border-dark-green  px-4 sm:px-8">
+                        <form method="post">
+                            <div class="mt-8 grid grid-cols-1 gap-4">
+                                    {% csrf_token %}
+                                    <p>
+    <label for="id_image" class="text-sm text-gray-700 block mb-1 font-medium">Image:</label>
+    <span class="text-sm text-gray-700 mb-1 font-medium"> Currently:</span> <a href="/media/default.png" >default.png</a><br>
+<div class="text-sm text-gray-700 mb-1 font-medium">Change:</div>
+<input type="file" name="image" accept="image/*" id="id_image" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full">
+
+
+  </p>
+
+
+  <p>
+    <label for="id_first_name" class="text-sm text-gray-700 block mb-1 font-medium">First name:</label>
+    <input type="text" name="first_name" value="Abubakar" maxlength="150" id="id_first_name" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full">
+
+
+  </p>
+
+
+  <p>
+    <label for="id_middle_name" class="text-sm text-gray-700 block mb-1 font-medium">Middle name:</label>
+    <input type="text" name="middle_name" value="Muhammad" maxlength="100" required id="id_middle_name" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full">
+
+
+  </p>
+
+
+  <p>
+    <label for="id_last_name" class="text-sm text-gray-700 block mb-1 font-medium">Last name:</label>
+    <input type="text" name="last_name" value="Sadiq" maxlength="150" id="id_last_name" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full">
+
+
+  </p>
+
+
+  <p>
+    <label for="id_email" class="text-sm text-gray-700 block mb-1 font-medium">Email address:</label>
+    <input type="email" name="email" value="bbkrmuhdsaddiq@gmail.com" maxlength="254" id="id_email" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full">
+
+
+  </p>
+
+
+  <p>
+    <label for="id_date_of_birth" class="text-sm text-gray-700 block mb-1 font-medium">Date of birth:</label>
+    <input type="text" name="date_of_birth" id="id_date_of_birth" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full">
+
+
+  </p>
+
+
+  <p>
+    <label for="id_phone" class="text-sm text-gray-700 block mb-1 font-medium">Phone:</label>
+    <input type="text" name="phone" value="08128543654" maxlength="20" required id="id_phone" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full">
+
+
+  </p>
+
+
+  <p>
+    <label for="id_state" class="text-sm text-gray-700 block mb-1 font-medium">State:</label>
+    <input type="text" name="state" value="Kano" maxlength="100" id="id_state" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full">
+
+
+  </p>
+
+
+  <p>
+    <label for="id_occupation" class="text-sm text-gray-700 block mb-1 font-medium">Occupation:</label>
+    <input type="text" name="occupation" maxlength="100" id="id_occupation" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full">
+
+
+
+
+  </p>
+
+                            <div class="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4 w-full my-5 justify-between">
+                <!-- Secondary -->
+ <button class="py-2 px-8 bg-white border border-gray-200 text-green-600 rounded hover:bg-white active:bg-gray-200 disabled:opacity-50"  onclick="history.go(-1)">Cancel</button>
+                                 <button type="submit" class="py-2 px-4 bg-green-500 text-white rounded hover:bg-green-600 active:bg-blue-700 disabled:opacity-50">Update Profile</button>
+              </div>
+                                </div>
+
+                        </form>
+                    </div>
+
+
+        </div>
+       </section>
+{% endblock %}

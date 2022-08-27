@@ -1,10 +1,13 @@
+from django.contrib import messages
+from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate
 from requests import request
 from Wallet.models import Wallet
 
 from Users.models import User
-from .forms import CustomUserCreationForm, VerifyForm, SendResetCodeForm, ResetPawsswordForm
+from Loans.models import Loan, Beneficiaries
+from .forms import CustomUserCreationForm, VerifyForm, SendResetCodeForm, ResetPawsswordForm, UserEditForm
 from django.contrib.auth.decorators import login_required
 from .verify import send, check, sms_reset
 from django.contrib.auth import get_user_model
@@ -155,10 +158,27 @@ def user_profile(request):
     transactions2 = Transaction.objects.filter(sender=user)
 
     transactions = transactions1 | transactions2
+    loans_applied = Beneficiaries.objects.filter(user=user)
+    number_of_loan_applied = Beneficiaries.objects.filter(user=user).count()
 
     context = {'user': user, 'wallet': wallet, 'transactions': transactions}
 
     return render(request, 'profile.html', context)
+
+
+def update_user_profile(request):
+    if request.method == 'POST':
+        form = UserEditForm(data=request.POST, files=request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your Profile Has Been Updated')
+            return redirect('users:profile')
+        else:
+            print("not Valid")
+            form.errors
+    else:
+        form = UserEditForm(instance=request.user)
+    return render(request, 'edit_profile.html', {'form': form})
 
 
 def financial_statement(request):

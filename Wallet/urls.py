@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import view_wallet, recharge, withdraw, transfer
 
-app_name = 'Lessons'
+app_name = 'wallets'
 
 urlpatterns = [
     path('wallet/', view_wallet, name='index'),
