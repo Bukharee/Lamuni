@@ -22,7 +22,7 @@ TIME_IN_BUSINESS_CHOICES = (('Less than 1 year', 'Less than 1 year'),
 
 
 class User(AbstractUser):
-    middle_name = models.CharField(max_length=100)
+    middle_name = models.CharField(max_length=100, blank=True, )
     phone = models.CharField(max_length=20, blank=False, unique=True, null=True)
     image = models.ImageField(default='default.png', upload_to='profile_photo/%Y/%m/%d/')
     is_verified = models.BooleanField(default=False)
