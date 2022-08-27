@@ -189,7 +189,7 @@ class GeneratePdf(View):
 
         f_record = get_object_or_404(FinancialRecord, user=user)
 
-        open('templates/temp.html', "w").write(render_to_string('result.html', {'f_record': f_record}))
+        open('templates/temp.html', "w").write(render_to_string('financial-statement.html', {'f_record': f_record}))
 
         # getting the template
         pdf = html_to_pdf('temp.html')

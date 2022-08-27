@@ -86,10 +86,11 @@
 
             <div class="ml-2">
                 <h1 class="text-dark-green font-medium text-3xl font-Poppins">MONTLY FINANCIAL REPORT</h1>
-                <h2 class="font-medium font-Poppins text-dark-gray">LAMUNI LIMITED</h2>
+                <h2 class="font-medium font-Poppins text-dark-gray">{{ f_record.user }} 's Business</h2>
             </div>
             <span class="mr-2 text-dark-gray">
-                <h1>JULY 2022</h1>
+                {% now "Y" as current_year %}
+                <h1>{% now "jS \o\f F" %}, {{current_year}}</h1>
             </span>
         </header>
 
@@ -102,7 +103,7 @@
                       <h1 class="text-center font-bold">REVENUES</h1>
                     </div>
                     <div class="card-body text-center">
-                        <h1 class="text-gray-600">$3455,747</h1>
+                        <h1 class="text-gray-600">${{ f_record.total_sales }}</h1>
                     </div>
                     <hr>
                     <p class="flex font-bold text-dark-gray p-2 justify-center"> 
@@ -118,7 +119,7 @@
                       <h1 class="text-center font-bold">NET PROFIT</h1>
                     </div>
                     <div class="card-body text-center">
-                        <h1 class="text-gray-600">$3455,747</h1>
+                        <h1 class="text-gray-600">${{ f_record.get_net_profit }}</h1>
                     </div>
                     <hr>
                     <p class="flex font-bold text-dark-gray p-2 justify-center"> 
@@ -134,7 +135,7 @@
                       <h1 class="text-center font-bold">GROSS PROFIT</h1>
                     </div>
                     <div class="card-body text-center">
-                        <h1 class="text-gray-600">$3455,747</h1>
+                        <h1 class="text-gray-600">${{ f_record.get_gross_profit }}</h1>
                     </div>
                     <hr>
                     <p class="flex font-bold text-dark-gray p-2 justify-center"> 
@@ -147,26 +148,10 @@
 
                 <div class="card bg-white">
                     <div class="card-header p-2 text-white text-center bg-dark-green">
-                      <h1 class="text-center font-bold">INTEREST</h1>
+                      <h1 class="text-center font-bold">APPRECIATION</h1>
                     </div>
                     <div class="card-body text-center">
-                        <h1 class="text-gray-600">$3455,747</h1>
-                    </div>
-                    <hr>
-                    <p class="flex font-bold text-dark-gray p-2 justify-center"> 
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12" />
-                        </svg>
-                        <span class="">1%</span>
-                    </p>
-                </div>
-
-                <div class="card bg-white">
-                    <div class="card-header p-2 text-white text-center bg-dark-green">
-                      <h1 class="text-center font-bold">DEPRECIATION</h1>
-                    </div>
-                    <div class="card-body text-center">
-                        <h1 class="text-gray-600">$3455,747</h1>
+                        <h1 class="text-gray-600">${{ f_record.get_appreciation }}</h1>
                     </div>
                     <hr>
                     <p class="flex font-bold text-dark-gray p-2 justify-center"> 
