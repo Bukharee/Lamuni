@@ -54,6 +54,7 @@ class Record(models.Model):
     amount = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     date = models.DateTimeField(auto_now=True)
     category = models.CharField(max_length=45, choices=RECORD_CATEGORY, default='', verbose_name='Category')
+    description = models.CharField(max_length=40)
 
 
 class SalesRecord(models.Model):
