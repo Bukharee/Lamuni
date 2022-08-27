@@ -59,3 +59,7 @@ body {
 .form-input {
     @apply bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full
 }
+
+.errorlist {
+    @apply text-xs text-red-500
+}

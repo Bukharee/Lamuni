@@ -1,5 +1,4 @@
 from django.contrib import messages
-from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate
 from requests import request
@@ -29,6 +28,8 @@ def register(request):
             print(form.cleaned_data.get('phone'))
             send(form.cleaned_data.get('phone'))
             return redirect('users:verify', username=form.cleaned_data.get('username'))
+        else:
+            print(form.errors)
     else:
         form = CustomUserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
@@ -174,10 +175,10 @@ def update_user_profile(request):
             messages.success(request, 'Your Profile Has Been Updated')
             return redirect('users:profile')
         else:
-            print("not Valid")
-            form.errors
+            print(form.errors)
     else:
         form = UserEditForm(instance=request.user)
+        print(form)
     return render(request, 'edit_profile.html', {'form': form})
 
 

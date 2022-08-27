@@ -12,76 +12,78 @@
                                     {% csrf_token %}
                                     <p>
     <label for="id_image" class="text-sm text-gray-700 block mb-1 font-medium">Image:</label>
-    <span class="text-sm text-gray-700 mb-1 font-medium"> Currently:</span> <a href="/media/default.png" >default.png</a><br>
-<div class="text-sm text-gray-700 mb-1 font-medium">Change:</div>
-<input type="file" name="image" accept="image/*" id="id_image" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full">
+     {{ form.image }}
 
+    {{ form.image.errors }}
 
   </p>
 
 
   <p>
     <label for="id_first_name" class="text-sm text-gray-700 block mb-1 font-medium">First name:</label>
-    <input type="text" name="first_name" value="Abubakar" maxlength="150" id="id_first_name" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full">
+     {{ form.first_name }}
 
-
+ {{ form.first_name.errors }}
   </p>
 
 
   <p>
     <label for="id_middle_name" class="text-sm text-gray-700 block mb-1 font-medium">Middle name:</label>
-    <input type="text" name="middle_name" value="Muhammad" maxlength="100" required id="id_middle_name" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full">
+    {{ form.middle_name }}
 
-
+ {{ form.middle_name.errors }}
   </p>
 
 
   <p>
     <label for="id_last_name" class="text-sm text-gray-700 block mb-1 font-medium">Last name:</label>
-    <input type="text" name="last_name" value="Sadiq" maxlength="150" id="id_last_name" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full">
-
+    {{ form.last_name }}
+ {{ form.last_name.errors }}
 
   </p>
 
 
   <p>
     <label for="id_email" class="text-sm text-gray-700 block mb-1 font-medium">Email address:</label>
-    <input type="email" name="email" value="bbkrmuhdsaddiq@gmail.com" maxlength="254" id="id_email" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full">
+  {{ form.email }}
+
+ {{ form.email.errors }}
+  </p>
+
+
+   <p>
+    <label for="id_date_of_birth_month" class="text-sm text-gray-700 block mb-1 font-medium">Date of birth:</label>
+   {{ form.date_of_birth}}
+       {{ form.date_of_birth.errors }}
 
 
   </p>
 
-
-  <p>
-    <label for="id_date_of_birth" class="text-sm text-gray-700 block mb-1 font-medium">Date of birth:</label>
-    <input type="text" name="date_of_birth" id="id_date_of_birth" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full">
-
-
-  </p>
 
 
   <p>
     <label for="id_phone" class="text-sm text-gray-700 block mb-1 font-medium">Phone:</label>
-    <input type="text" name="phone" value="08128543654" maxlength="20" required id="id_phone" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full">
 
-
+ {{ form.phone }}
+       {{ form.phone.errors }}
   </p>
 
 
   <p>
     <label for="id_state" class="text-sm text-gray-700 block mb-1 font-medium">State:</label>
-    <input type="text" name="state" value="Kano" maxlength="100" id="id_state" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full">
+       {{ form.state }}
 
+ {{ form.state.errors }}
 
   </p>
 
 
   <p>
     <label for="id_occupation" class="text-sm text-gray-700 block mb-1 font-medium">Occupation:</label>
-    <input type="text" name="occupation" maxlength="100" id="id_occupation" class="bg-white border border-gray-200 rounded py-1 px-3 block focus:ring-green-500 focus:border-green-500 text-gray-700 w-full">
+   {{ form.occupation }}
 
 
-
+ {{ form.occupation.errors }}
 
   </p>
 

@@ -5,13 +5,12 @@ from phonenumber_field.modelfields import PhoneNumberField
 from .validators import validate_phone_number
 
 
-
-
 class Sector(models.Model):
     name = models.CharField(max_length=200)
 
     def __str__(self) -> str:
         return str(self.name)
+
 
 # Create your models here.
 TIME_IN_BUSINESS_CHOICES = (('Less than 1 year', 'Less than 1 year'),
@@ -23,7 +22,7 @@ TIME_IN_BUSINESS_CHOICES = (('Less than 1 year', 'Less than 1 year'),
 
 
 class User(AbstractUser):
-    middle_name = models.CharField(max_length=100)
+    middle_name = models.CharField(max_length=100, blank=True, )
     phone = models.CharField(max_length=20, blank=False, unique=True, null=True)
     image = models.ImageField(default='default.png', upload_to='profile_photo/%Y/%m/%d/')
     is_verified = models.BooleanField(default=False)
@@ -41,3 +40,6 @@ class User(AbstractUser):
     financial_record = models.FileField(upload_to='financial_record/%Y/%m/', null=True, blank=True)
     time_in_business = models.CharField(max_length=30, choices=TIME_IN_BUSINESS_CHOICES, blank=True, null=True)
     sector = models.ForeignKey(Sector, on_delete=models.DO_NOTHING, blank=True, null=True)
+
+    class Meta:
+        permissions = [('can_create_loans', 'Can Create Loans')]
