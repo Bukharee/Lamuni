@@ -5,7 +5,6 @@
 .idea
 !/media/5682-profile-picture-upload.gif
 /db.sqlite3
-/Users/migrations
 /Lessons/migrations
 /Loans/migrations
 /Wallet/migrations

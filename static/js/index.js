@@ -1,9 +1,9 @@
 const hamburger = document.querySelector(".hamburger");
 const navMenu = document.querySelector(".nav-menu");
-const navMenu2 = document.querySelector(".nav-menu")
-const hamburger2 = document.querySelector(".menu-input")
+const navMenuEdu = document.querySelector(".nav-menu-edu")
+const hamburgerEdu = document.querySelector(".menu-input")
 
-hamburger.addEventListener("click", mobileMenu);
+
 
 function mobileMenu() {
     hamburger.classList.toggle("active");
@@ -12,12 +12,14 @@ function mobileMenu() {
 
 
 function toggleNav(e){
+    console.log(e)
 
-    navMenu2.classList.toggle("education-nav", "basis-1/2",)
-    navMenu2.classList.toggle("education-nav", "basis-1/2",)
-    navMenu2.classList.toggle("hidden")
+    navMenu2Edu.classList.toggle("education-nav", "basis-1/2",)
+    navMenu2Edu.classList.toggle("hidden")
 
     console.log(e)
 }
 
-hamburger2.addEventListener('click', toggleNav)
+
+hamburger.addEventListener("click", mobileMenu);
+hamburgerEdu.addEventListener('click', toggleNav)

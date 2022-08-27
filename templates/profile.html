@@ -1,14 +1,170 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Profile</title>
-</head>
-<body>
-{{user.username}}
+{% extends 'base.html' %}
 
-{% for transaction in transactions %}
-<p>transaction</p>
-{% endfor %}
-</body>
-</html>
+{% block content %}
+       <section class="container mx-auto">
+        <div class="flex flex-col md:flex-row sm:space-x-6 my-5 sm:my-10 px-4 sm:px-8 text-dark-black  max-w-[1280px]">
+            <!-- Avatar Section -->
+            <div class="lg:w-1/5 ">
+                <!-- avatar -->
+                <div class="shadow-md shadow-light-gray rounded-lg bg-white">
+                    <div class="py-5 px-3 bg-dark-green">
+                        <div class="bg-white border-2  md:border-4 border-light-green rounded-full">
+                            <img class="h-auto w-full mx-auto" src="https://avatars.githubusercontent.com/u/68012668?v=4" alt="avatar">
+                        </div>
+                        <div class="flex-none flex flex-col space-y-6 items-center mt-4">
+                            <div class="text-center text-white  ">
+                                 <p class="text-lg">Avatar name</p>
+                                 <p class="text-sm">avatar email</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class=" flex-none w-full flex flex-col items-start">
+                        <ul class="w-full">
+                            <li class="text-dark-gray hover:bg-gray-100 hover:border-l-4 border-dark-green w-full hover:"> <a href="#" class=" flex items-center space-x-2 px-6 py-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-8 md:w-8 text-dark-green" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd" />
+                                  </svg><div>Profile</div></a>
+                            </li>
+
+                        <li class="text-dark-gray hover:bg-gray-100 hover:border-l-4 border-dark-green w-full hover:"> <a href="#" class=" flex items-center space-x-2 px-6 py-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-8 md:w-8 text-dark-green" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z" />
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd" />
+                              </svg><div>Wallet</div></a>
+                        </li>
+                        <li class="text-dark-gray hover:bg-gray-100 hover:border-l-4 border-dark-green w-full hover:"> <a href="#" class=" flex items-center space-x-2 px-6 py-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-8 md:w-8 text-dark-green" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                              </svg><div>Transaction History</div></a>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <!-- avatar text -->
+
+
+
+                </div>
+            </div>
+             <!--End of Avatar Section -->
+
+
+
+                 <!-- Profile section -->
+                 <div class="flex flex-col  mt-10 sm:mt-0 md:w-4/5 ">
+                    <!-- profile heading -->
+                    <div class="shadow-md shadow-light-gray bg-white rounded-b-lg border-t-8 border-dark-green bo">
+                        <!-- <div class="text-center p-8 md:p-12 bg-dark-green text-white ">Aliquam ac magna metus. Nam sed arcu non tellus fringilla fringilla ut vel ispum. Aliquam ac magna metus. </div> -->
+
+                        <!-- user details -->
+                        <h2 class="text-xl px-4 md:px-8 pt-4 text-gray-600">Biograph</h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-2  p-4 md:p-8 gap-4 text-dark-gray text-sm">
+                            <!-- first detail -->
+                            <div class="flex flex-col space-y-4 pb-10 divide-y">
+                                <p><span class="font-bold py-4 ">  First Name: </span> Abubakar</p>
+                                <p><span class="font-bold py-4 ">  Middle Name:</span> Muhammad</p>
+                                <p><span class="font-bold py-4">  Last Name: </span>Sadiq</p>
+                                <p><span class="font-bold">  Birthday: </span> 28 July 1880</p>
+                                <hr class="sm:hidden">
+
+
+                            </div>
+                            <!-- second details -->
+
+                            <div class="flex flex-col space-y-4 divide-y">
+
+
+                                <p><span class="font-bold">Email: </span>bbkrmuhdsaddiq@.com</p>
+                                <p><span class="font-bold">Phone: </span>+2348128543654</p>
+                                <p><span class="font-bold">Country:</span>Nigeria</p>
+                                <p><span class="font-bold">Occupation:</span>Full-Stark Developer</p>
+
+
+                            </div>
+
+
+                        </div>
+                        <!-- end of user details -->
+
+                    </div>
+
+
+                        <!-- other details -->
+
+                <!-- grid of childs -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 p-4 md:p-8 gap-4 sm:gap-8 text-dark-gray text-sm bg-white shadow-md shadow-light-gray flex-auto my-10 rounded-b-lg">
+                    <div class="flex flex-row items-center justify-between shadow-sm shadow-dark-gray  px-6 py-4 rounded-lg ">
+                        <div class="px-4">
+                            35
+                        </div>
+                        <div class="px-4">
+                            <p>Envato Website</p>
+                           <p>Started : 15 July</p>
+                            <p>  Deadline : 15 August</p>
+
+                        </div>
+                    </div>
+
+                    <div class="flex flex-row items-center justify-between shadow-sm shadow-dark-gray px-6 py-4 rounded-lg ">
+                        <div class="px-4">
+                            35
+                        </div>
+                        <div class="px-4">
+                            <p>Envato Website</p>
+                           <p>Started : 15 July</p>
+                            <p>  Deadline : 15 August</p>
+
+                        </div>
+                    </div>
+
+                    <div class="flex flex-row items-center justify-between shadow-sm shadow-dark-gray  px-6 py-4 rounded-lg ">
+                        <div class="px-4">
+                            35
+                        </div>
+                        <div class="px-4">
+                            <p>Envato Website</p>
+                           <p>Started : 15 July</p>
+                            <p>  Deadline : 15 August</p>
+
+                        </div>
+                    </div>
+                    <div class="flex flex-row items-center justify-between shadow-sm shadow-dark-gray px-6 py-4 rounded-lg ">
+                        <div class="px-4">
+                            35
+                        </div>
+                        <div class="px-4">
+                            <p>Envato Website</p>
+                           <p>Started : 15 July</p>
+                            <p>  Deadline : 15 August</p>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+             <!-- end of other details -->
+
+             <!-- update profile -->
+
+             <div class="my-2 flex items-center justify-end">
+               <a href="#"> <button class="sm:px-6 py-2 px-4 sm:py-4 border-2 border-dark-green text-dark-green bg-white hover:bg-dark-green focus:bg-dark-green hover:text-white focus:text-white font-bold rounded-md">Edit Profile</button></a>
+            </div>
+
+
+                </div>
+                 <!-- end of Profile section -->
+
+
+
+        </div>
+
+    </section>
+{% endblock %}

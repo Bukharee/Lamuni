@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate
+from requests import request
 from Wallet.models import Wallet
 
 from Users.models import User
@@ -12,7 +13,7 @@ from Wallet.models import Wallet, Transaction
 
 # Create your views here.
 
-@login_required
+
 def index(request):
     return render(request, "index.html")
 
@@ -55,7 +56,6 @@ def lesson_detail(request):
     return render(request, "lesson-detail.html")
 
 
-
 def lesson_done(request):
     return render(request, "lesson-done.html")
 
@@ -63,13 +63,14 @@ def lesson_done(request):
 def education(request):
     return render(request, "education.html")
 
+
 def chating(request):
     return render(request, "chat.html")
+
 
 def conversation(request):
     return render(request, "conversations.html")
     return render(request, "education_base.html")
-
 
 
 def send_reset_code(request):
@@ -135,7 +136,7 @@ def reset_password(request, username, code):
         form = ResetPawsswordForm()
         return render(request, 'registration/password_reset_temp.html', {"form": form})
     return render(request, 'registration/resend_code_error.html', {"error": "oops!, go get a reset code first!"})
-        
+
 
 @login_required
 def user_profile(request):
@@ -158,3 +159,7 @@ def user_profile(request):
     context = {'user': user, 'wallet': wallet, 'transactions': transactions}
 
     return render(request, 'profile.html', context)
+
+
+def financial_statement(request):
+    return render(request, "financial-statement.html")
