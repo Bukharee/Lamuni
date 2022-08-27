@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.forms import SelectDateWidget
 
 from .models import User
 
@@ -22,6 +23,11 @@ class UserEditForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('image', 'first_name', 'middle_name', 'last_name', 'email', 'date_of_birth', 'phone', 'state', 'occupation')
+
+    def __init__(self, *args, **kwargs):
+        super(UserEditForm, self).__init__(*args, **kwargs)
+        self.fields['date_of_birth'].widget = SelectDateWidget(empty_label=("Choose Year", "Choose Month", "Choose Day"))
+
 
 
 # class ProfileForm(forms.ModelForm):
