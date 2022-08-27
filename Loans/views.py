@@ -51,7 +51,7 @@ def loan_details(request, pk):
 @login_required
 def user_loan_details(request, pk):
     loan = get_object_or_404(Loan, id=pk)
-    return render(request, 'fsp/loan_details.html', {"loan": loan, "data": data})
+    return render(request, 'user/user_loan_details.html', {"loan": loan})
 
 
 @login_required

@@ -45,7 +45,7 @@ class Loan(models.Model):
     collateral = models.CharField(max_length=200, blank=True, null=True)
 
     def get_absolute_url(self):
-        return reverse('')
+        return reverse('loans:user-loan-details', args=[self.pk])
 
 
 RECORD_CATEGORY = (('Purchase', 'Purchase'),
