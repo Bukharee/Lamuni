@@ -1,10 +1,12 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate
 from requests import request
 from Wallet.models import Wallet
 
 from Users.models import User
-from .forms import CustomUserCreationForm, VerifyForm, SendResetCodeForm, ResetPawsswordForm
+from Loans.models import Loan, Beneficiaries
+from .forms import CustomUserCreationForm, VerifyForm, SendResetCodeForm, ResetPawsswordForm, UserEditForm
 from django.contrib.auth.decorators import login_required
 from .verify import send, check, sms_reset
 from django.contrib.auth import get_user_model
@@ -13,7 +15,7 @@ from Wallet.models import Wallet, Transaction
 
 # Create your views here.
 
-@login_required
+
 def index(request):
     return render(request, "index.html")
 
@@ -26,6 +28,8 @@ def register(request):
             print(form.cleaned_data.get('phone'))
             send(form.cleaned_data.get('phone'))
             return redirect('users:verify', username=form.cleaned_data.get('username'))
+        else:
+            print(form.errors)
     else:
         form = CustomUserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
@@ -155,10 +159,27 @@ def user_profile(request):
     transactions2 = Transaction.objects.filter(sender=user)
 
     transactions = transactions1 | transactions2
+    loans_applied = Beneficiaries.objects.filter(user=user)
+    number_of_loan_applied = Beneficiaries.objects.filter(user=user).count()
 
     context = {'user': user, 'wallet': wallet, 'transactions': transactions}
 
     return render(request, 'profile.html', context)
+
+
+def update_user_profile(request):
+    if request.method == 'POST':
+        form = UserEditForm(data=request.POST, files=request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your Profile Has Been Updated')
+            return redirect('users:profile')
+        else:
+            print(form.errors)
+    else:
+        form = UserEditForm(instance=request.user)
+        print(form)
+    return render(request, 'edit_profile.html', {'form': form})
 
 
 def financial_statement(request):

@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block content %}
+       <section class="container mx-auto">
+        <div class="flex flex-col md:flex-row sm:space-x-6 my-5 sm:my-10 px-4 sm:px-8 text-dark-black  max-w-[1280px]">
+                 <!-- Profile section -->
+                 <div class="flex flex-col  mt-10 sm:mt-0 md:w-3/5 mx-auto">
+                    <!-- profile heading -->
+                    <div class="shadow-md shadow-light-gray bg-white rounded-b-lg border-t-8 border-dark-green  px-4 sm:px-8">
+                        <form method="post">
+                            <div class="mt-8 grid grid-cols-1 gap-4">
+                                    {% csrf_token %}
+                                    <p>
+    <label for="id_image" class="text-sm text-gray-700 block mb-1 font-medium">Image:</label>
+     {{ form.image }}
+
+    {{ form.image.errors }}
+
+  </p>
+
+
+  <p>
+    <label for="id_first_name" class="text-sm text-gray-700 block mb-1 font-medium">First name:</label>
+     {{ form.first_name }}
+
+ {{ form.first_name.errors }}
+  </p>
+
+
+  <p>
+    <label for="id_middle_name" class="text-sm text-gray-700 block mb-1 font-medium">Middle name:</label>
+    {{ form.middle_name }}
+
+ {{ form.middle_name.errors }}
+  </p>
+
+
+  <p>
+    <label for="id_last_name" class="text-sm text-gray-700 block mb-1 font-medium">Last name:</label>
+    {{ form.last_name }}
+ {{ form.last_name.errors }}
+
+  </p>
+
+
+  <p>
+    <label for="id_email" class="text-sm text-gray-700 block mb-1 font-medium">Email address:</label>
+  {{ form.email }}
+
+ {{ form.email.errors }}
+  </p>
+
+
+   <p>
+    <label for="id_date_of_birth_month" class="text-sm text-gray-700 block mb-1 font-medium">Date of birth:</label>
+   {{ form.date_of_birth}}
+       {{ form.date_of_birth.errors }}
+
+
+  </p>
+
+
+
+  <p>
+    <label for="id_phone" class="text-sm text-gray-700 block mb-1 font-medium">Phone:</label>
+
+ {{ form.phone }}
+       {{ form.phone.errors }}
+  </p>
+
+
+  <p>
+    <label for="id_state" class="text-sm text-gray-700 block mb-1 font-medium">State:</label>
+       {{ form.state }}
+
+ {{ form.state.errors }}
+
+  </p>
+
+
+  <p>
+    <label for="id_occupation" class="text-sm text-gray-700 block mb-1 font-medium">Occupation:</label>
+   {{ form.occupation }}
+
+
+ {{ form.occupation.errors }}
+
+  </p>
+
+                            <div class="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4 w-full my-5 justify-between">
+                <!-- Secondary -->
+ <button class="py-2 px-8 bg-white border border-gray-200 text-green-600 rounded hover:bg-white active:bg-gray-200 disabled:opacity-50"  onclick="history.go(-1)">Cancel</button>
+                                 <button type="submit" class="py-2 px-4 bg-green-500 text-white rounded hover:bg-green-600 active:bg-blue-700 disabled:opacity-50">Update Profile</button>
+              </div>
+                                </div>
+
+                        </form>
+                    </div>
+
+
+        </div>
+       </section>
+{% endblock %}
