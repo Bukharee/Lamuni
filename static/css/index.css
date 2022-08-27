@@ -724,6 +724,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-bottom: -0.5rem;
 }
 
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
 .mb-6 {
   margin-bottom: 1.5rem;
 }
@@ -1038,6 +1043,18 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .w-2\/3 {
   width: 66.666667%;
+}
+
+.w-\[300p\] {
+  width: 300p;
+}
+
+.w-\[300px\] {
+  width: 300px;
+}
+
+.w-\[100px\] {
+  width: 100px;
 }
 
 .min-w-full {
@@ -4001,6 +4018,16 @@ body {
     margin-right: 0.5rem;
   }
 
+  .md\:my-6 {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .md\:mx-6 {
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+  }
+
   .md\:mt-0 {
     margin-top: 0px;
   }
@@ -4023,6 +4050,10 @@ body {
 
   .md\:h-8 {
     height: 2rem;
+  }
+
+  .md\:h-6 {
+    height: 1.5rem;
   }
 
   .md\:w-3\/5 {
@@ -4055,6 +4086,14 @@ body {
 
   .md\:w-2\/3 {
     width: 66.666667%;
+  }
+
+  .md\:w-6 {
+    width: 1.5rem;
+  }
+
+  .md\:w-7 {
+    width: 1.75rem;
   }
 
   .md\:basis-1\/4 {

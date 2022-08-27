@@ -131,7 +131,7 @@ def add_record(request):
         add_record_form = AddRecordForm()
 
     context = {
-        'add_record_form': add_record_form
+        'form': add_record_form
     }
     return render(request, 'add_record.html', context)
 
@@ -166,7 +166,7 @@ def add_sales_record(request):
         add_sales_form = AddSalesRecordForm()
 
     context = {
-        'add_sales_form': add_sales_form
+        'form': add_sales_form
     }
     return render(request, 'add_sales_record.html', context)
 
