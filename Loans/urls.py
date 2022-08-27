@@ -13,6 +13,6 @@ urlpatterns = [
     path('loan-details/<int:pk>/', loan_details, name="loan_details"),
     path('dashboard/', dashboard, name="dashboard"),
     path('loans/', loans_list, name='loans_list'),
-    path('profile/', fsp_profile, name='profile'),
+    path('fsp/profile/', fsp_profile, name='profile'),
     path('loans/<int:pk>/beneficiaries/', loan_beneficiaries, name='beneficiaries'),
 ]

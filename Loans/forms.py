@@ -8,6 +8,7 @@ from Loans.models import Loan, Sector, Record, SalesRecord
 
 class CreateLoanForm(ModelForm):
     class Meta:
+        model = Loan
         fields = ["program_title", "size", "sectors", "amount", "amount",
                   "paying_days", "grace_period",
                   "collateral"]
