@@ -2,7 +2,79 @@
 {% block title %} Loans {% endblock %}
 
 {% block content %}
-    <div>
+
+<section class=" h-full w-full" >
+
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mx-auto max-w-4xl">
+
+
+        <!-- grid chiilds -->
+    {% if loans %}
+        {% for loan in loans %}
+            <a href="{{ loan.get_absolute_url }}">
+        <div class=" flex flex-col bg-white shadow-sm shadow-light-gray p-4 sm:p-6 rounded-lg mx-4 sm:mx-6 relative">
+        {% with loan.fsp as user %}
+<img class="absolute top-0 -mt-6  rounded-lg bg-blend-lighten shadow-lg" width="50px"  src="{{ user.image.url }}" alt="">
+            {% endwith %}
+            <p class="text-sm text-dark-gray mt-4">{{ loan.date_created | date }}</p>
+            <h3 class=" flex-none text-lg md:text-xl bold tracking-wide">{{ loan.program_title }}</h3>
+            <p class="text-dark-gray ">Amount: {{ loan.amount }}</p>
+            <p class="text-dark-green mt-4 sm:mt-6">Sector: {% for sector in loan.sectors.all %}{{  sector.name }}{% endfor %} Size:{{ loan.size }}</p>
+
+        </div></a>
+
+        {% endfor %}
+    {% endif %}
+        <div class=" flex flex-col bg-white  shadow-sm shadow-light-gray  p-4 sm:p-6 rounded-lg mx-4 sm:mx-6">
+            <p class="text-sm text-dark-gray">time</p>
+            <h3 class=" flex-none text-lg bold tracking-wide">Loan din Kwashewa</h3>
+            <p class="text-dark-gray mb-4">campany</p>
+            <p class="text-dark-green mt-4 sm:mt-6">Loan, tags</p>
+
+        </div>
+        <div class=" flex flex-col bg-white shadow-sm shadow-light-gray  p-4 sm:p-6 rounded-lg mx-4 sm:mx-6">
+            <p class="text-sm text-dark-gray">time</p>
+            <h3 class=" flex-none text-lg bold tracking-wide">Loan din Kwashewa</h3>
+            <p class="text-dark-gray mb-4">campany</p>
+            <p class="text-dark-green mt-4 sm:mt-6">Loan, tags</p>
+
+        </div>
+        <div class=" flex flex-col bg-white shadow-sm p-4 sm:p-6 rounded-lg mx-4 sm:mx-6">
+            <p class="text-sm text-dark-gray">time</p>
+            <h3 class=" flex-none text-lg bold tracking-wide">Loan din Kwashewa</h3>
+            <p class="text-dark-gray mb-4">campany</p>
+            <p class="text-dark-green mt-4 sm:mt-6">Loan, tags</p>
+
+        </div>
+        <div class=" flex flex-col bg-white shadow-sm p-4 sm:p-6 rounded-lg mx-4 sm:mx-6">
+            <p class="text-sm text-dark-gray">time</p>
+            <h3 class=" flex-none text-lg bold tracking-wide">Loan din Kwashewa</h3>
+            <p class="text-dark-gray mb-4">campany</p>
+            <p class="text-darkgree mt-4 sm:mt-6">Loan, tags</p>
+
+        </div>
+        <div class=" flex flex-col bg-white shadow-sm p-4 sm:p-6 rounded-lg mx-4 sm:mx-6">
+            <p class="text-sm text-dark-gray">time</p>
+            <h3 class=" flex-none text-lg bold tracking-wide">Loan din Kwashewa</h3>
+            <p class="text-dark-gray mb-4">campany</p>
+            <p class="text-darkgree mt-4 sm:mt-6">Loan, tags</p>
+
+        </div>
+        <div class=" flex flex-col bg-white shadow-sm p-4 sm:p-6 rounded-lg mx-4 sm:mx-6">
+            <p class="text-sm text-dark-gray">time</p>
+            <h3 class=" flex-none text-lg bold tracking-wide">Loan din Kwashewa</h3>
+            <p class="text-dark-gray mb-4">campany</p>
+            <p class="text-darkgree mt-4 sm:mt-6">Loan, tags</p>
+
+        </div>
 
     </div>
+
+
+</section>
+
+
+
+
 {% endblock %}

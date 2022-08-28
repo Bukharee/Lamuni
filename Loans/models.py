@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 from multiselectfield import MultiSelectField
 from datetime import datetime, timedelta
 from django.conf import settings
@@ -52,6 +53,9 @@ class Loan(models.Model):
     paying_days = models.PositiveIntegerField()
     grace_period = models.PositiveIntegerField()
     collateral = models.CharField(max_length=200, blank=True, null=True)
+
+    def get_absolute_url(self):
+        return reverse('loans:user-loan-details', args=[self.pk])
 
 
 RECORD_CATEGORY = (('Purchase', 'Purchase'),

@@ -47,12 +47,20 @@ def loan_details(request, pk):
     return render(request, 'fsp/loan_details.html', {"loan": loan, "data": data})
 
 
+@login_required
+def user_loan_details(request, pk):
+    loan = get_object_or_404(Loan, id=pk)
+    return render(request, 'user/user_loan_details.html', {"loan": loan})
+
+
+@login_required
 def dashboard(request):
     user = request.user
     loans = Loan.objects.filter(fsp=user)
     return render(request, 'fsp/fsp-home.html', {"loans": loans})
 
 
+@login_required
 def loans_list(request):
     user = request.user
     loans = Loan.objects.filter(fsp=user)
@@ -121,7 +129,7 @@ def add_record(request):
         add_record_form = AddRecordForm()
 
     context = {
-        'add_record_form': add_record_form
+        'form': add_record_form
     }
     return render(request, 'add_record.html', context)
 
@@ -156,7 +164,7 @@ def add_sales_record(request):
         add_sales_form = AddSalesRecordForm()
 
     context = {
-        'add_sales_form': add_sales_form
+        'form': add_sales_form
     }
     return render(request, 'add_sales_record.html', context)
 
