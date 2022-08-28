@@ -457,8 +457,82 @@ class BalanceSheet(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.DO_NOTHING)
     total_capital = models.DecimalField(max_digits=12, decimal_places=2, verbose_name="Profit", default=0)
     retained_earnings = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    last_retained_earnings = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     total_equity = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     total_liabilities = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     total_assets = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    cash_dividend = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    stock_dividend = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     liabilities = models.ManyToManyField(Liability, blank=True)
     assets = models.ManyToManyField(Assets, blank=True)
+    income_statement = models.ManyToManyField(FinancialRecord, blank=True)
+
+    def get_total_assets(self):
+        total = 0
+
+        all_assets = self.assets.all()
+        start_date = datetime.today()
+        end_date = start_date - timedelta(days=30)
+
+        for asset in all_assets:
+            total += asset.amount
+
+        self.total_assets = total
+        self.save()
+        return total
+
+    def get_total_liabilities(self):
+        total = 0
+
+        all_liabilities = self.liabilities.all()
+        start_date = datetime.today()
+        end_date = start_date - timedelta(days=30)
+
+        for liability in all_liabilities:
+            total += liability.amount
+
+        self.total_liabilities = total
+        self.save()
+        return total
+
+    def get_retained_earnings(self):
+        # RE = BP(last period RE) + Net
+        # Income( or Loss)−Cash dividends −Stock Dividends
+
+        # A cash dividend is a distribution paid to stockholders as part
+        # of the corporation's current earnings or accumulated profits in the form of cash
+
+        #  A stock dividend is a dividend payment to shareholders that is made in shares rather than as cash.
+        re = 0
+        lst_re = self.last_retained_earnings
+        cash_dividends = self.cash_dividend
+        stock_dividends = self.stock_dividend
+        income = self.income_statement.get_total_incomes
+
+        re = (lst_re + income) - (cash_dividends + stock_dividends)
+
+        self.retained_earnings = re
+        self.save()
+
+        return re
+
+    def get_total_equity(self):
+
+        total = 0
+
+        # Shareholders’ Equity=Total Assets−Total Liabilities
+
+        total = self.get_total_assets() - self.get_total_liabilities()
+
+        self.total_equity = total
+        self.save()
+
+        return total
+
+    def get_equity_and_liability(self):
+
+        total = 0
+
+        total = self.get_total_equity() + self.get_total_liabilities()
+
+        return total
