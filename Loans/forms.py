@@ -19,11 +19,6 @@ class AddRecordForm(ModelForm):
         model = Record
         fields = ['amount', 'category']
 
-    def __init__(self, *args, **kwargs):
-        super(AddRecordForm, self).__init__(*args, **kwargs)
-        self.fields['amount'].widget.attrs['class'] = 'form-input'
-        self.fields['category'].widget.attrs['class'] = 'form-input'
-
     def clean_amount(self):
         if self.cleaned_data['amount'] <= 0:
             self.add_error('amount', 'The field "Amount" should be greater than 0.')
@@ -35,13 +30,6 @@ class AddSalesRecordForm(ModelForm):
     class Meta:
         model = SalesRecord
         fields = '__all__'
-
-    def __init__(self, *args, **kwargs):
-        super(AddSalesRecordForm, self).__init__(*args, **kwargs)
-        self.fields["item_name"].widget.attrs['class'] = 'form-input'
-        self.fields["quantity"].widget.attrs['class'] = 'form-input'
-        self.fields["cost_price_per_item"].widget.attrs['class'] = 'form-input'
-        self.fields["selling_price_per_item"].widget.attrs['class'] = 'form-input'
 
     def clean_amount(self):
         if self.cleaned_data['cost_price_per_item'] <= 0:

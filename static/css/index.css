@@ -602,10 +602,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   top: 2.5rem;
 }
 
-.top-0 {
-  top: 0px;
-}
-
 .isolate {
   isolation: isolate;
 }
@@ -673,19 +669,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-right: 0.25rem;
 }
 
-.my-5 {
-  margin-top: 1.25rem;
-  margin-bottom: 1.25rem;
+.my-10 {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
 }
 
 .my-4 {
   margin-top: 1rem;
   margin-bottom: 1rem;
-}
-
-.my-10 {
-  margin-top: 2.5rem;
-  margin-bottom: 2.5rem;
 }
 
 .my-2 {
@@ -696,6 +687,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .mx-2 {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
+}
+
+.my-5 {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
 }
 
 .-mx-3 {
@@ -728,11 +724,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-bottom: -0.5rem;
 }
 
-.mx-4 {
-  margin-left: 1rem;
-  margin-right: 1rem;
-}
-
 .mb-6 {
   margin-bottom: 1.5rem;
 }
@@ -753,18 +744,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-top: 4rem;
 }
 
-.mt-10 {
-  margin-top: 2.5rem;
-}
-
-.mt-8 {
-  margin-top: 2rem;
-}
-
-.mb-1 {
-  margin-bottom: 0.25rem;
-}
-
 .ml-2 {
   margin-left: 0.5rem;
 }
@@ -779,6 +758,18 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .ml-4 {
   margin-left: 1rem;
+}
+
+.mt-10 {
+  margin-top: 2.5rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
+.mb-1 {
+  margin-bottom: 0.25rem;
 }
 
 .mb-10 {
@@ -831,10 +822,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .mt-32 {
   margin-top: 8rem;
-}
-
-.-mt-6 {
-  margin-top: -1.5rem;
 }
 
 .box-border {
@@ -1037,10 +1024,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 80%;
 }
 
-.w-\[100px\] {
-  width: 100px;
-}
-
 .w-4 {
   width: 1rem;
 }
@@ -1057,10 +1040,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 66.666667%;
 }
 
-.w-\[50px\] {
-  width: 50px;
-}
-
 .min-w-full {
   min-width: 100%;
 }
@@ -1073,12 +1052,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   max-width: 32rem;
 }
 
-.max-w-\[1280px\] {
-  max-width: 1280px;
-}
-
 .max-w-xs {
   max-width: 20rem;
+}
+
+.max-w-\[1280px\] {
+  max-width: 1280px;
 }
 
 .max-w-\[950px\] {
@@ -1097,14 +1076,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   max-width: 42rem;
 }
 
-.max-w-4xl {
-  max-width: 56rem;
-}
-
-.max-w-3xl {
-  max-width: 48rem;
-}
-
 .flex-none {
   flex: none;
 }
@@ -1115,10 +1086,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .flex-auto {
   flex: 1 1 auto;
-}
-
-.flex-initial {
-  flex: 0 1 auto;
 }
 
 .flex-shrink-0 {
@@ -1996,16 +1963,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-radius: 0.5rem;
 }
 
-.rounded {
-  border-radius: 0.25rem;
-}
-
 .rounded-full {
   border-radius: 9999px;
 }
 
 .rounded-xl {
   border-radius: 0.75rem;
+}
+
+.rounded {
+  border-radius: 0.25rem;
 }
 
 .rounded-sm {
@@ -2140,14 +2107,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(199 195 192 / var(--tw-border-opacity));
 }
 
-.border-gray-200 {
-  --tw-border-opacity: 1;
-  border-color: rgb(229 231 235 / var(--tw-border-opacity));
-}
-
 .border-dark-green {
   --tw-border-opacity: 1;
   border-color: rgb(22 163 74 / var(--tw-border-opacity));
+}
+
+.border-gray-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(229 231 235 / var(--tw-border-opacity));
 }
 
 .border-emerald-500 {
@@ -2180,14 +2147,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(22 163 74 / var(--tw-bg-opacity));
 }
 
-.bg-green-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(34 197 94 / var(--tw-bg-opacity));
-}
-
 .bg-slate-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(241 245 249 / var(--tw-bg-opacity));
+}
+
+.bg-green-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(34 197 94 / var(--tw-bg-opacity));
 }
 
 .bg-light-gray {
@@ -2243,11 +2210,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .bg-red-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(254 202 202 / var(--tw-bg-opacity));
-}
-
-.bg-green-100 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(220 252 231 / var(--tw-bg-opacity));
 }
 
 .bg-\[rgb\(255\2c 0\2c 0\)\] {
@@ -2798,21 +2760,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(79 79 79 / var(--tw-text-opacity));
 }
 
-.text-dark-black {
-  --tw-text-opacity: 1;
-  color: rgb(16 16 16 / var(--tw-text-opacity));
-}
-
-.text-green-600 {
-  --tw-text-opacity: 1;
-  color: rgb(22 163 74 / var(--tw-text-opacity));
-}
-
-.text-gray-700 {
-  --tw-text-opacity: 1;
-  color: rgb(55 65 81 / var(--tw-text-opacity));
-}
-
 .text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
@@ -2833,6 +2780,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(161 161 170 / var(--tw-text-opacity));
 }
 
+.text-gray-700 {
+  --tw-text-opacity: 1;
+  color: rgb(55 65 81 / var(--tw-text-opacity));
+}
+
 .text-gray-600 {
   --tw-text-opacity: 1;
   color: rgb(75 85 99 / var(--tw-text-opacity));
@@ -2846,6 +2798,16 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-green-500 {
   --tw-text-opacity: 1;
   color: rgb(34 197 94 / var(--tw-text-opacity));
+}
+
+.text-dark-black {
+  --tw-text-opacity: 1;
+  color: rgb(16 16 16 / var(--tw-text-opacity));
+}
+
+.text-green-600 {
+  --tw-text-opacity: 1;
+  color: rgb(22 163 74 / var(--tw-text-opacity));
 }
 
 .text-emerald-500 {
@@ -2876,11 +2838,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-indigo-600 {
   --tw-text-opacity: 1;
   color: rgb(79 70 229 / var(--tw-text-opacity));
-}
-
-.text-green-700 {
-  --tw-text-opacity: 1;
-  color: rgb(21 128 61 / var(--tw-text-opacity));
 }
 
 .underline {
@@ -3482,6 +3439,11 @@ body {
   background-color: rgb(96 175 124 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-gray-300:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-white:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
@@ -3490,11 +3452,6 @@ body {
 .hover\:bg-green-600:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(22 163 74 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-gray-300:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-dark-green:hover {
@@ -3515,11 +3472,6 @@ body {
 .hover\:bg-gray-100:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-green-300:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(134 239 172 / var(--tw-bg-opacity));
 }
 
 .hover\:font-bold:hover {
@@ -3763,21 +3715,16 @@ body {
     margin-right: -1.5rem;
   }
 
-  .sm\:mx-6 {
-    margin-left: 1.5rem;
-    margin-right: 1.5rem;
-  }
-
   .sm\:mt-16 {
     margin-top: 4rem;
   }
 
-  .sm\:mt-0 {
-    margin-top: 0px;
-  }
-
   .sm\:mb-0 {
     margin-bottom: 0px;
+  }
+
+  .sm\:mt-0 {
+    margin-top: 0px;
   }
 
   .sm\:ml-4 {
@@ -3786,10 +3733,6 @@ body {
 
   .sm\:mt-4 {
     margin-top: 1rem;
-  }
-
-  .sm\:mt-6 {
-    margin-top: 1.5rem;
   }
 
   .sm\:block {
@@ -3846,14 +3789,6 @@ body {
 
   .sm\:w-1\/4 {
     width: 25%;
-  }
-
-  .sm\:w-\[100px\] {
-    width: 100px;
-  }
-
-  .sm\:w-32 {
-    width: 8rem;
   }
 
   .sm\:grid-cols-2 {
@@ -4035,21 +3970,12 @@ body {
     line-height: 2.5rem;
   }
 
-  .sm\:text-lg {
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-  }
-
   .sm\:leading-loose {
     line-height: 2;
   }
 
   .sm\:tracking-wide {
     letter-spacing: 0.025em;
-  }
-
-  .sm\:tracking-wider {
-    letter-spacing: 0.05em;
   }
 
   .sm\:underline {
@@ -4065,11 +3991,6 @@ body {
 }
 
 @media (min-width: 768px) {
-  .md\:my-6 {
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-
   .md\:-mx-2 {
     margin-left: -0.5rem;
     margin-right: -0.5rem;
@@ -4261,11 +4182,6 @@ body {
   .md\:text-2xl {
     font-size: 1.5rem;
     line-height: 2rem;
-  }
-
-  .md\:text-xl {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
   }
 }
 
