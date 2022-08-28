@@ -237,7 +237,7 @@ class GeneratePdf(View):
         pdf = html_to_pdf('temp.html')
 
         # file_name = user.first_name + " income statement " + month + " " + year + ".pdf"
-        file_name = user.first_name + " income statement " + ".pdf"
+        file_name = user.username + " income statement" + ".pdf"
 
         receipt_file = BytesIO(pdf.content)
 
