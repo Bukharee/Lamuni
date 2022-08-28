@@ -1,10 +1,10 @@
-<html lang="en" class="print:"m-0>
-    {% load static %}
+<html lang="en" class="print:" m-0>
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>financialStatement</title>
+    <title>Financial Statement</title>
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
     <style>
         @page {
@@ -76,298 +76,308 @@
             }
               
         }
+
     </style>
 </head>
 <body>
 
 
-    <div class="container mx-auto mt-2">
-        <header class="flex justify-between items-center">
+<div class="container mx-auto mt-2">
+    <header class="flex justify-between items-center">
 
-            <div class="ml-2">
-                <h1 class="text-dark-green font-medium text-3xl font-Poppins">MONTLY FINANCIAL REPORT</h1>
-                <h2 class="font-medium font-Poppins text-dark-gray">{{ f_record.user }} 's Business</h2>
-            </div>
-            <span class="mr-2 text-dark-gray">
-                {% now "Y" as current_year %}
-                <h1>{% now "jS \o\f F" %}, {{current_year}}</h1>
+        <div class="ml-2">
+            <h1 class="text-dark-green font-medium text-3xl font-Poppins">{{ name }}</h1>
+            <h2 class="font-medium font-Poppins text-dark-gray">Income Statement</h2>
+            <h2 class="font-small font-Poppins text-dark-gray">Fiscal year {{ year }}</h2>
+        </div>
+        <span class="mr-2 text-dark-gray">
+                {{ from_date | date:'m-d-Y' }} - {{ to_date | date:'m-d-Y' }}
             </span>
-        </header>
+    </header>
 
-        <div class="main-table">
-                     
-            <div class="graph py-4 my-10 px-4">   
-                            
-                <div class="card bg-white">
-                    <div class="card-header p-2 text-white text-center bg-dark-green">
-                      <h1 class="text-center font-bold">REVENUES</h1>
-                    </div>
-                    <div class="card-body text-center">
-                        <h1 class="text-gray-600">${{ f_record.total_sales }}</h1>
-                    </div>
-                    <hr>
-                    <p class="flex font-bold text-dark-gray p-2 justify-center"> 
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12" />
-                        </svg>
-                        <span class="">3%</span>
-                    </p>
+    <div class="main-table">
+
+        <div class="graph py-4 my-10 px-4">
+
+            <div class="card bg-white">
+                <div class="card-header p-2 text-white text-center bg-dark-green">
+                    <h1 class="text-center font-bold">REVENUES</h1>
                 </div>
-
-                <div class="card bg-white">
-                    <div class="card-header p-2 text-white text-center bg-dark-green">
-                      <h1 class="text-center font-bold">NET PROFIT</h1>
-                    </div>
-                    <div class="card-body text-center">
-                        <h1 class="text-gray-600">${{ f_record.get_net_profit }}</h1>
-                    </div>
-                    <hr>
-                    <p class="flex font-bold text-dark-gray p-2 justify-center"> 
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12" />
-                        </svg>
-                        <span class="">6%</span>
-                    </p>
+                <div class="card-body text-center">
+                    <h1 class="text-gray-600"> ₦ {{ revenues }}</h1>
                 </div>
-
-                <div class="card bg-white">
-                    <div class="card-header p-2 text-white text-center bg-dark-green">
-                      <h1 class="text-center font-bold">GROSS PROFIT</h1>
-                    </div>
-                    <div class="card-body text-center">
-                        <h1 class="text-gray-600">${{ f_record.get_gross_profit }}</h1>
-                    </div>
-                    <hr>
-                    <p class="flex font-bold text-dark-gray p-2 justify-center"> 
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12" />
-                        </svg>
-                        <span class="">12%</span>
-                    </p>
-                </div>
-
-                <div class="card bg-white">
-                    <div class="card-header p-2 text-white text-center bg-dark-green">
-                      <h1 class="text-center font-bold">APPRECIATION</h1>
-                    </div>
-                    <div class="card-body text-center">
-                        <h1 class="text-gray-600">${{ f_record.get_appreciation }}</h1>
-                    </div>
-                    <hr>
-                    <p class="flex font-bold text-dark-gray p-2 justify-center"> 
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12" />
-                        </svg>
-                        <span class="">5%</span>
-                    </p>
-                </div>
-
-            </div>
-            
-            <div class="overflow-x-auto relative">
-                <table class="w-full text-sm text-left text-gray-500">
-                    <thead class="text-xs table-header text-white uppercase bg-dark-green">
-                        <tr>
-                            <th scope="col" class="py-3 px-6">
-                                Metric
-                            </th>
-                            <th scope="col" class="py-3 px-6">
-                                Current Report
-                            </th>
-                            <th scope="col" class="py-3 px-6">
-                                Previous Report
-                            </th>
-                            <th scope="col" class="py-3 px-6">
-                                (%) Change 
-                            </th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr class="bg-light-gray  text-dark-gray">
-                            <th scope="row" class="py-4 px-6 font-medium whitespace-nowrap">
-                                REVENUES
-                            </th>
-                            <td class="py-4 px-6">
-                                $234,575,70
-                            </td>
-                            <td class="py-4 px-6 flex items-center">
-                                $9764,6358
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12" />
-                                </svg>
-                            </td>
-                            <td class="py-4 px-6">
-                                4%
-                            </td>
-                        </tr>
-
-                        <tr class="bg-white text-dark-gray">
-                            <th scope="row" class="py-4 px-6 font-medium whitespace-nowrap">
-                                REVENUES
-                            </th>
-                            <td class="py-4 px-6">
-                                $4234,575.00
-                            </td>
-                            <td class="py-4 px-6 flex items-center">
-                                $9764,6358
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12" />
-                                </svg>
-                            </td>
-                            <td class="py-4 px-6">
-                                2%
-                            </td>
-                        </tr>
-
-                        <tr class="bg-light-gray text-dark-gray">
-                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                REVENUES
-                            </th>
-                            <td class="py-4 px-6">
-                                $975,969
-                            </td>
-                            <td class="py-4 px-6 flex items-center">
-                                $9764,6358
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12" />
-                                </svg>
-                            </td>
-                            <td class="py-4 px-6">
-                                3%
-                            </td>
-                        </tr>
-
-                        <tr class="bg-white text-dark-gray">
-                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                REVENUES
-                            </th>
-                            <td class="py-4 px-6">
-                                $86,9757,08
-                            </td>
-                            <td class="py-4 px-6 flex items-center">
-                                $9764,6358
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12" />
-                                </svg>
-                            </td>
-                            <td class="py-4 px-6">
-                                1%
-                            </td>
-                        </tr>
-
-                        <tr class="bg-light-gray text-dark-gray">
-                            <th scope="row" class="py-4 px-6 font-medium whitespace-nowrap">
-                                REVENUES
-                            </th>
-                            <td class="py-4 px-6">
-                                $48,853.00
-                            </td>
-                            <td class="py-4 px-6 flex items-center">
-                                $9764,6358
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12" />
-                                </svg>
-                            </td>
-                            <td class="py-4 px-6">
-                                8%
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <hr>
+                <p class="flex font-bold text-dark-gray p-2 justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
+                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
+                    </svg>
+                </p>
             </div>
 
-            <dIv class="mb-4 mt-6 previou">
-                <h1 class="text-center text-dark-green font-medium text-3xl font-Poppins">PREVIOUS MONTH</h1>
-            </dIv> 
-
-            <div class="graph block py-4 my-10 px-4">  
-                
-               
-
-
-                <div class="card bg-white">
-                    <div class="card-header p-2 text-white text-center bg-dark-green">
-                      <h1 class="text-center font-bold">REVENUES</h1>
-                    </div>
-                    <div class="card-body text-center">
-                        <h1 class="text-gray-600">$3455,747</h1>
-                    </div>
-                    <hr>
-                    <p class="flex font-bold text-dark-gray p-2 justify-center"> 
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12" />
-                        </svg>
-                        <span class="">0.5%</span>
-                    </p>
+            <div class="card bg-white">
+                <div class="card-header p-2 text-white text-center bg-dark-green">
+                    <h1 class="text-center font-bold">NET PROFIT</h1>
                 </div>
-
-                <div class="card bg-white">
-                    <div class="card-header p-2 text-white text-center bg-dark-green">
-                      <h1 class="text-center font-bold">NET PROFIT</h1>
-                    </div>
-                    <div class="card-body text-center">
-                        <h1 class="text-gray-600">$3455,747</h1>
-                    </div>
-                    <hr>
-                    <p class="flex font-bold text-dark-gray p-2 justify-center"> 
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12" />
-                        </svg>
-                        <span class="">3%</span>
-                    </p>
+                <div class="card-body text-center">
+                    <h1 class="text-gray-600">₦ {{ net_profit }}</h1>
                 </div>
-
-                <div class="card bg-white">
-                    <div class="card-header p-2 text-white text-center bg-dark-green">
-                      <h1 class="text-center font-bold">GROSS PROFIT</h1>
-                    </div>
-                    <div class="card-body text-center">
-                        <h1 class="text-gray-600">$3455,747</h1>
-                    </div>
-                    <hr>
-                    <p class="flex font-bold text-dark-gray p-2 justify-center"> 
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12" />
-                        </svg>
-                        <span class="">7%</span>
-                    </p>
-                </div>
-
-                <div class="card bg-white">
-                    <div class="card-header p-2 text-white text-center bg-dark-green">
-                      <h1 class="text-center font-bold">INTEREST</h1>
-                    </div>
-                    <div class="card-body text-center">
-                        <h1 class="text-gray-600">$3455,747</h1>
-                    </div>
-                    <hr>
-                    <p class="flex font-bold text-dark-gray p-2 justify-center"> 
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12" />
-                        </svg>
-                        <span class="">10%</span>
-                    </p>
-                </div>
-
-                <div class="card bg-white">
-                    <div class="card-header p-2 text-white text-center bg-dark-green">
-                      <h1 class="text-center font-bold">DEPRECIATION</h1>
-                    </div>
-                    <div class="card-body text-center">
-                        <h1 class="text-gray-600">$3455,747</h1>
-                    </div>
-                    <hr>
-                    <p class="flex font-bold text-dark-gray p-2 justify-center"> 
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12" />
-                        </svg>
-                        <span class="">6%</span>
-                    </p>
-                </div>
-
+                <hr>
+                <p class="flex font-bold text-dark-gray p-2 justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
+                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
+                    </svg>
+                </p>
             </div>
+
+            <div class="card bg-white">
+                <div class="card-header p-2 text-white text-center bg-dark-green">
+                    <h1 class="text-center font-bold">GROSS PROFIT</h1>
+                </div>
+                <div class="card-body text-center">
+                    <h1 class="text-gray-600">₦ {{ gross_profit }}</h1>
+                </div>
+                <hr>
+                <p class="flex font-bold text-dark-gray p-2 justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
+                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
+                    </svg>
+                </p>
+            </div>
+
+            <div class="card bg-white">
+                <div class="card-header p-2 text-white text-center bg-dark-green">
+                    <h1 class="text-center font-bold">APPRECIATION</h1>
+                </div>
+                <div class="card-body text-center">
+                    <h1 class="text-gray-600">{{ depreciation_percent }}</h1>
+                </div>
+                <hr>
+                <p class="flex font-bold text-dark-gray p-2 justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
+                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
+                    </svg>
+                </p>
+            </div>
+
+        </div>
+
+        <h1>Income</h1>
+        <div class="overflow-x-auto relative">
+            <table class="w-full text-sm text-left text-gray-500">
+                <thead class="text-xs table-header text-white uppercase bg-dark-green">
+                <tr>
+                    <th scope="col" class="py-3 px-6">
+                        Description
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Balance Type
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Balance
+                    </th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr class="bg-light-gray  text-dark-gray">
+                    <td class="py-4 px-6">
+                        Sales Income
+                    </td>
+                    <td class="py-4 px-6 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
+                        </svg>
+                    </td>
+                    <td class="py-4 px-6">
+                        ₦ {{ total_sales }}
+                    </td>
+                </tr>
+                </tbody>
+
+                {% for record in other_incomes %}
+                <tbody>
+                <tr class="bg-light-gray  text-dark-gray">
+                    <td class="py-4 px-6">
+                        {{ record.description }}
+                    </td>
+                    <td class="py-4 px-6 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
+                        </svg>
+                    </td>
+                    <td class="py-4 px-6">
+                        ₦ {{ record.amount }}
+                    </td>
+                </tr>
+                </tbody>
+
+                {% endfor %}
+
+                <tbody>
+                <tr class="bg-light-gray  text-dark-gray">
+                    <td class="py-4 px-6">
+                        <b>Total Income</b>
+                    </td>
+                    <td class="py-4 px-6 flex items-center ">
+
+                    </td>
+                    <td class="py-4 px-6">
+                        <b>₦ {{ total_income }}</b>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <h1>Expenses</h1>
+        <div class="overflow-x-auto relative">
+            <table class="w-full text-sm text-left text-gray-500">
+                <thead class="text-xs table-header text-white uppercase bg-dark-green">
+                <tr>
+                    <th scope="col" class="py-3 px-6">
+                        Description
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Balance Type
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Balance
+                    </th>
+                </tr>
+                </thead>
+
+                {% for expense in expenses %}
+                <tbody>
+                <tr class="bg-light-gray  text-dark-gray">
+                    <td class="py-4 px-6">
+                        {{ expense.description }}
+                    </td>
+                    <td class="py-4 px-6 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
+                        </svg>
+                    </td>
+                    <td class="py-4 px-6">
+                        ₦ {{ expense.amount }}
+                    </td>
+                </tr>
+                </tbody>
+                {{% endfor %}
+
+                <tbody>
+                <tr class="bg-light-gray  text-dark-gray">
+                    <td class="py-4 px-6">
+                        <b>Total Expenses</b>
+                    </td>
+                    <td class="py-4 px-6 flex items-center ">
+
+                    </td>
+                    <td class="py-4 px-6">
+                        <b>₦ {{ total_expenses }}</b>
+                    </td>
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr class="bg-light-gray  text-dark-gray">
+                    <td class="py-4 px-6">
+                        <b>Total Income (Loss)</b>
+                    </td>
+                    <td class="py-4 px-6 flex items-center ">
+
+                    </td>
+                    <td class="py-4 px-6">
+                        <b>₦ {{ net_profit }}</b>
+                    </td>
+                </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+        <dIv class="mb-4 mt-6 previous">
+            <h1 class="text-center text-dark-green font-medium text-3xl font-Poppins">PREVIOUS MONTH</h1>
+        </dIv>
+
+        <div class="graph block py-4 my-10 px-4">
+
+
+            <div class="card bg-white">
+                <div class="card-header p-2 text-white text-center bg-dark-green">
+                    <h1 class="text-center font-bold">REVENUES</h1>
+                </div>
+                <div class="card-body text-center">
+                    <h1 class="text-gray-600">₦ {{ prev_revenues }}</h1>
+                </div>
+                <hr>
+                <p class="flex font-bold text-dark-gray p-2 justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
+                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
+                    </svg>
+                </p>
+            </div>
+
+            <div class="card bg-white">
+                <div class="card-header p-2 text-white text-center bg-dark-green">
+                    <h1 class="text-center font-bold">NET PROFIT</h1>
+                </div>
+                <div class="card-body text-center">
+                    <h1 class="text-gray-600">₦ {{ prev_net_profit }}</h1>
+                </div>
+                <hr>
+                <p class="flex font-bold text-dark-gray p-2 justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
+                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
+                    </svg>
+                </p>
+            </div>
+
+            <div class="card bg-white">
+                <div class="card-header p-2 text-white text-center bg-dark-green">
+                    <h1 class="text-center font-bold">GROSS PROFIT</h1>
+                </div>
+                <div class="card-body text-center">
+                    <h1 class="text-gray-600">₦ {{ prev_gross_profit }}</h1>
+                </div>
+                <hr>
+                <p class="flex font-bold text-dark-gray p-2 justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
+                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
+                    </svg>
+                </p>
+            </div>
+
+            <div class="card bg-white">
+                <div class="card-header p-2 text-white text-center bg-dark-green">
+                    <h1 class="text-center font-bold">DEPRECIATION</h1>
+                </div>
+                <div class="card-body text-center">
+                    <h1 class="text-gray-600">{{ depreciation_percent }} %</h1>
+                </div>
+                <hr>
+                <p class="flex font-bold text-dark-gray p-2 justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
+                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
+                    </svg>
+                </p>
+            </div>
+
         </div>
     </div>
+</div>
+
+<span>Generated by Lamuni's AI based Financial System</span>
 </body>
 </html>
