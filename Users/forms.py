@@ -1,4 +1,7 @@
+from dataclasses import fields
+from pyexpat import model
 from django import forms
+from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 from .models import User
@@ -28,3 +31,10 @@ class ResetPawsswordForm(forms.Form):
         password1 = forms.CharField(max_length=128)
         password2 = forms.CharField(max_length=128)
 
+
+class KYCVerifyForm(ModelForm):
+
+    class Meta:
+        model = User
+        fields = ["address", "bvn", "nin", \
+            "time_in_business", "sector", "size", "number_of_employee"]

@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from .verify import send, check, sms_reset
 from django.contrib.auth import get_user_model
 from Wallet.models import Wallet, Transaction
+from .forms import KYCVerifyForm
 
 
 # Create your views here.
@@ -163,3 +164,43 @@ def user_profile(request):
 
 def financial_statement(request):
     return render(request, "financial-statement.html")
+
+
+def credit_score(request): 
+    user = request.user
+    #give a credit score between 0 - 100%
+    #based on this creterias 
+    #knowledge
+    #does he have unpaid credit that exceeds limit
+    #how manay times does he exceeeds and how manay days
+    #his credit score will be frozen if he have an outstanding balance
+    #faninacial record
+    #and have a mini statement and a valid balance sheet
+
+
+@login_required
+def verification(request):
+    if not request.user.is_kyc_verified:
+        form = KYCVerifyForm()
+        if request.method == "POST":
+            print("post nenenennenennennenenneneenennenenenennenen")
+            form = KYCVerifyForm(data=request.POST)
+            print(form.is_valid())
+            print(form.errors)
+            if form.is_valid():
+                User.objects.filter(username=request.user.username).update(
+                    address = form.cleaned_data["address"],
+                    bvn = form.cleaned_data["bvn"],
+                    nin = form.cleaned_data["bvn"],
+                    time_in_business = form.cleaned_data["time_in_business"],
+                    sector = form.cleaned_data["sector"],
+                    size = form.cleaned_data["size"],
+                        number_of_employee = form.cleaned_data["number_of_employee"]
+                )
+                request.user.is_kyc_verified = True
+                request.user.save()
+                return render(request, "verification_success.html", {"message": "Verification is Successfull"})
+        else:
+            return render(request, "verify.html", {"form": form})
+    else:
+        return render(request, "verification_success.html", {"message": "Already Verified"})

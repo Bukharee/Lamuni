@@ -19,7 +19,7 @@ TIME_IN_BUSINESS_CHOICES = (('Less than 1 year', 'Less than 1 year'),
                             ('4 years', '4 years'),
                             ('5 years', '5 years'),
                             ('Above 5 years', 'Above 5 years'),)
-
+BUSINESS_SIZE = (('MICRO', 'MICRO'), ('SMALL', 'SMALL'), ('MEDIUM', 'MEDIUM'),)
 
 class User(AbstractUser):
     name = models.CharField(max_length=100)
@@ -28,12 +28,13 @@ class User(AbstractUser):
     is_number_verified = models.BooleanField(default=False)
     reset_code = models.CharField(max_length=8, help_text='Enter code')
     is_kyc_verified = models.BooleanField(default=False)
-    date_of_birth = models.DateTimeField(blank=True, null=True)
-    address = models.TextField(max_length=200, blank=True, null=True)
-    bvn = models.PositiveIntegerField(blank=True, null=True)
-    nin = models.PositiveIntegerField(blank=True, null=True)
-    nin_file = models.FileField(upload_to='nins/%Y/%m/', null=True, blank=True)
+    address = models.CharField(max_length=200, blank=False, null=True)
+    bvn = models.PositiveIntegerField(blank=False, null=True)
+    nin = models.PositiveIntegerField(blank=False, null=True)
+    # nin_file = models.FileField(upload_to='nins/%Y/%m/', null=True, blank=False)
     business_certificate = models.FileField(upload_to='business_certificate/%Y/%m/', null=True, blank=True)
     financial_record = models.FileField(upload_to='financial_record/%Y/%m/', null=True, blank=True)
     time_in_business = models.CharField(max_length=30, choices=TIME_IN_BUSINESS_CHOICES, blank=True, null=True)
     sector = models.ForeignKey(Sector, on_delete=models.DO_NOTHING, blank=True, null=True)
+    size = models.CharField(choices=BUSINESS_SIZE, max_length=20)
+    number_of_employee = models.PositiveIntegerField(blank=True, null=True)

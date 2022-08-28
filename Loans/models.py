@@ -1,12 +1,20 @@
+from importlib.metadata import requires
+from time import timezone
 from django.db import models
 from django.contrib.auth import get_user_model
 from multiselectfield import MultiSelectField
 from datetime import datetime, timedelta
+from django.shortcuts import get_object_or_404
+from django.conf import settings
 
 from Users.models import Sector
 
 # Create your models here.
-BUSINESS_SIZE = (('MICRO', 'MICRO'), ('SMALL', 'SMALL'), ('MEDIUM', 'MEDIUM'),)
+REQUIREMENTS = (('address', 'address'),
+('bvn', 'bvn'), ('nin', 'nin'), ('business_certificate', 'business_certificate'),
+('financial_record', 'financial_record'), ('time_in_business', 'time_in_business' ),
+ ('number_of_employee', 'number_of_employee'))
+BUSINESS_SIZE = (('MICRO', 'MICRO'), ('SMALL', 'SMALL'), ('MEDIUM', 'MEDIUM'))
 
 
 class FSP(models.Model):
@@ -18,18 +26,43 @@ class FSP(models.Model):
 
 
 class Beneficiaries(models.Model):
-    user = models.ForeignKey(get_user_model(), on_delete=models.DO_NOTHING, related_name="beneficiary")
-    time_applied = models.DateTimeField()
-    time_payed = models.DateField()
-    is_payed = models.DateTimeField()
-    time_to_pay = models.DateTimeField()  # oficailly the time the loan suppose to be paid
+    print("beneficairies model")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, related_name="beneficiary")
+    time_applied = models.DateTimeField(auto_now=True)
+    time_payed = models.DateTimeField(blank=True, null=True)
+    is_payed = models.BooleanField(default=False)
+    time_to_pay = models.DateTimeField(blank=True, null=True)  # oficailly the time the loan suppose to be paid
     number_of_employee = models.PositiveIntegerField()
     is_given = models.BooleanField(default=False)
+    is_denied = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return str(self.user.username)
 
+    @property
+    def is_recommended(self, loan_id):
+        #TODO: check if the applicants credit score is greater than 50%
+        loan = get_object_or_404(Loan, id=loan_id)
+        all_beneficiaries =  self.objects.filter(user=self.user, is_given=True, is_payed=False)
+        if all_beneficiaries.exists():
+            return (False, 0)
+        if self.user.sector in loan.sectors.all() and self.user.size in loan.size:
+           return (True, 10)
+        elif self.user.size in loan.size:
+            return (True, 7)
+        elif self.user.sector in loan.sectors.all():
+            return (True, 5)
+        #call fake recommend api
+class Requirement(models.Model):
+     requiremenent = models.CharField(choices=REQUIREMENTS, max_length=50)
 
+     def __str__(self) -> str:
+         return str(self.requiremenent)
+
+for choice in REQUIREMENTS:
+    requirements = Requirement.objects.filter(requiremenent=choice[0])
+    if not requirements.exists():
+        Requirement.objects.create(requiremenent=choice[0])
 class Loan(models.Model):
     fsp = models.ForeignKey(get_user_model(), on_delete=models.DO_NOTHING, related_name="fsp")
     date_created = models.DateTimeField(auto_now_add=True)
@@ -42,12 +75,85 @@ class Loan(models.Model):
     paying_days = models.PositiveIntegerField()
     grace_period = models.PositiveIntegerField()
     collateral = models.CharField(max_length=200, blank=True, null=True)
+    requirements = models.ManyToManyField(Requirement)
+
+    def number_of_approved(self):
+        beneficiaries = self.beneficiaries.all()
+        count = 0
+        for beneficiary in beneficiaries:
+            if beneficiary.is_given:
+                count += 1
+        return count
+    
+    def get_sector_data(self):
+        beneficiaries = self.beneficiaries.all()
+        data = {}
+        for beneficiary in beneficiaries:
+            sector = beneficiary.user.sector
+            print("sectors",sector)
+            it_exist = data.get(sector.name, 0)
+            if it_exist == 0:
+                data[sector.name] = 1
+            else:
+                data[sector.name] += 1
+        return data
+
+    # number_of_approved = loan.beneficiaries.filter(is_given=True).count()
+
+    def number_of_yet_paid(self):
+        beneficiaries = self.beneficiaries.all()
+        count = 0
+        for beneficiary in beneficiaries:
+            if not beneficiary.is_payed:
+                count += 1
+        return count
+
+    def number_of_paid(self):
+        beneficiaries = self.beneficiaries.all()
+        count = 0
+        for beneficiary in beneficiaries:
+            if beneficiary.is_payed:
+                count += 1
+        return count
+    
+    def grant_loan(self, user):
+        #TODO: send notif or message to the user that loan granted
+        application = self.beneficiaries.filter(user=user)
+        if application.exists():
+            application.is_given = True
+            application.is_denied = True
+            application.time_to_pay = timezone.now() + timedelta(days=self.paying_days)
+            application.save()
+            return True
+        return False
+    def deny_loan(self, user):
+        # TODO: deny loan tomorow test
+        application = Beneficiaries.objects.filter(user=user)
+        if application in self.beneficiaries.all():    
+            #apply is_denied to be true
+            application.is_denied = True
+            application.is_given = False
+            application.save()
+            return True
+            #TODO: send the user a sorry message that this isnt the right program for him 
+        return False
+
+    def grant_recommended(self):
+        #TODO: this will grant all recommended and deny all unrecommended
+        for beneficiary in self.beneficiaries.all():
+            if beneficiary.is_recommended(self.id)[0]:
+                self.grant_loan(beneficiary.user)
+            else:
+                self.deny_loan(beneficiary.user)
+        return None
 
 
 RECORD_CATEGORY = (('Purchase', 'Purchase'),
                    ('Expenses', 'Expenses'),
                    ('Tax', 'Tax'),
                    ('Income', 'Income'))
+    
+  
 
 
 class Record(models.Model):
@@ -236,41 +342,3 @@ class FinancialRecord(models.Model):
 
     # def __str__(self) -> str:
     #     return str(self.program_title)
-
-    def get_sector_data(self):
-        beneficiaries = self.beneficiaries.all()
-        data = {}
-        for beneficiary in beneficiaries:
-            sector = beneficiary.user.sector
-            it_exist = data.get(sector, 0)
-            if it_exist == 0:
-                data[sector] = 1
-            else:
-                data[sector] += 1
-        return data
-
-    # number_of_approved = loan.beneficiaries.filter(is_given=True).count()
-
-    def number_of_approved(self):
-        beneficiaries = self.beneficiaries.all()
-        count = 0
-        for beneficiary in beneficiaries:
-            if beneficiary.is_given:
-                count += 1
-        return count
-
-    def number_of_yet_paid(self):
-        beneficiaries = self.beneficiaries.all()
-        count = 0
-        for beneficiary in beneficiaries:
-            if not beneficiary.is_payed:
-                count += 1
-        return count
-
-    def number_of_paid(self):
-        beneficiaries = self.beneficiaries.all()
-        count = 0
-        for beneficiary in beneficiaries:
-            if beneficiary.is_payed:
-                count += 1
-        return count

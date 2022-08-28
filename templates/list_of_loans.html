@@ -1,0 +1,7 @@
+{% extends "base.html" %} {% load static %} 
+{% block title %} Lamuni{% endblock %}
+{% block content %}
+{% for loan in loans %}
+{{ loan.program_title }}  <br>
+{% endfor %}
+{% endblock %}

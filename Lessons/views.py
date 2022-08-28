@@ -55,8 +55,10 @@ def quiz(request, pk):
                 wrong_q.append(q)
             score.total = total
             score.save()
-
-        percent = (correct / total) * 100
+        try: 
+            percent = (correct / total) * 100
+        except ZeroDivisionError:
+            percent = 0
         context = {
             'score': score,
             'correct': score.correct,
