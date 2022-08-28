@@ -1,11 +1,11 @@
 <html lang="en" class="print:" m-0>
-
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Financial Statement</title>
-    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
     <style>
         @page {
             size: A4;
@@ -86,12 +86,12 @@
     <header class="flex justify-between items-center">
 
         <div class="ml-2">
-            <h1 class="text-dark-green font-medium text-3xl font-Poppins">a4gumel  Company</h1>
+            <h1 class="text-dark-green font-medium text-3xl font-Poppins">{{ name }}</h1>
             <h2 class="font-medium font-Poppins text-dark-gray">Income Statement</h2>
-            <h2 class="font-small font-Poppins text-dark-gray">Fiscal year 2022</h2>
+            <h2 class="font-small font-Poppins text-dark-gray">Fiscal year {{ to_date | date:'Y' }}</h2>
         </div>
         <span class="mr-2 text-dark-gray">
-                07-29-2022 - 08-28-2022
+                {{ from_date | date:'m-d-Y' }} - {{ to_date | date:'m-d-Y' }}
             </span>
     </header>
 
@@ -104,7 +104,7 @@
                     <h1 class="text-center font-bold">REVENUES</h1>
                 </div>
                 <div class="card-body text-center">
-                    <h1 class="text-gray-600"> 44945000.00</h1>
+                    <h1 class="text-gray-600"> {{ revenues }}</h1>
                 </div>
                 <hr>
                 <p class="flex font-bold text-dark-gray p-2 justify-center">
@@ -120,7 +120,7 @@
                     <h1 class="text-center font-bold">NET PROFIT</h1>
                 </div>
                 <div class="card-body text-center">
-                    <h1 class="text-gray-600"> 68427644.00</h1>
+                    <h1 class="text-gray-600"> {{ net_profit }}</h1>
                 </div>
                 <hr>
                 <p class="flex font-bold text-dark-gray p-2 justify-center">
@@ -136,7 +136,7 @@
                     <h1 class="text-center font-bold">GROSS PROFIT</h1>
                 </div>
                 <div class="card-body text-center">
-                    <h1 class="text-gray-600">23780000.00</h1>
+                    <h1 class="text-gray-600">{{ gross_profit }}</h1>
                 </div>
                 <hr>
                 <p class="flex font-bold text-dark-gray p-2 justify-center">
@@ -152,7 +152,7 @@
                     <h1 class="text-center font-bold">APPRECIATION</h1>
                 </div>
                 <div class="card-body text-center">
-                    <h1 class="text-gray-600">291.3966757746700073467025263</h1>
+                    <h1 class="text-gray-600">{{ depreciation_percent }}</h1>
                 </div>
                 <hr>
                 <p class="flex font-bold text-dark-gray p-2 justify-center">
@@ -194,12 +194,30 @@
                         </svg>
                     </td>
                     <td class="py-4 px-6">
-                        44945000.00
+                        {{ total_sales }}
                     </td>
                 </tr>
                 </tbody>
 
-                
+                {% for record in other_incomes %}
+                <tbody>
+                <tr class="bg-light-gray  text-dark-gray">
+                    <td class="py-4 px-6">
+                        {{ record.description }}
+                    </td>
+                    <td class="py-4 px-6 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
+                        </svg>
+                    </td>
+                    <td class="py-4 px-6">
+                        {{ record.amount }}
+                    </td>
+                </tr>
+                </tbody>
+
+                {% endfor %}
 
                 <tbody>
                 <tr class="bg-light-gray  text-dark-gray">
@@ -210,7 +228,7 @@
 
                     </td>
                     <td class="py-4 px-6">
-                        <b>44945000.00</b>
+                        <b>{{ total_income }}</b>
                     </td>
                 </tr>
                 </tbody>
@@ -235,11 +253,11 @@
                 </tr>
                 </thead>
 
-                
+                {% for expense in expenses %}
                 <tbody>
                 <tr class="bg-light-gray  text-dark-gray">
                     <td class="py-4 px-6">
-                        486754
+                        {{ expense.description }}
                     </td>
                     <td class="py-4 px-6 flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
@@ -248,28 +266,11 @@
                         </svg>
                     </td>
                     <td class="py-4 px-6">
-                        58678.00
+                        {{ expense.amount }}
                     </td>
                 </tr>
                 </tbody>
-                
-                <tbody>
-                <tr class="bg-light-gray  text-dark-gray">
-                    <td class="py-4 px-6">
-                        jhgfds
-                    </td>
-                    <td class="py-4 px-6 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
-                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
-                        </svg>
-                    </td>
-                    <td class="py-4 px-6">
-                        90000.00
-                    </td>
-                </tr>
-                </tbody>
-                
+                {% endfor %}
 
                 <tbody>
                 <tr class="bg-light-gray  text-dark-gray">
@@ -280,7 +281,7 @@
 
                     </td>
                     <td class="py-4 px-6">
-                        <b>148678.00</b>
+                        <b>{{ total_expenses }}</b>
                     </td>
                 </tr>
                 </tbody>
@@ -294,7 +295,7 @@
 
                     </td>
                     <td class="py-4 px-6">
-                        <b>68427644.00</b>
+                        <b>{{ net_profit }}</b>
                     </td>
                 </tr>
                 </tbody>
@@ -314,7 +315,7 @@
                     <h1 class="text-center font-bold">REVENUES</h1>
                 </div>
                 <div class="card-body text-center">
-                    <h1 class="text-gray-600">44945000.00</h1>
+                    <h1 class="text-gray-600">{{ prev_revenues }}</h1>
                 </div>
                 <hr>
                 <p class="flex font-bold text-dark-gray p-2 justify-center">
@@ -330,7 +331,7 @@
                     <h1 class="text-center font-bold">NET PROFIT</h1>
                 </div>
                 <div class="card-body text-center">
-                    <h1 class="text-gray-600">23482644.00</h1>
+                    <h1 class="text-gray-600">{{ prev_net_profit }}</h1>
                 </div>
                 <hr>
                 <p class="flex font-bold text-dark-gray p-2 justify-center">
@@ -346,7 +347,7 @@
                     <h1 class="text-center font-bold">GROSS PROFIT</h1>
                 </div>
                 <div class="card-body text-center">
-                    <h1 class="text-gray-600">23780000.00</h1>
+                    <h1 class="text-gray-600">{{ prev_gross_profit }}</h1>
                 </div>
                 <hr>
                 <p class="flex font-bold text-dark-gray p-2 justify-center">
@@ -362,7 +363,7 @@
                     <h1 class="text-center font-bold">DEPRECIATION</h1>
                 </div>
                 <div class="card-body text-center">
-                    <h1 class="text-gray-600">291.3966757746700073467025263 %</h1>
+                    <h1 class="text-gray-600">{{ depreciation_percent }} %</h1>
                 </div>
                 <hr>
                 <p class="flex font-bold text-dark-gray p-2 justify-center">
