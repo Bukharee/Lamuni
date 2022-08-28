@@ -74,7 +74,7 @@
                 background-color: #c7c3c0 !important;
                 -webkit-print-color-adjust: exact;
             }
-              
+
         }
 
     </style>
@@ -88,10 +88,10 @@
         <div class="ml-2">
             <h1 class="text-dark-green font-medium text-3xl font-Poppins">{{ name }}</h1>
             <h2 class="font-medium font-Poppins text-dark-gray">Income Statement</h2>
-            <h2 class="font-small font-Poppins text-dark-gray">Fiscal year {{ year }}</h2>
+            <h2 class="font-small font-Poppins text-dark-gray">Fiscal year {{ to_date | date:'Y' }}</h2>
         </div>
         <span class="mr-2 text-dark-gray">
-                {{ from_date | date:'m-d-Y' }} - {{ to_date | date:'m-d-Y' }}
+
             </span>
     </header>
 
@@ -104,7 +104,7 @@
                     <h1 class="text-center font-bold">REVENUES</h1>
                 </div>
                 <div class="card-body text-center">
-                    <h1 class="text-gray-600"> ₦ {{ revenues }}</h1>
+                    <h1 class="text-gray-600"> {{ revenues }}</h1>
                 </div>
                 <hr>
                 <p class="flex font-bold text-dark-gray p-2 justify-center">
@@ -120,7 +120,7 @@
                     <h1 class="text-center font-bold">NET PROFIT</h1>
                 </div>
                 <div class="card-body text-center">
-                    <h1 class="text-gray-600">₦ {{ net_profit }}</h1>
+                    <h1 class="text-gray-600"> {{ net_profit }}</h1>
                 </div>
                 <hr>
                 <p class="flex font-bold text-dark-gray p-2 justify-center">
@@ -136,7 +136,7 @@
                     <h1 class="text-center font-bold">GROSS PROFIT</h1>
                 </div>
                 <div class="card-body text-center">
-                    <h1 class="text-gray-600">₦ {{ gross_profit }}</h1>
+                    <h1 class="text-gray-600">{{ gross_profit }}</h1>
                 </div>
                 <hr>
                 <p class="flex font-bold text-dark-gray p-2 justify-center">
@@ -194,16 +194,16 @@
                         </svg>
                     </td>
                     <td class="py-4 px-6">
-                        ₦ {{ total_sales }}
+                        {{ total_sales }}
                     </td>
                 </tr>
                 </tbody>
 
-                {% for record in other_incomes %}
+
                 <tbody>
                 <tr class="bg-light-gray  text-dark-gray">
                     <td class="py-4 px-6">
-                        {{ record.description }}
+
                     </td>
                     <td class="py-4 px-6 flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
@@ -212,23 +212,23 @@
                         </svg>
                     </td>
                     <td class="py-4 px-6">
-                        ₦ {{ record.amount }}
+
                     </td>
                 </tr>
                 </tbody>
 
-                {% endfor %}
+
 
                 <tbody>
                 <tr class="bg-light-gray  text-dark-gray">
                     <td class="py-4 px-6">
-                        <b>Total Income</b>
+
                     </td>
                     <td class="py-4 px-6 flex items-center ">
 
                     </td>
                     <td class="py-4 px-6">
-                        <b>₦ {{ total_income }}</b>
+                        <b></b>
                     </td>
                 </tr>
                 </tbody>
@@ -236,7 +236,7 @@
         </div>
 
 
-        <h1>Expenses</h1>
+        <h1></h1>
         <div class="overflow-x-auto relative">
             <table class="w-full text-sm text-left text-gray-500">
                 <thead class="text-xs table-header text-white uppercase bg-dark-green">
@@ -253,11 +253,11 @@
                 </tr>
                 </thead>
 
-                {% for expense in expenses %}
+
                 <tbody>
                 <tr class="bg-light-gray  text-dark-gray">
                     <td class="py-4 px-6">
-                        {{ expense.description }}
+
                     </td>
                     <td class="py-4 px-6 flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
@@ -266,22 +266,22 @@
                         </svg>
                     </td>
                     <td class="py-4 px-6">
-                        ₦ {{ expense.amount }}
+
                     </td>
                 </tr>
                 </tbody>
-                {{% endfor %}
+
 
                 <tbody>
                 <tr class="bg-light-gray  text-dark-gray">
                     <td class="py-4 px-6">
-                        <b>Total Expenses</b>
+                        <b></b>
                     </td>
                     <td class="py-4 px-6 flex items-center ">
 
                     </td>
                     <td class="py-4 px-6">
-                        <b>₦ {{ total_expenses }}</b>
+                        <b></b>
                     </td>
                 </tr>
                 </tbody>
@@ -289,13 +289,13 @@
                 <tbody>
                 <tr class="bg-light-gray  text-dark-gray">
                     <td class="py-4 px-6">
-                        <b>Total Income (Loss)</b>
+                        <b></b>
                     </td>
                     <td class="py-4 px-6 flex items-center ">
 
                     </td>
                     <td class="py-4 px-6">
-                        <b>₦ {{ net_profit }}</b>
+                        <b></b>
                     </td>
                 </tr>
                 </tbody>
@@ -303,9 +303,7 @@
             </table>
         </div>
 
-        <dIv class="mb-4 mt-6 previous">
-            <h1 class="text-center text-dark-green font-medium text-3xl font-Poppins">PREVIOUS MONTH</h1>
-        </dIv>
+
 
         <div class="graph block py-4 my-10 px-4">
 
@@ -315,7 +313,7 @@
                     <h1 class="text-center font-bold">REVENUES</h1>
                 </div>
                 <div class="card-body text-center">
-                    <h1 class="text-gray-600">₦ {{ prev_revenues }}</h1>
+                    <h1 class="text-gray-600"></h1>
                 </div>
                 <hr>
                 <p class="flex font-bold text-dark-gray p-2 justify-center">
@@ -331,7 +329,7 @@
                     <h1 class="text-center font-bold">NET PROFIT</h1>
                 </div>
                 <div class="card-body text-center">
-                    <h1 class="text-gray-600">₦ {{ prev_net_profit }}</h1>
+                    <h1 class="text-gray-600"></h1>
                 </div>
                 <hr>
                 <p class="flex font-bold text-dark-gray p-2 justify-center">
@@ -347,7 +345,7 @@
                     <h1 class="text-center font-bold">GROSS PROFIT</h1>
                 </div>
                 <div class="card-body text-center">
-                    <h1 class="text-gray-600">₦ {{ prev_gross_profit }}</h1>
+                    <h1 class="text-gray-600"></h1>
                 </div>
                 <hr>
                 <p class="flex font-bold text-dark-gray p-2 justify-center">
@@ -363,7 +361,7 @@
                     <h1 class="text-center font-bold">DEPRECIATION</h1>
                 </div>
                 <div class="card-body text-center">
-                    <h1 class="text-gray-600">{{ depreciation_percent }} %</h1>
+                    <h1 class="text-gray-600"></h1>
                 </div>
                 <hr>
                 <p class="flex font-bold text-dark-gray p-2 justify-center">

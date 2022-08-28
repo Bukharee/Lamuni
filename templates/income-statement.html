@@ -5,379 +5,332 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Financial Statement</title>
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
     <style>
-        @page {
-            size: A4;
-            margin: 0;
+        .main {
+            margin: 5rem auto;
+            max-width: 48rem;
         }
-        header, .previou {
-            border-bottom: 2px #4f4f4f solid;
-            border-top: 2px #4f4f4f solid;
+        .record-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-direction: column;
+            text-align: center;
+            color: black;
+            padding: 1em;
         }
-        .graph {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            border-top: 2px solid #4f4f4f;
-            border-bottom: 2px solid #4f4f4f;
+        .record-title h1, .month-title {
+            font-size: 1.25rem;
+            line-height: 1.75rem;
+
+
         }
-        .card {
-            /*width: 15%;*/
+        .month-title {
+          color: darkgray;
+
+
+        }
+        .record-title p {
+            font-size: 1rem;
+            line-height: 1.2rem;
+        }
+        .parent-table {
+            position: relative;
+            overflow-x: auto;
+
+        }
+        table {
             width: 100%;
-            margin-top: 10px;
-            margin-left: auto;
-            margin-right: auto;
-            border: 2px solid #4f4f4f;
-        }
-        .card-body h1 {
-            margin-top: 20px;
-            margin-bottom: 20px;
-            font-size: 30px;
-            font-weight: lighter;
-            color: #777573;
-        }
-        hr {
-            border-top: 2px dashed #4f4f4f;
-        }
-
-        @media screen and (min-width: 400px) {
-            .card {
-                width: 75%;
-            }
-        }
-        @media screen and (min-width: 500px) {
-            .card {
-                width: 50%;
-            }
-        }
-        @media screen and (min-width: 1030px){
-            .graph {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: space-between;
-            }
-            .card {
-                width: 15%;
-            }
-        }
-        @media print {
-            html, body {
-                width: 210mm;
-                height: 297mm;
-              }
-            .table-header, .card-header {
-                background-color: #16a34a !important;
-                -webkit-print-color-adjust: exact;
-            }
-            .bg-light-gray {
-                background-color: #c7c3c0 !important;
-                -webkit-print-color-adjust: exact;
-            }
+            font-size: 0.825rem;
+            line-height: 1.25;
+            text-align: left;
+            color: gray;
+            margin: 1rem 0;
 
         }
+        thead {
+            font-size: 0.75rem;
+            line-height: 1rem;
+            color: darkgray;
+            background: ghostwhite;
+
+        }
+        tbody tr {
+            text-align: center;
+            background: white;
+            border-bottom: 1px  solid lightgray;
+
+        }
+        tbody tr:first-child {
+            border-top: 1px  solid lightgray;
+
+        }
+        th, td {
+            padding: 0.75rem 1.5rem;
+        }
+        .th-row {
+            font-weight: 500;
+            color: darkgray;
+        white-space: nowrap;
+        }
+        .tr-head {
+             font-size: 1.9rem;
+            line-height: 2.3rem;
+            color: #16a34a;
+
+        }
+        .tr-data {
+            font-size: 1.2rem;
+            line-height: 1.8rem;
+            font-weight: bold;
+
+        }
+        @media  (min-width: 640px) {
+            .record-title h1 {
+            font-size: 1.9rem;
+            line-height: 2.3rem;
+        }
+            .record-title p {
+                font-size: 1rem;
+                line-height: 1.2rem;
+                text-transform: uppercase;
+
+
+            }
+        }
+        {##}
+        {#@media print {#}
+        {#    html, body {#}
+        {#        width: 210mm;#}
+        {#        height: 297mm;#}
+        {#      }#}
+        {#    .table-header, .card-header {#}
+        {#        background-color: #16a34a !important;#}
+        {#        -webkit-print-color-adjust: exact;#}
+        {#    }#}
+        {#    .bg-light-gray {#}
+        {#        background-color: #c7c3c0 !important;#}
+        {#        -webkit-print-color-adjust: exact;#}
+        {#    }#}
+        {##}
+        {#}#}
 
     </style>
 </head>
 <body>
 
-
-<div class="container mx-auto mt-2">
-    <header class="flex justify-between items-center">
-
-        <div class="ml-2">
-            <h1 class="text-dark-green font-medium text-3xl font-Poppins">{{ name }}</h1>
-            <h2 class="font-medium font-Poppins text-dark-gray">Income Statement</h2>
-            <h2 class="font-small font-Poppins text-dark-gray">Fiscal year {{ to_date | date:'Y' }}</h2>
-        </div>
-        <span class="mr-2 text-dark-gray">
-                {{ from_date | date:'m-d-Y' }} - {{ to_date | date:'m-d-Y' }}
-            </span>
-    </header>
-
-    <div class="main-table">
-
-        <div class="graph py-4 my-10 px-4">
-
-            <div class="card bg-white">
-                <div class="card-header p-2 text-white text-center bg-dark-green">
-                    <h1 class="text-center font-bold">REVENUES</h1>
-                </div>
-                <div class="card-body text-center">
-                    <h1 class="text-gray-600"> {{ revenues }}</h1>
-                </div>
-                <hr>
-                <p class="flex font-bold text-dark-gray p-2 justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
-                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
-                    </svg>
-                </p>
-            </div>
-
-            <div class="card bg-white">
-                <div class="card-header p-2 text-white text-center bg-dark-green">
-                    <h1 class="text-center font-bold">NET PROFIT</h1>
-                </div>
-                <div class="card-body text-center">
-                    <h1 class="text-gray-600"> {{ net_profit }}</h1>
-                </div>
-                <hr>
-                <p class="flex font-bold text-dark-gray p-2 justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
-                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
-                    </svg>
-                </p>
-            </div>
-
-            <div class="card bg-white">
-                <div class="card-header p-2 text-white text-center bg-dark-green">
-                    <h1 class="text-center font-bold">GROSS PROFIT</h1>
-                </div>
-                <div class="card-body text-center">
-                    <h1 class="text-gray-600">{{ gross_profit }}</h1>
-                </div>
-                <hr>
-                <p class="flex font-bold text-dark-gray p-2 justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
-                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
-                    </svg>
-                </p>
-            </div>
-
-            <div class="card bg-white">
-                <div class="card-header p-2 text-white text-center bg-dark-green">
-                    <h1 class="text-center font-bold">APPRECIATION</h1>
-                </div>
-                <div class="card-body text-center">
-                    <h1 class="text-gray-600">{{ depreciation_percent }}</h1>
-                </div>
-                <hr>
-                <p class="flex font-bold text-dark-gray p-2 justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
-                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
-                    </svg>
-                </p>
-            </div>
-
-        </div>
-
-        <h1>Income</h1>
-        <div class="overflow-x-auto relative">
-            <table class="w-full text-sm text-left text-gray-500">
-                <thead class="text-xs table-header text-white uppercase bg-dark-green">
-                <tr>
-                    <th scope="col" class="py-3 px-6">
-                        Description
-                    </th>
-                    <th scope="col" class="py-3 px-6">
-                        Balance Type
-                    </th>
-                    <th scope="col" class="py-3 px-6">
-                        Balance
-                    </th>
-                </tr>
-                </thead>
-
-                <tbody>
-                <tr class="bg-light-gray  text-dark-gray">
-                    <td class="py-4 px-6">
-                        Sales Income
-                    </td>
-                    <td class="py-4 px-6 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
-                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
-                        </svg>
-                    </td>
-                    <td class="py-4 px-6">
-                        {{ total_sales }}
-                    </td>
-                </tr>
-                </tbody>
-
-                {% for record in other_incomes %}
-                <tbody>
-                <tr class="bg-light-gray  text-dark-gray">
-                    <td class="py-4 px-6">
-                        {{ record.description }}
-                    </td>
-                    <td class="py-4 px-6 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
-                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
-                        </svg>
-                    </td>
-                    <td class="py-4 px-6">
-                        {{ record.amount }}
-                    </td>
-                </tr>
-                </tbody>
-
-                {% endfor %}
-
-                <tbody>
-                <tr class="bg-light-gray  text-dark-gray">
-                    <td class="py-4 px-6">
-                        <b>Total Income</b>
-                    </td>
-                    <td class="py-4 px-6 flex items-center ">
-
-                    </td>
-                    <td class="py-4 px-6">
-                        <b>{{ total_income }}</b>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-
-
-        <h1>Expenses</h1>
-        <div class="overflow-x-auto relative">
-            <table class="w-full text-sm text-left text-gray-500">
-                <thead class="text-xs table-header text-white uppercase bg-dark-green">
-                <tr>
-                    <th scope="col" class="py-3 px-6">
-                        Description
-                    </th>
-                    <th scope="col" class="py-3 px-6">
-                        Balance Type
-                    </th>
-                    <th scope="col" class="py-3 px-6">
-                        Balance
-                    </th>
-                </tr>
-                </thead>
-
-                {% for expense in expenses %}
-                <tbody>
-                <tr class="bg-light-gray  text-dark-gray">
-                    <td class="py-4 px-6">
-                        {{ expense.description }}
-                    </td>
-                    <td class="py-4 px-6 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
-                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
-                        </svg>
-                    </td>
-                    <td class="py-4 px-6">
-                        {{ expense.amount }}
-                    </td>
-                </tr>
-                </tbody>
-                {% endfor %}
-
-                <tbody>
-                <tr class="bg-light-gray  text-dark-gray">
-                    <td class="py-4 px-6">
-                        <b>Total Expenses</b>
-                    </td>
-                    <td class="py-4 px-6 flex items-center ">
-
-                    </td>
-                    <td class="py-4 px-6">
-                        <b>{{ total_expenses }}</b>
-                    </td>
-                </tr>
-                </tbody>
-
-                <tbody>
-                <tr class="bg-light-gray  text-dark-gray">
-                    <td class="py-4 px-6">
-                        <b>Total Income (Loss)</b>
-                    </td>
-                    <td class="py-4 px-6 flex items-center ">
-
-                    </td>
-                    <td class="py-4 px-6">
-                        <b>{{ net_profit }}</b>
-                    </td>
-                </tr>
-                </tbody>
-
-            </table>
-        </div>
-
-        <dIv class="mb-4 mt-6 previous">
-            <h1 class="text-center text-dark-green font-medium text-3xl font-Poppins">PREVIOUS MONTH</h1>
-        </dIv>
-
-        <div class="graph block py-4 my-10 px-4">
-
-
-            <div class="card bg-white">
-                <div class="card-header p-2 text-white text-center bg-dark-green">
-                    <h1 class="text-center font-bold">REVENUES</h1>
-                </div>
-                <div class="card-body text-center">
-                    <h1 class="text-gray-600">{{ prev_revenues }}</h1>
-                </div>
-                <hr>
-                <p class="flex font-bold text-dark-gray p-2 justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
-                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
-                    </svg>
-                </p>
-            </div>
-
-            <div class="card bg-white">
-                <div class="card-header p-2 text-white text-center bg-dark-green">
-                    <h1 class="text-center font-bold">NET PROFIT</h1>
-                </div>
-                <div class="card-body text-center">
-                    <h1 class="text-gray-600">{{ prev_net_profit }}</h1>
-                </div>
-                <hr>
-                <p class="flex font-bold text-dark-gray p-2 justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
-                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
-                    </svg>
-                </p>
-            </div>
-
-            <div class="card bg-white">
-                <div class="card-header p-2 text-white text-center bg-dark-green">
-                    <h1 class="text-center font-bold">GROSS PROFIT</h1>
-                </div>
-                <div class="card-body text-center">
-                    <h1 class="text-gray-600">{{ prev_gross_profit }}</h1>
-                </div>
-                <hr>
-                <p class="flex font-bold text-dark-gray p-2 justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
-                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
-                    </svg>
-                </p>
-            </div>
-
-            <div class="card bg-white">
-                <div class="card-header p-2 text-white text-center bg-dark-green">
-                    <h1 class="text-center font-bold">DEPRECIATION</h1>
-                </div>
-                <div class="card-body text-center">
-                    <h1 class="text-gray-600">{{ depreciation_percent }} %</h1>
-                </div>
-                <hr>
-                <p class="flex font-bold text-dark-gray p-2 justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
-                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
-                    </svg>
-                </p>
-            </div>
-
-        </div>
+<section class="main" >
+    <div class="record-title">
+        <h1 class="">{{ name }}'s Financial Statement</h1>
+        <p class=""> {{ from_date | date:'m-d-Y' }} - {{ to_date | date:'m-d-Y' }}</p>
     </div>
+
+<div class="parent-table">
+ <dIv class="month-title">
+            <h2 class="">CURRENT MONTH</h2>
+        </dIv>
+       <table class="">
+        <thead class="">
+            <tr>
+                <th scope="col" class="tr-head">
+                  REVENUES
+                </th>
+                <th scope="col" class="tr-head">
+                   NET PROFIT
+                </th>
+                <th scope="col" class="tr-head">
+                  GROSS PROFIT
+                </th>
+                <th scope="col" class="tr-head">
+                 APPRECIATION
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="">
+                <th scope="row" class="tr-data">
+                  {{ revenue }}
+                </th>
+                <td class="tr-data">
+                   {{ net_profit }}
+                </td>
+                <td class="tr-data">
+                    {{ gross_profit }}
+                </td>
+                <td class="tr-data">
+                    {{ appreciation }}
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="">
+        <thead class="">
+            <tr>
+                <th scope="col" class="tr-head">
+                INCOME
+                </th>
+                <th scope="col" class="tr-head">
+                   Description
+                </th>
+                <th scope="col" class="tr-head">
+                    Balance Type
+                </th>
+                <th scope="col" class="tr-head">
+                    Balance
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for record in other_incomes %}
+            <tr class="">
+                <th scope="row" class="th-row">
+
+                </th>
+                <td class="">
+                   {{ record.description }}
+                </td>
+                <td class="">
+
+                </td>
+                <td class="tr-data">
+                    {{ record.amount }}
+                </td>
+            </tr>
+        {% endfor %}
+            <tr class="">
+                <th scope="row" class="tr-data">
+                   <b>Total Income</b>
+                </th>
+                <td class="">
+
+                </td>
+                <td class="">
+
+                </td>
+                <td class="tr-data">
+                    {{ total_income }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="">
+        <thead class="">
+            <tr>
+                <th scope="col" class="tr-head">
+                  Expenses
+                </th>
+                <th scope="col" class="tr-head">
+                   Description
+                </th>
+                <th scope="col" class="tr-head">
+                    Balance Type
+                </th>
+                <th scope="col" class="tr-head">
+                    Balance
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+          {% for expense in expenses %}
+            <tr class="">
+                <th scope="row" class="th-row">
+
+                </th>
+                <td class=" ">
+                      {{ expense.description }}
+                </td>
+                <td class="">
+
+                </td>
+                <td class="">
+                    {{ expense.amount }}
+                </td>
+            </tr>
+          {% endfor %}
+            <tr class="">
+                <th scope="row" class="tr-data">
+                   Total Expenses
+                </th>
+                <td class="">
+
+                </td>
+                <td class="">
+
+                </td>
+                <td class="tr-data">
+                  {{ total_expenses }}
+                </td>
+            </tr>
+
+        </tbody>
+     <tbody>
+
+            <tr class="">
+                <th scope="row" class="tr-data">
+                Total Income (Loss)
+                </th>
+                <td class="">
+
+                </td>
+                <td class="">
+
+                </td>
+                <td class="tr-data">
+                 {{ net_profit }}
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+        <dIv class="month-title">
+            <h2 class="">PREVIOUS MONTH</h2>
+        </dIv>
+<table class="">
+
+        <thead class="">
+            <tr>
+                <th scope="col" class="tr-head">
+                  REVENUES
+                </th>
+                <th scope="col" class="tr-head">
+                   NET PROFIT
+                </th>
+                <th scope="col" class="tr-head">
+                  GROSS PROFIT
+                </th>
+                <th scope="col" class="tr-head">
+                 DEPRECIATION
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="">
+                <th scope="row" class="tr-data">
+                 {{ prev_revenues }}
+                </th>
+                <td class="tr-data">
+                  {{ prev_net_profit }}
+                </td>
+                <td class="tr-data">
+                   {{ prev_gross_profit }}
+                </td>
+                <td class="tr-data">
+                    {{ depreciation_percent }} %
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
 </div>
 
+
+
 <span>Generated by Lamuni's AI based Financial System</span>
+</section>
 </body>
 </html>

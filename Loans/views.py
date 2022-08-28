@@ -57,7 +57,12 @@ def user_loan_details(request, pk):
 def dashboard(request):
     user = request.user
     loans = Loan.objects.filter(fsp=user)
-    return render(request, 'fsp/fsp-home.html', {"loans": loans})
+    if request.user.is_staff or request.user.is_superuser:
+        loans = Loan.objects.filter(fsp=user)
+        return render(request, 'fsp/fsp-home.html', {"loans": loans})
+    else:
+        loans = Loan.objects.all()
+        return render(request, 'user/user_loan.html', {"loans": loans})
 
 
 @login_required
@@ -158,7 +163,9 @@ def add_sales_record(request):
                                                 cost_price_per_item=cost_price,
                                                 selling_price_per_item=sales_price)
             f_record.sales_records.add(record)
-            return HttpResponseRedirect('/accounts/user_profile/')
+            return redirect("users:profile")
+        else:
+            print(add_sales_form.errors)
 
     else:
         add_sales_form = AddSalesRecordForm()

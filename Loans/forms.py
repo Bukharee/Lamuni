@@ -53,13 +53,13 @@ class AddSalesRecordForm(ModelForm):
             self.add_error('selling_price_per_item', 'The field "Selling Price" should be greater than 0.')
         else:
             return self.cleaned_data['selling_price_per_item']
-        model = Loan
-        fields = ["program_title", "size", "sectors", "amount", "amount",
-                  "paying_days", "grace_period",
-                  "collateral"]
-
-    sectors = forms.ModelMultipleChoiceField(
-        queryset=Sector.objects.all(),
-        widget=forms.CheckboxSelectMultiple
-
-    )
+    #     model = Loan
+    #     fields = ["program_title", "size", "sectors", "amount", "amount",
+    #               "paying_days", "grace_period",
+    #               "collateral"]
+    #
+    # sectors = forms.ModelMultipleChoiceField(
+    #     queryset=Sector.objects.all(),
+    #     widget=forms.CheckboxSelectMultiple
+    #
+    # )
