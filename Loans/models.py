@@ -2,8 +2,18 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from multiselectfield import MultiSelectField
 from datetime import datetime, timedelta
-
+from django.conf import settings
+from django.utils.timezone import make_aware
 from Users.models import Sector
+
+# naive_datetime = datetime.now()
+# naive_datetime.tzinfo
+#
+# settings.TIME_ZONE  # 'UTC'
+# aware_datetime = make_aware(naive_datetime)
+# aware_datetime.tzinfo  # <UTC>
+#
+# print(aware_datetime.tzinfo)
 
 # Create your models here.
 BUSINESS_SIZE = (('MICRO', 'MICRO'), ('SMALL', 'SMALL'), ('MEDIUM', 'MEDIUM'),)
@@ -64,13 +74,15 @@ class SalesRecord(models.Model):
     selling_price_per_item = models.DecimalField(max_digits=12, decimal_places=2, default=0)
     date = models.DateTimeField(auto_now=True)
 
-    @property
     def get_profit(self):
         total_costs = self.quantity * self.cost_price_per_item
         total_sales = self.quantity * self.selling_price_per_item
 
-        # print(total_sales)
-        # print(total_costs)
+        print('total_sales : ' + str(total_sales))
+        print('self.quantity : ' + str(self.quantity))
+        print('self.cost_price_per_item : ' + str(self.cost_price_per_item))
+        print('self.selling_price_per_item : ' + str(self.selling_price_per_item))
+        print('total_costs : ' + str(total_costs))
 
         return total_sales - total_costs
 
@@ -84,6 +96,7 @@ class SalesRecord(models.Model):
     def get_total_cost(self):
         total = self.quantity * self.cost_price_per_item
 
+        print('get_total_cost : ' + str(total))
         return total
 
 
@@ -95,12 +108,17 @@ class FinancialRecord(models.Model):
     records = models.ManyToManyField(Record, blank=True)
     sales_records = models.ManyToManyField(SalesRecord, blank=True)
 
-    @property
     def get_ideal_profit(self):
+
+        print(self)
+
         profit = 0
 
         start_date = datetime.today()
         end_date = start_date - timedelta(days=30)
+
+        print('end date : ' + str(end_date))
+        print('start date : ' + str(start_date))
 
         all_sales_records = self.sales_records.all()
 
@@ -108,7 +126,8 @@ class FinancialRecord(models.Model):
         all_sales_records.filter(date__gte=end_date).filter(date__lte=start_date)
 
         for sales_record in all_sales_records.filter(date__gte=end_date).filter(date__lte=start_date):
-            profit += sales_record.get_profit
+            profit += sales_record.get_profit()
+            print('get_ideal_profit : ' + str(profit))
 
         return profit
 
@@ -119,30 +138,58 @@ class FinancialRecord(models.Model):
         start_date = datetime.today()
         end_date = start_date - timedelta(days=30)
 
+        print('end date : ' + str(end_date))
+        print('start date : ' + str(start_date))
+
         all_records = self.records.all()
 
-        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date):
-
-            if record.category == "Expenses":
-                total_expenses += record.amount
+        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date).exclude(category="Expenses"):
+            total_expenses += record.amount
+            print('get_total_expenses : ' + str(total_expenses))
 
         return total_expenses
+
+    @property
+    def total_sales(self):
+        total = 0
+
+        all_records = self.sales_records.all()
+
+        start_date = datetime.today()
+        end_date = start_date - timedelta(days=30)
+
+        print('end date : ' + str(end_date))
+        print('start date : ' + str(start_date))
+
+        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date):
+            print(all_records)
+            total += record.get_total_sales
+
+        print('total_sales : ' + str(total))
+
+        return total
 
     @property
     def get_total_incomes(self):
 
         total_incomes = 0
+        total = 0
 
         all_records = self.records.all()
         start_date = datetime.today()
         end_date = start_date - timedelta(days=30)
 
-        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date):
+        print('end date : ' + str(end_date))
+        print('start date : ' + str(start_date))
 
-            if record.category == "Income":
-                total_incomes += record.amount
+        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date).filter(category="Income"):
+            total_incomes += record.amount
+            print('income : ' + str(total_incomes))
 
-        return total_incomes
+        total = self.total_sales + total_incomes
+        print("get_total_incomes : " + str(total))
+
+        return total
 
     @property
     def get_total_purchase(self):
@@ -154,11 +201,13 @@ class FinancialRecord(models.Model):
         start_date = datetime.today()
         end_date = start_date - timedelta(days=30)
 
-        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date):
+        print('end date : ' + str(end_date))
+        print('start date : ' + str(start_date))
 
-            if record.category == "Purchase":
-                total_purchase += record.amount
+        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date).filter(category="Purchase"):
 
+            total_purchase += record.amount
+            print('total_purchase : ' + str(total_purchase))
         return total_purchase
 
     @property
@@ -171,11 +220,14 @@ class FinancialRecord(models.Model):
         start_date = datetime.today()
         end_date = start_date - timedelta(days=30)
 
-        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date):
+        print('end date : ' + str(end_date))
+        print('start date : ' + str(start_date))
 
-            if record.category == "Tax":
-                total_tax += record.amount
+        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date).filter(category="Tax"):
+            total_tax += record.amount
+            print("tax : " + str(total_tax))
 
+        print("get_total_tax : " + str(total_tax))
         return total_tax
 
     @property
@@ -187,22 +239,12 @@ class FinancialRecord(models.Model):
         start_date = datetime.today()
         end_date = start_date - timedelta(days=30)
 
+        print('end date : ' + str(end_date))
+        print('start date : ' + str(start_date))
+
         for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date):
             total += record.get_total_cost
-
-        return total
-
-    @property
-    def total_sales(self):
-        total = 0
-
-        all_records = self.sales_records.all()
-
-        start_date = datetime.today()
-        end_date = start_date - timedelta(days=30)
-
-        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date):
-            total += record.get_total_sales
+            print('costs : ' + str(total))
 
         return total
 
@@ -216,6 +258,8 @@ class FinancialRecord(models.Model):
         total = 0
 
         total = self.total_sales - self.total_costs
+
+        print('get_gross_profit : ' + str(total))
 
         return total
 
@@ -233,6 +277,7 @@ class FinancialRecord(models.Model):
                                               + self.get_total_tax
                                               + self.get_total_purchase)
 
+        print("get_net_profit : " + str(total))
         return total
 
     # def __str__(self) -> str:
@@ -275,3 +320,171 @@ class FinancialRecord(models.Model):
             if beneficiary.is_payed:
                 count += 1
         return count
+
+        # Previous month stuffs
+
+    def get_prev_ideal_profit(self):
+        profit = 0
+
+        start_date = datetime.today()
+        end_date = start_date - timedelta(days=60)
+
+        all_sales_records = self.sales_records.all()
+
+        for sales_record in all_sales_records.filter(date__gte=end_date).filter(date__lte=start_date):
+            profit += sales_record.get_profit
+
+        return profit
+
+    @property
+    def get_prev_total_expenses(self):
+
+        total_expenses = 0
+        start_date = datetime.today()
+        end_date = start_date - timedelta(days=60)
+
+        all_records = self.records.all()
+
+        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date).exclude(category="Expenses"):
+            total_expenses += record.amount
+        return total_expenses
+
+    @property
+    def get_prev_total_incomes(self):
+
+        total_incomes = 0
+
+        all_records = self.records.all()
+        start_date = datetime.today()
+        end_date = start_date - timedelta(days=60)
+
+        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date).filter(category="Income"):
+            total_incomes += record.amount
+        return total_incomes
+
+    @property
+    def get_prev_total_purchase(self):
+
+        total_purchase = 0
+
+        all_records = self.records.all()
+
+        start_date = datetime.today()
+        end_date = start_date - timedelta(days=60)
+
+        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date).filter(category="Purchase"):
+            total_purchase += record.amount
+
+        return total_purchase
+
+    @property
+    def get_prev_total_tax(self):
+
+        total_tax = 0
+
+        all_records = self.records.all()
+
+        start_date = datetime.today()
+        end_date = start_date - timedelta(days=60)
+
+        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date).filter(category="Tax"):
+            total_tax += record.amount
+
+        return total_tax
+
+    @property
+    def total_prev_costs(self):
+        total = 0
+
+        all_records = self.sales_records.all()
+
+        start_date = datetime.today()
+        end_date = start_date - timedelta(days=60)
+
+        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date):
+            total += record.get_total_cost
+
+        print("total_prev_costs : " + str(total))
+        return total
+
+    @property
+    def total_prev_sales(self):
+        total = 0
+
+        all_records = self.sales_records.all()
+
+        start_date = datetime.today()
+        end_date = start_date - timedelta(days=60)
+
+        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date):
+            total += record.get_total_sales
+
+        print("total_prev_sales : " + str(total))
+        return total
+
+    @property
+    def get_prev_gross_profit(self):
+
+        """Gross profit is the profit a business makes after subtracting all the costs that are related to
+        manufacturing and selling its products or services. You can calculate gross profit by deducting the cost of
+        goods sold (COGS) from your total sales. """
+
+        total = 0
+
+        total = self.total_prev_sales - self.total_prev_costs
+
+        return total
+
+    @property
+    def get_prev_net_profit(self):
+
+        """Net profit is the amount of money your business earns after deducting all operating, interest,
+        and tax expenses over a given period of time. To arrive at this value, you need to know a company’s gross
+        profit. If the value of net profit is negative, then it is called net loss. """
+
+        total = 0
+
+        total = (self.get_prev_gross_profit
+                 + self.get_prev_total_incomes) - (self.get_prev_total_expenses
+                                                   + self.get_prev_total_tax
+                                                   + self.get_prev_total_purchase)
+
+        return total
+
+    @property
+    def get_appreciation(self):
+
+        """Return the company's Appreciation / Depreciation based on Profits"""
+
+        appr = 0
+
+        apr = self.get_net_profit - self.get_prev_net_profit
+
+        return apr
+
+    @property
+    def get_other_incomes(self):
+
+        total = 0
+
+        all_records = self.records.all()
+        start_date = datetime.today()
+        end_date = start_date - timedelta(days=30)
+
+        other_incomes = all_records.filter(date__gte=end_date).filter(date__lte=start_date).filter(
+            category="Income").filter(category="Income")
+
+        return other_incomes
+
+    @property
+    def get_expenses(self):
+
+        total = 0
+
+        all_records = self.records.all()
+        start_date = datetime.today()
+        end_date = start_date - timedelta(days=30)
+
+        expenses = all_records.filter(date__gte=end_date).filter(date__lte=start_date).exclude(category="Income")
+
+        return expenses
