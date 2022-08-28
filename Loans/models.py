@@ -426,3 +426,39 @@ class FinancialRecord(models.Model):
         apr = self.get_net_profit - self.get_prev_net_profit
 
         return apr
+
+
+ASSETS_TYPE = (('CASH', 'CASH'),
+               ('Account Receivable', 'Account Receivable'),
+               ('Inventory', 'Inventory'),
+               ('Prepaid Expenses', 'Prepaid Expenses'),
+               ('Fixed Assets', 'Fixed Assets'),
+               ('Accumulated Depreciation', 'Accumulated Depreciation'),
+               ('Intangible Assets', 'Intangible Assets'),)
+
+
+class Assets(models.Model):
+    name = models.TextField(max_length=50, blank=False, null=False)
+    type = models.CharField(max_length=80, choices=ASSETS_TYPE, default='', verbose_name='type')
+    amount = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    date = models.DateTimeField(auto_now=True)
+    description = models.TextField(max_length=200, blank=True)
+
+
+class Liability(models.Model):
+    name = models.TextField(max_length=50, blank=False, null=False)
+    type = models.CharField(max_length=80, choices=ASSETS_TYPE, default='', verbose_name='type')
+    amount = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    date = models.DateTimeField(auto_now=True)
+    description = models.TextField(max_length=200, blank=True)
+
+
+class BalanceSheet(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.DO_NOTHING)
+    total_capital = models.DecimalField(max_digits=12, decimal_places=2, verbose_name="Profit", default=0)
+    retained_earnings = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    total_equity = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    total_liabilities = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    total_assets = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    liabilities = models.ManyToManyField(Liability, blank=True)
+    assets = models.ManyToManyField(Assets, blank=True)
