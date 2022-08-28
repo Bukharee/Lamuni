@@ -183,7 +183,6 @@ def verification(request):
     if not request.user.is_kyc_verified:
         form = KYCVerifyForm()
         if request.method == "POST":
-            print("post nenenennenennennenenneneenennenenenennenen")
             form = KYCVerifyForm(data=request.POST)
             print(form.is_valid())
             print(form.errors)
@@ -191,7 +190,7 @@ def verification(request):
                 User.objects.filter(username=request.user.username).update(
                     address = form.cleaned_data["address"],
                     bvn = form.cleaned_data["bvn"],
-                    nin = form.cleaned_data["bvn"],
+                    nin = form.cleaned_data["nin"],
                     time_in_business = form.cleaned_data["time_in_business"],
                     sector = form.cleaned_data["sector"],
                     size = form.cleaned_data["size"],

@@ -59,13 +59,17 @@ class ApplyLoanForm(forms.Form):
         super(ApplyLoanForm, self).__init__(*args, **kwargs)
         loan = get_object_or_404(Loan, id=int(loan_id))
         counter = 0
-        print(loan.requirements.all())
+        # print(loan.requirements.all())
         for requirement in loan.requirements.all():
                 print(getattr(user, requirement.requiremenent), requirement.requiremenent)
-                if  not getattr(user, requirement.requiremenent):
+                if getattr(user, requirement.requiremenent):
                     del self.fields[requirement.requiremenent]
-                    print(self.fields)
+                    # print(self.fields)
                     counter += 1
+        copy_fields = self.fields.copy().keys()
+        for key in copy_fields:
+            if key not in [n.requiremenent for n in loan.requirements.all()]:
+                del self.fields[key]
         print("nazo nan")
         if counter >= 7:
             print('none')

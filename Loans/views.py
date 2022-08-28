@@ -118,7 +118,7 @@ def apply_loan(request, id):
         print(form)
         if  not applications.exists():
             if form:
-                print(form.errors)
+                print(form, "the incredible form")
                 if form.is_valid():
                     #TODO: write a better eligibility function here current only checks 
                     # if the user have ever applied to the particular loan program what if the whole
