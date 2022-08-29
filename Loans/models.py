@@ -65,6 +65,7 @@ for choice in REQUIREMENTS:
         Requirement.objects.create(requiremenent=choice[0])
 class Loan(models.Model):
     fsp = models.ForeignKey(get_user_model(), on_delete=models.DO_NOTHING, related_name="fsp")
+    description = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True)
     program_title = models.CharField(max_length=200)
     size = MultiSelectField(choices=BUSINESS_SIZE, max_choices=3, max_length=100)

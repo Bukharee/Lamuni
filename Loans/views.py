@@ -139,9 +139,9 @@ def apply_loan(request, id):
     #add him to the beneficiaries list
     #with all his documents and things 
 
-def users_credentials(request, loan_id):
+def users_credentials(request, loan_id, username):
     """This will query all the requirements of a user of the particular loan"""
-    user = request.user
+    user = get_object_or_404(User, username=username)
     loan = get_object_or_404(Loan, id=loan_id)
     output = {}
     for requirement in loan.requirements.all():
@@ -160,9 +160,6 @@ def recommended_loans(request):
     Q(size=user.size) | Q(sector=user.sector))
     #call a fake machine learning recomendation algorithm
     return render(request, "recommended_loans.html", {"loans": recommended})
-
-def search(request):
-    pass
 
 
 
