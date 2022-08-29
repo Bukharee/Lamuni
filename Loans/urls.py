@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import create_loan, loan_details, dashboard, loans_list, fsp_profile, loan_beneficiaries, add_record, add_sales_record, fs, fr, GeneratePdf
+from .views import create_loan, loan_details, dashboard, loans_list, fsp_profile, loan_beneficiaries, add_record\
+    , add_sales_record, fs, fr, GeneratePdf, GenerateBalanceSheet
 
 app_name = 'loans'
 
@@ -9,6 +10,7 @@ urlpatterns = [
     path('fr/<int:pk>/', fr),
     path('add/sales/record/', add_sales_record, name='add-sales-record'),
     path('pdf/', GeneratePdf.as_view()),
+    path('balance-sheet/', GenerateBalanceSheet.as_view()),
     path('create-loan/', create_loan, name="create_loan"),
     path('loan-details/<int:pk>/', loan_details, name="loan_details"),
     path('dashboard/', dashboard, name="dashboard"),

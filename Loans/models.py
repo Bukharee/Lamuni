@@ -471,31 +471,21 @@ class BalanceSheet(models.Model):
         total = 0
 
         all_assets = self.assets.all()
-        start_date = datetime.today()
-        end_date = start_date - timedelta(days=30)
 
         for asset in all_assets:
             total += asset.amount
-
-        self.total_assets = total
-        self.save()
         return total
 
     def get_total_liabilities(self):
         total = 0
 
         all_liabilities = self.liabilities.all()
-        start_date = datetime.today()
-        end_date = start_date - timedelta(days=30)
 
         for liability in all_liabilities:
             total += liability.amount
-
-        self.total_liabilities = total
-        self.save()
         return total
 
-    def get_retained_earnings(self):
+    def get_retained_earnings(self, income):
         # RE = BP(last period RE) + Net
         # Income( or Loss)−Cash dividends −Stock Dividends
 
@@ -507,12 +497,8 @@ class BalanceSheet(models.Model):
         lst_re = self.last_retained_earnings
         cash_dividends = self.cash_dividend
         stock_dividends = self.stock_dividend
-        income = self.income_statement.get_total_incomes
 
         re = (lst_re + income) - (cash_dividends + stock_dividends)
-
-        self.retained_earnings = re
-        self.save()
 
         return re
 
@@ -523,9 +509,6 @@ class BalanceSheet(models.Model):
         # Shareholders’ Equity=Total Assets−Total Liabilities
 
         total = self.get_total_assets() - self.get_total_liabilities()
-
-        self.total_equity = total
-        self.save()
 
         return total
 

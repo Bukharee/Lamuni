@@ -1,0 +1,268 @@
+<html lang="en" class="print:" m-0>
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balance Statement</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        header, .previou {
+            border-bottom: 2px #4f4f4f solid;
+            border-top: 2px #4f4f4f solid;
+        }
+        .graph {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            border-top: 2px solid #4f4f4f;
+            border-bottom: 2px solid #4f4f4f;
+        }
+        .card {
+            /*width: 15%;*/
+            width: 100%;
+            margin-top: 10px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 2px solid #4f4f4f;
+        }
+        .card-body h1 {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-size: 30px;
+            font-weight: lighter;
+            color: #777573;
+        }
+        hr {
+            border-top: 2px dashed #4f4f4f;
+        }
+
+        @media screen and (min-width: 400px) {
+            .card {
+                width: 75%;
+            }
+        }
+        @media screen and (min-width: 500px) {
+            .card {
+                width: 50%;
+            }
+        }
+        @media screen and (min-width: 1030px){
+            .graph {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+            .card {
+                width: 15%;
+            }
+        }
+        @media print {
+            html, body {
+                width: 210mm;
+                height: 297mm;
+              }
+            .table-header, .card-header {
+                background-color: #16a34a !important;
+                -webkit-print-color-adjust: exact;
+            }
+            .bg-light-gray {
+                background-color: #c7c3c0 !important;
+                -webkit-print-color-adjust: exact;
+            }
+
+        }
+
+    </style>
+</head>
+<body>
+
+
+<div class="container mx-auto mt-2">
+    <header class="flex justify-between items-center">
+
+        <div class="ml-2">
+            <h1 class="text-dark-green font-medium text-3xl font-Poppins">{{ name }}</h1>
+            <h2 class="font-medium font-Poppins text-dark-gray">Balance Sheet</h2>
+            <h2 class="font-small font-Poppins text-dark-gray">Fiscal year {{ today | date:'Y' }}</h2>
+        </div>
+        <span class="mr-2 text-dark-gray">
+                As of  {{ today | date:'m-d-Y' }}
+            </span>
+    </header>
+
+    <div class="main-table">
+
+        <h1>Asset</h1>
+        <div class="overflow-x-auto relative">
+            <table class="w-full text-sm text-left text-gray-500">
+                <thead class="text-xs table-header text-white uppercase bg-dark-green">
+                <tr>
+                    <th scope="col" class="py-3 px-6">
+                        Description
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Balance Type
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Balance
+                    </th>
+                </tr>
+                </thead>
+
+                {% for asset in assets %}
+                <tbody>
+                <tr class="bg-light-gray  text-dark-gray">
+                    <td class="py-4 px-6">
+                        {{ asset.type }}
+                    </td>
+                    <td class="py-4 px-6 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
+                        </svg>
+                    </td>
+                    <td class="py-4 px-6">
+                        {{ asset.amount }}
+                    </td>
+                </tr>
+                </tbody>
+                {% endfor %}
+
+                <tbody>
+                <tr class="bg-light-gray  text-dark-gray">
+                    <td class="py-4 px-6">
+                        <b>Total Assets</b>
+                    </td>
+                    <td class="py-4 px-6 flex items-center ">
+
+                    </td>
+                    <td class="py-4 px-6">
+                        <b>{{ total_assets }}</b>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <h1>Liabilities</h1>
+        <div class="overflow-x-auto relative">
+            <table class="w-full text-sm text-left text-gray-500">
+                <thead class="text-xs table-header text-white uppercase bg-dark-green">
+                <tr>
+                    <th scope="col" class="py-3 px-6">
+                        Description
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Balance Type
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Balance
+                    </th>
+                </tr>
+                </thead>
+
+                {% for liability in liabilities %}
+                <tbody>
+                <tr class="bg-light-gray  text-dark-gray">
+                    <td class="py-4 px-6">
+                        {{ liability.type }}
+                    </td>
+                    <td class="py-4 px-6 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dark-green" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
+                        </svg>
+                    </td>
+                    <td class="py-4 px-6">
+                        {{ liability.amount }}
+                    </td>
+                </tr>
+                </tbody>
+                {% endfor %}
+
+                <tbody>
+                <tr class="bg-light-gray  text-dark-gray">
+                    <td class="py-4 px-6">
+                        <b>Total Liabilities</b>
+                    </td>
+                    <td class="py-4 px-6 flex items-center ">
+
+                    </td>
+                    <td class="py-4 px-6">
+                        <b>{{ total_liabilities }}</b>
+                    </td>
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr class="bg-light-gray  text-dark-gray">
+                    <td class="py-4 px-6">
+                        <b>Total Equity</b>
+                    </td>
+                    <td class="py-4 px-6 flex items-center ">
+
+                    </td>
+                    <td class="py-4 px-6">
+                        <b>{{ total_equity }}</b>
+                    </td>
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr class="bg-light-gray  text-dark-gray">
+                    <td class="py-4 px-6">
+                        <b>Total Capital</b>
+                    </td>
+                    <td class="py-4 px-6 flex items-center ">
+
+                    </td>
+                    <td class="py-4 px-6">
+                        <b>{{ total_capital }}</b>
+                    </td>
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr class="bg-light-gray  text-dark-gray">
+                    <td class="py-4 px-6">
+                        <b>Retained Earnings</b>
+                    </td>
+                    <td class="py-4 px-6 flex items-center ">
+
+                    </td>
+                    <td class="py-4 px-6">
+                        <b>{{ retained_earnings }}</b>
+                    </td>
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr class="bg-light-gray  text-dark-gray">
+                    <td class="py-4 px-6">
+                        <b>Total Equities + Liabilities</b>
+                    </td>
+                    <td class="py-4 px-6 flex items-center ">
+
+                    </td>
+                    <td class="py-4 px-6">
+                        <b>{{ equity_and_liability }}</b>
+                    </td>
+                </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+    <span>Generated by Lamuni's AI based Financial System</span>
+</div>
+
+</body>
+</html>
