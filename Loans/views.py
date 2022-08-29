@@ -1,5 +1,3 @@
-from datetime import timezone
-from traceback import print_tb
 from django.shortcuts import redirect, render, get_object_or_404
 from django.db.models import Count
 from datetime import datetime, timedelta
@@ -12,10 +10,14 @@ from django.views.generic import View
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from .forms import CreateLoanForm, AddRecordForm, AddSalesRecordForm, ApplyLoanForm
-from .models import Beneficiaries, Loan, FinancialRecord, Record, SalesRecord, Sector, BalanceSheet
+from .models import Beneficiaries, Loan, FinancialRecord, Record, SalesRecord, Sector, BalanceSheet, Payment
 from django.utils.decorators import method_decorator
 from django.db.models import Q
 from Users.models import User
+import json
+import requests
+from django.conf import settings
+
 
 # Create your views here.
 
@@ -51,11 +53,10 @@ def get_stats_all(loans):
     for loan in loans:
         number_of_approved += loan.number_of_approved()
 
-
     data = {
-            "number_of_approved": number_of_approved,
+        "number_of_approved": number_of_approved,
 
-            }
+    }
     return data
 
 
@@ -91,11 +92,13 @@ def loans_list(request):
     loans = Loan.objects.filter(fsp=user)
     return render(request, 'fsp/loan.html', {"loans": loans})
 
+
 def list_loans(request):
     """All the list of loans from all financial service providers"""
     loans = Loan.objects.all()
     print(loans)
     return render(request, "list_of_loans.html", {"loans": loans})
+
 
 def fsp_profile(request):
     user = request.user
@@ -110,10 +113,9 @@ def loan_beneficiaries(request, pk):
     return render(request, 'fsp/loan_beneficiaries.html', {"user": user, "beneficiaries": beneficiaries})
 
 
-
 def grant_loan(request, loan_id, username):
     # TODO: grant loan tomorow test
-    #take the user
+    # take the user
     user = get_object_or_404(User, username=username)
     print(user.username)
     loan = get_object_or_404(Loan, id=loan_id)
@@ -121,7 +123,7 @@ def grant_loan(request, loan_id, username):
     if is_granted:
         return JsonResponse({"message": "granted"}, status=200)
     return JsonResponse({"message": "not an applicant"}, status=403)
-    #and will never apply to this specific loan program again
+    # and will never apply to this specific loan program again
 
 
 def deny_loan(request, loan_id, username):
@@ -130,43 +132,45 @@ def deny_loan(request, loan_id, username):
     loan = get_object_or_404(Loan, id=loan_id)
     is_denied = loan.deny_loan(user)
     if is_denied:
-        return JsonResponse({"mesage":"denied"}, status=200)
+        return JsonResponse({"mesage": "denied"}, status=200)
         # send the user a sorry message that this isnt the right program for him
     return JsonResponse({"message": "not applicant"}, status=403)
 
 
 def apply_loan(request, id):
     # TODO: apply loan tomorow continue
-    #user cannot apply loan if theres an outstanding loan payment
+    # user cannot apply loan if theres an outstanding loan payment
     user = request.user
     applications = Beneficiaries.objects.filter(Q(user=user) | Q(is_given=True))
     loan = get_object_or_404(Loan, id=id)
     form = ApplyLoanForm(user=user, loan_id=id, data=request.GET)
     if request.method == "POST":
-        form  =  ApplyLoanForm(user=user, loan_id=id, data=request.POST)
+        form = ApplyLoanForm(user=user, loan_id=id, data=request.POST)
         print(form)
-        if  not applications.exists():
+        if not applications.exists():
             if form:
                 print(form, "the incredible form")
                 if form.is_valid():
-                    #TODO: write a better eligibility function here current only checks
+                    # TODO: write a better eligibility function here current only checks
                     # if the user have ever applied to the particular loan program what if the whole
-                    #program was renewed and he wants to apply again
-                    beneficiary = Beneficiaries.objects.create(user=user, number_of_employee= int(form.cleaned_data["number_of_employee"]) if not  \
-                    (user.number_of_employee) else user.number_of_employee)
+                    # program was renewed and he wants to apply again
+                    beneficiary = Beneficiaries.objects.create(user=user, number_of_employee=int(
+                        form.cleaned_data["number_of_employee"]) if not \
+                        (user.number_of_employee) else user.number_of_employee)
                     loan.beneficiaries.add(beneficiary)
                     return render(request, "apply_message.html", {"message": \
-                    "successfully applied!, you'll hear from us sonn"})
+                                                                      "successfully applied!, you'll hear from us sonn"})
                 return render(request, "apply_message.html", {"user": user, "message": \
                     "Sorry we cannot offer you Credit!, Try Again"})
         return render(request, "apply_message.html", {"message": "You Have Already Applied to this program!"})
     else:
         return render(request, "apply_for_loan.html", {"form": form})
 
-    #if the user credit score is below 50% dont give him
-    #if the user has no problem
-    #add him to the beneficiaries list
-    #with all his documents and things
+    # if the user credit score is below 50% dont give him
+    # if the user has no problem
+    # add him to the beneficiaries list
+    # with all his documents and things
+
 
 def users_credentials(request, loan_id):
     """This will query all the requirements of a user of the particular loan"""
@@ -180,19 +184,18 @@ def users_credentials(request, loan_id):
     return render(request, "users_credentials.html", {"credentials": output})
 
 
-
 def recommended_loans(request):
-    #TODO: recommend loan
-    #check the loans that target the bussiness size and sector to be top
+    # TODO: recommend loan
+    # check the loans that target the bussiness size and sector to be top
     user = request.user
     recommended = Loan.objects.filter(Q(sector=user.sector, size=user.size) |
-    Q(size=user.size) | Q(sector=user.sector))
-    #call a fake machine learning recomendation algorithm
+                                      Q(size=user.size) | Q(sector=user.sector))
+    # call a fake machine learning recomendation algorithm
     return render(request, "recommended_loans.html", {"loans": recommended})
+
 
 def search(request):
     pass
-
 
 
 @login_required()
@@ -345,7 +348,8 @@ class GeneratePdf(View):
         user.financial_record = File(receipt_file, file_name)
         user.save()
         # rendering the template
-        return HttpResponse(pdf, content_type='application/pdf')
+        # return HttpResponse(pdf, content_type='application/pdf')
+        return receipt_file
 
 
 @method_decorator(login_required, name='dispatch')
@@ -404,4 +408,68 @@ class GenerateBalanceSheet(View):
         user.balance_sheet = File(receipt_file, file_name)
         user.save()
         # rendering the template
-        return HttpResponse(pdf, content_type='application/pdf')
+        # return HttpResponse(pdf, content_type='application/pdf')
+
+        return receipt_file
+
+
+@login_required
+def request_financial_statements(request):
+    user = request.user
+
+    headers = {
+        "Authorization": "dskjdks",
+        "Content-Type": "application/json",
+        "sandbox-key": settings.SANDBOX_KEY
+    }
+    url = "https://fsi.ng/api/v1/flutterwave/v3/virtual-account-numbers"
+    data = ({
+        "email": user.email,
+        "is_permanent": True,
+        "bvn": user.bvn,
+        "amount": 500,
+        "phonenumber": user.phone,
+        "firstname": user.first_name,
+        "lastname": user.last_name,
+        "narration": "Lamuni",
+    })
+
+    my_data = requests.post(url=url, json=data, headers=headers)
+
+    if my_data.status_code not in [200, 203]:
+        message = "There was an error creating account number : {}:{}".format(
+            my_data.status_code, my_data.text
+        )
+        print(message)
+
+        data = {
+            "message": message
+        }
+        return render(request, 'add_sales_record.html', context=data)
+
+    json_data = my_data.json()
+
+    real_data = json_data['data']
+
+    account_number = real_data['account_number']
+    message = real_data['note']
+    bank = real_data['bank_name']
+    tx_ref = real_data['flw_ref']
+
+    payment = Payment.objects.create(
+        user=user,
+        tx_ref=tx_ref,
+        account_number=account_number,
+        account_name=message,
+    )
+
+    data = {
+        "note": message,
+        "account_number": account_number,
+        "tx_ref": tx_ref,
+        "bank_name": bank,
+        "message": "Transfer the money to the above account number whenever receive your payment, your financial "
+                   "statement will be sent to your email "
+    }
+
+    return render(request, 'add_sales_record.html', context=data)

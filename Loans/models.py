@@ -74,10 +74,11 @@ class Requirement(models.Model):
      def __str__(self) -> str:
          return str(self.requiremenent)
 
-for choice in REQUIREMENTS:
-    requirements = Requirement.objects.filter(requiremenent=choice[0])
-    if not requirements.exists():
-        Requirement.objects.create(requiremenent=choice[0])
+if REQUIREMENTS:
+    for choice in REQUIREMENTS:
+        requirements = Requirement.objects.filter(requiremenent=choice[0])
+        if not requirements.exists():
+            Requirement.objects.create(requiremenent=choice[0])
 class Loan(models.Model):
     fsp = models.ForeignKey(get_user_model(), on_delete=models.DO_NOTHING, related_name="fsp")
     date_created = models.DateTimeField(auto_now_add=True)
@@ -278,8 +279,6 @@ class FinancialRecord(models.Model):
         all_records = self.records.all()
         start_date = datetime.today()
         end_date = start_date - timedelta(days=30)
-
-        for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date):
 
         for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date).filter(category="Income"):
             total_incomes += record.amount
@@ -650,3 +649,17 @@ class BalanceSheet(models.Model):
         total = self.get_total_equity() + self.get_total_liabilities()
 
         return total
+
+
+class Payment(models.Model):
+
+    """ The Model for Charging user when generating Financial Statement outside this platform"""
+    user = models.ForeignKey(get_user_model(), on_delete=models.DO_NOTHING)
+    tx_ref = models.TextField(blank=True, unique=True)
+    amount = models.DecimalField(max_digits=12, decimal_places=2, default=500)
+    account_number = models.TextField(max_length=11, blank=True)
+    bank = models.TextField(blank=True, default="WEMA BANK")
+    account_name = models.TextField(max_length=200, blank=True)
+    date = models.DateTimeField(auto_now=True)
+    balance_sheet = models.FileField(upload_to='financial_record/%Y/%m/', null=True, blank=True)
+    financial_record = models.FileField(upload_to='financial_record/%Y/%m/', null=True, blank=True)

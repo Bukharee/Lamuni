@@ -5,9 +5,9 @@ from .forms import RechargeWallet, WithdrawWallet, TransferMoney
 from .models import Wallet, wallet_ref_code_generator
 from django.template import loader
 from django.contrib.auth.decorators import login_required
-import sys
 import json
 import requests
+from django.conf import settings
 
 
 # Create your views here
@@ -26,7 +26,7 @@ def view_wallet(request):
     headers = {
         "Authorization": "dskjdks",
         "Content-Type": "application/json",
-        "sandbox-key": "iA2AJuzAxaPw8VE0PYMTAFbVUTKQ4WAN1661622415",
+        "sandbox-key": settings.SANDBOX_KEY,
     }
     url = "https://fsi.ng/api/v1/flutterwave/v3/virtual-account-numbers"
     data = ({
@@ -42,7 +42,7 @@ def view_wallet(request):
     my_data = requests.request("POST", url, json=data, headers=headers)
     print(my_data)
     if my_data.status_code not in [200, 203]:
-        print("There was an error retrieving the data from Linkshare: {}:{}".format(
+        print("There was an error retrieving account details : {}:{}".format(
             my_data.status_code, my_data.text
         )
         )
