@@ -466,6 +466,7 @@ class FinancialRecord(models.Model):
 
         return apr
 
+
     @property
     def get_other_incomes(self):
 
@@ -492,3 +493,95 @@ class FinancialRecord(models.Model):
         expenses = all_records.filter(date__gte=end_date).filter(date__lte=start_date).exclude(category="Income")
 
         return expenses
+
+ASSETS_TYPE = (('CASH', 'CASH'),
+               ('Account Receivable', 'Account Receivable'),
+               ('Inventory', 'Inventory'),
+               ('Prepaid Expenses', 'Prepaid Expenses'),
+               ('Fixed Assets', 'Fixed Assets'),
+               ('Accumulated Depreciation', 'Accumulated Depreciation'),
+               ('Intangible Assets', 'Intangible Assets'),)
+
+
+class Assets(models.Model):
+    name = models.TextField(max_length=50, blank=False, null=False)
+    type = models.CharField(max_length=80, choices=ASSETS_TYPE, default='', verbose_name='type')
+    amount = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    date = models.DateTimeField(auto_now=True)
+    description = models.TextField(max_length=200, blank=True)
+
+
+class Liability(models.Model):
+    name = models.TextField(max_length=50, blank=False, null=False)
+    type = models.CharField(max_length=80, choices=ASSETS_TYPE, default='', verbose_name='type')
+    amount = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    date = models.DateTimeField(auto_now=True)
+    description = models.TextField(max_length=200, blank=True)
+
+
+class BalanceSheet(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.DO_NOTHING)
+    total_capital = models.DecimalField(max_digits=12, decimal_places=2, verbose_name="Profit", default=0)
+    retained_earnings = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    last_retained_earnings = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    total_equity = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    total_liabilities = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    total_assets = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    cash_dividend = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    stock_dividend = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    liabilities = models.ManyToManyField(Liability, blank=True)
+    assets = models.ManyToManyField(Assets, blank=True)
+    income_statement = models.ManyToManyField(FinancialRecord, blank=True)
+
+    def get_total_assets(self):
+        total = 0
+
+        all_assets = self.assets.all()
+
+        for asset in all_assets:
+            total += asset.amount
+        return total
+
+    def get_total_liabilities(self):
+        total = 0
+
+        all_liabilities = self.liabilities.all()
+
+        for liability in all_liabilities:
+            total += liability.amount
+        return total
+
+    def get_retained_earnings(self, income):
+        # RE = BP(last period RE) + Net
+        # Income( or Loss)−Cash dividends −Stock Dividends
+
+        # A cash dividend is a distribution paid to stockholders as part
+        # of the corporation's current earnings or accumulated profits in the form of cash
+
+        #  A stock dividend is a dividend payment to shareholders that is made in shares rather than as cash.
+        re = 0
+        lst_re = self.last_retained_earnings
+        cash_dividends = self.cash_dividend
+        stock_dividends = self.stock_dividend
+
+        re = (lst_re + income) - (cash_dividends + stock_dividends)
+
+        return re
+
+    def get_total_equity(self):
+
+        total = 0
+
+        # Shareholders’ Equity=Total Assets−Total Liabilities
+
+        total = self.get_total_assets() - self.get_total_liabilities()
+
+        return total
+
+    def get_equity_and_liability(self):
+
+        total = 0
+
+        total = self.get_total_equity() + self.get_total_liabilities()
+
+        return total
