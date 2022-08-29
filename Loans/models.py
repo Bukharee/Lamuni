@@ -1,5 +1,5 @@
 from importlib.metadata import requires
-from time import timezone
+from django.utils import timezone
 from django.db import models
 from django.contrib.auth import get_user_model
 from multiselectfield import MultiSelectField
@@ -119,17 +119,22 @@ class Loan(models.Model):
     def grant_loan(self, user):
         #TODO: send notif or message to the user that loan granted
         application = self.beneficiaries.filter(user=user)
+        print(application[0].is_given)
         if application.exists():
+            the_id = application[0].id
+            application = get_object_or_404(Beneficiaries, id=the_id)
             application.is_given = True
-            application.is_denied = True
-            application.time_to_pay = timezone.now() + timedelta(days=self.paying_days)
+            application.is_denied = False
+            application.time_to_pay = timezone.localtime() + timedelta(days=self.paying_days)
             application.save()
             return True
         return False
     def deny_loan(self, user):
         # TODO: deny loan tomorow test
-        application = Beneficiaries.objects.filter(user=user)
-        if application in self.beneficiaries.all():    
+        application = self.beneficiaries.filter(user=user)
+        if application.exists():
+            the_id = application[0].id  
+            application = get_object_or_404(Beneficiaries, id=the_id)  
             #apply is_denied to be true
             application.is_denied = True
             application.is_given = False
