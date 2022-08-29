@@ -5,12 +5,12 @@
 
                         {% for lesson in lessons %}
                             <a href="{{ lesson.get_absolute_url }}">
-                        <div class="flex justify-between transition ease-in-out delay-150 duration-300 cursor-pointer hover:bg-dark-gray topic-1 card mx-auto overflow-hidden rounded-lg">
+                        <div class="flex justify-between transition ease-in-out delay-150 duration-300 cursor-pointer hover:bg-gray-100 topic-1 card mx-auto overflow-hidden rounded-lg">
 
                             <div class="px-4 py-2 -mx-3">
                                 <div class="mx-3">
-                                    <span class="font-semibold text-emerald-500 dark:text-emerald-400">{{ lesson.title }}</span>
-                                    <p class="text-sm text-gray-600 font-bold dark:text-gray-200">{{ lesson.desc }}</p>
+                                    <span class="font-semibold text-dark-green ">{{ lesson.title }}</span>
+                                    <p class="text-sm text-gray-900 font-bold ">{{ lesson.desc }}</p>
                                 </div>
                             </div>
 

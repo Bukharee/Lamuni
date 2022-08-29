@@ -22,7 +22,7 @@
             <div class="question-list my-10 px-5 sm:px-10">
                 <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-6">
                     <div>
-                        <li class="inline text-left rounded-lg">
+                        <li class="inline text-left rounded-lg rounded-md">
                             <label class="quiz-container text-justify relative" for="{{q.id}}-A" id="" >
                                <input class="appearance-none"  id="{{q.id}}-A" type="radio" name="{{q.question}}" value="A">
                                <div class="quiz-answer p-2 sm:p-4 md:p-6 border-[1px] border-light-gray relative">
@@ -97,7 +97,7 @@
     </div>
     {% endfor %}
 <div class="my-20 flex items-center justify-end">
-    <button type="submit" class="sm:px-6 py-2 px-4 sm:py-4 border-2 border-dark-green text-dark-green bg-light-green hover:bg-dark-green focus:bg-dark-green hover:text-white focus:text-white font-bold rounded-md">Summit Quiz</button>
+    <button type="submit" class="sm:px-6 py-2 px-4 sm:py-4 border-2 border-dark-green text-dark-green hover:bg-dark-green focus:bg-dark-green hover:text-white focus:text-white font-bold rounded-md">Summit Quiz</button>
     </div>
 
 </form>

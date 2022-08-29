@@ -70,7 +70,7 @@
                                tracking-wider
                                "
                         >
-                        number of employee
+                        Recommended
                     </th>
                     <th scope="col" class=" px-6
                                py-3
@@ -79,19 +79,29 @@
                                text-gray-500
                                uppercase
                                tracking-wider">
-                     Edit
+                     Grand
+                    </th>
+                      <th scope="col" class=" px-6
+                               py-3
+                               text-left text-xs
+                               font-medium
+                               text-gray-500
+                               uppercase
+                               tracking-wider">
+                     Deny
                     </th>
                   </tr>
                 </thead>
                   {% for beneficiary in beneficiaries %}
                 <tbody class="bg-white divide-y divide-gray-200">
                   <tr>
-                    <td class="px-6 py-4 whitespace-nowrap">
+                    <td class="px-6 py-4 whitespace-nowrap text-center">
+                          <a href="">
                       <div class="flex items-center">
                         <div class="flex-shrink-0 h-10 w-10">
                           <img
                                class="h-10 w-10 rounded-full"
-                               src="https://avatars.githubusercontent.com/u/68012668?v=4"
+                               src="{{ beneficiary.user.image.url }}"
                                alt=""
                                />
                         </div>
@@ -104,6 +114,7 @@
                           </div>
                         </div>
                       </div>
+                               </a>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                       <div class="text-sm text-gray-900">{{ beneficiary.time_applied.date }}</div>
@@ -113,20 +124,33 @@
                      <div class="text-sm text-gray-900">{{ beneficiary.time_to_pay.date }}</div>
                       <div class="text-sm text-gray-500">{{ beneficiary.time_to_pay.time }}</div>
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {{ beneficiary.number_of_employee }}
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                      {{ beneficiary.is_recommended }}
                     </td>
                     <td
                         class="
                                px-6
                                py-4
                                whitespace-nowrap
-                               text-right text-sm
+                              text-sm
                                font-medium
                                "
                         >
-                      <a href="#" class="text-indigo-600 hover:text-indigo-900"
-                         >Edit</a
+                      <a href="#" class="text-indigo-400 hover:text-indigo-600"
+                         ><span class="px-4 py-1 text-green-600 bg-green-200 rounded-full">Grand</span></a
+                        >
+                    </td>
+                      <td
+                        class="
+                               px-6
+                               py-4
+                               whitespace-nowrap
+                                text-sm
+                               font-medium
+                               "
+                        >
+                      <a href="#" class="text-indigo-400 hover:text-indigo-600"
+                         ><span class="px-4 py-1 text-red-600 bg-red-200 rounded-full">Deny</span></a
                         >
                     </td>
                   </tr>
@@ -136,8 +160,12 @@
             </tbody>
                   {% endfor %}
               </table>
+
             </div>
           </div>
+         <div class="my-20 flex items-center justify-end">
+            <a href="{% url 'lessons:lessons' %}"><button class="sm:px-6 py-2 px-4 bg-white sm:py-4 shadow-md shadow-light-gray text-dark-green hover:bg-dark-green focus:bg-dark-green hover:text-white focus:text-white font-bold rounded-md">Grand Recommended</button></a>
+        </div>
         </div>
       </div>
 {% endblock %}
