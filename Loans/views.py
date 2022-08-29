@@ -98,7 +98,7 @@ def loan_beneficiaries(request, pk):
     loan = get_object_or_404(Loan, id=pk)
     beneficiaries = loan.beneficiaries.all()
     print(beneficiaries)
-    return render(request, 'fsp/loan_beneficiaries.html', {"user": user, "beneficiaries": beneficiaries})
+    return render(request, 'fsp/loan_beneficiaries.html', {"user": user, "beneficiaries": beneficiaries, "loans": loan})
 
 
 def grant_loan(request, loan_id, username):
