@@ -162,7 +162,8 @@ def user_profile(request):
     loans_applied = Beneficiaries.objects.filter(user=user)
     number_of_loan_applied = Beneficiaries.objects.filter(user=user).count()
 
-    context = {'user': user, 'wallet': wallet, 'transactions': transactions}
+    context = {'user': user, 'wallet': wallet, 'transactions': transactions,
+               "loans_applied": loans_applied, "number_of_loan_applied": number_of_loan_applied}
 
     return render(request, 'profile.html', context)
 

@@ -40,6 +40,9 @@ class Beneficiaries(models.Model):
     def __str__(self) -> str:
         return str(self.user.username)
 
+    def get_absolute_url(self):
+        return reverse('loans:user-loan-details', args=[self.pk])
+
 
 class Loan(models.Model):
     fsp = models.ForeignKey(get_user_model(), on_delete=models.DO_NOTHING, related_name="fsp")

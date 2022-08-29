@@ -43,11 +43,14 @@ def get_stats(loan):
 
 def get_stats_all(loans):
     number_of_approved = 0
+    amount_given = 0
     for loan in loans:
         number_of_approved += loan.number_of_approved()
 
+
     data = {
-            "number_of_approved": number_of_approved
+            "number_of_approved": number_of_approved,
+
             }
     return data
 
