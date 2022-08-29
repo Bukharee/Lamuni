@@ -26,33 +26,40 @@ def view_wallet(request):
     headers = {
         "Authorization": "dskjdks",
         "Content-Type": "application/json",
-        "sandbox-key": settings.SANDBOX_KEY,
+        "sandbox-key": settings.SANDBOX_KEY
     }
     url = "https://fsi.ng/api/v1/flutterwave/v3/virtual-account-numbers"
     data = ({
         "email": user.email,
         "is_permanent": True,
         "bvn": user.bvn,
+        "amount": 500,
         "phonenumber": user.phone,
         "firstname": user.first_name,
         "lastname": user.last_name,
         "narration": "Lamuni",
     })
 
-    my_data = requests.request("POST", url, json=data, headers=headers)
-    print(my_data)
+    my_data = requests.post(url=url, json=data, headers=headers)
+
     if my_data.status_code not in [200, 203]:
-        print("There was an error retrieving account details : {}:{}".format(
+        message = "There was an error creating account number : {}:{}".format(
             my_data.status_code, my_data.text
         )
-        )
+        print(message)
 
-    data = (json.loads(my_data.text)["data"])
+        data = {
+            "message": message
+        }
+        return render(request, 'add_sales_record.html', context=data)
 
-    print(data)
-    wallet.account_number = data['account_number']
-    wallet.account_name = data['note']
-    wallet.bank = data['bank_name']
+    json_data = my_data.json()
+
+    real_data = json_data['data']
+
+    wallet.account_number = real_data['account_number']
+    wallet.account_name = real_data['note']
+    wallet.bank = real_data['bank_name']
 
     wallet.save()
 
