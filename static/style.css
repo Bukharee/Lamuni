@@ -29,10 +29,8 @@ body {
 .ul-item {
     @apply text-lg  sm:text-2xl sm:tracking-wide
 }
-
-
 .quiz-container input:checked ~ .quiz-answer {
-    @apply shadow-md border-2 border-dark-green  bg-light-green text-dark-green
+    @apply shadow-md border border-dark-green text-dark-green
 }
 
 .quiz-container input:checked ~ .quiz-answer .quiz-choice {

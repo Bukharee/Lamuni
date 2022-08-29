@@ -56,7 +56,7 @@
                   <!-- chart Section -->
                 <div class="w-full">
                 <div class="shadow-lg rounded-lg overflow-hidden my-10 bg-white">
-                    <div class="py-3 px-5 ">Sector chart: {{data.sectors_count}}</div>
+                    <div class="py-3 px-5 ">Sector chart: {{data.get_sector_data}}</div>
                     <canvas class="p-10" id="chartBar"></canvas>
                   </div>
                 </div>
@@ -81,7 +81,7 @@
           label: "My First dataset",
           backgroundColor: "#16a34a",
           borderColor: "hsl(252, 82.9%, 67.8%)",
-          data: [0, 10, 5, 2, 20, 30, 45],
+          data: [20, 10, 5, 2, 20, 30, 45],
         },
       ],
     };
