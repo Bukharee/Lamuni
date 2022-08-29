@@ -41,6 +41,17 @@ def get_stats(loan):
     return data
 
 
+def get_stats_all(loans):
+    number_of_approved = 0
+    for loan in loans:
+        number_of_approved += loan.number_of_approved()
+
+    data = {
+            "number_of_approved": number_of_approved
+            }
+    return data
+
+
 def loan_details(request, pk):
     loan = get_object_or_404(Loan, id=pk)
     data = get_stats(loan)
@@ -59,7 +70,8 @@ def dashboard(request):
     loans = Loan.objects.filter(fsp=user)
     if request.user.is_staff or request.user.is_superuser:
         loans = Loan.objects.filter(fsp=user)
-        return render(request, 'fsp/fsp-home.html', {"loans": loans})
+        data = get_stats_all(loans)
+        return render(request, 'fsp/fsp-home.html', {"loans": loans, "data": data})
     else:
         loans = Loan.objects.all()
         return render(request, 'user/user_loan.html', {"loans": loans})
@@ -127,8 +139,8 @@ def add_record(request):
             amount = add_record_form.cleaned_data['amount']
             category = add_record_form.cleaned_data['category']
             record = Record.objects.create(amount=amount, category=category)
-            f_record.record.add(record)
-            return HttpResponseRedirect('/accounts/user_profile/')
+            f_record.records.add(record)
+            return redirect("users:profile")
 
     else:
         add_record_form = AddRecordForm()
@@ -229,24 +241,24 @@ class GeneratePdf(View):
         name = user.username + " " + " Company"
 
         open('templates/temp.html', "w").write(render_to_string('income-statement.html',
-                                                                            {'f_record': f_record,
-                                                                             'records': records,
-                                                                             'name': name,
-                                                                             'from_date': end_date,
-                                                                             'to_date': start_date,
-                                                                             'revenues': revenues,
-                                                                             'net_profit': net_profit,
-                                                                             'gross_profit': gross_profit,
-                                                                             'depreciation': depreciation,
-                                                                             'prev_revenues': prev_revenues,
-                                                                             'prev_net_profit': prev_net_profit,
-                                                                             'prev_gross_profit': prev_gross_profit,
-                                                                             'depreciation_percent': depreciation_percent,
-                                                                             'other_incomes': other_income,
-                                                                             'total_sales': total_sales,
-                                                                             'total_income': total_income,
-                                                                             'expenses': expenses,
-                                                                             'total_expenses': total_expenses, }))
+                                                                {'f_record': f_record,
+                                                                 'records': records,
+                                                                 'name': name,
+                                                                 'from_date': end_date,
+                                                                 'to_date': start_date,
+                                                                 'revenues': revenues,
+                                                                 'net_profit': net_profit,
+                                                                 'gross_profit': gross_profit,
+                                                                 'depreciation': depreciation,
+                                                                 'prev_revenues': prev_revenues,
+                                                                 'prev_net_profit': prev_net_profit,
+                                                                 'prev_gross_profit': prev_gross_profit,
+                                                                 'depreciation_percent': depreciation_percent,
+                                                                 'other_incomes': other_income,
+                                                                 'total_sales': total_sales,
+                                                                 'total_income': total_income,
+                                                                 'expenses': expenses,
+                                                                 'total_expenses': total_expenses, }))
 
         # getting the template
         pdf = html_to_pdf('temp.html')

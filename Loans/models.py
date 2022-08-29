@@ -57,6 +57,42 @@ class Loan(models.Model):
     def get_absolute_url(self):
         return reverse('loans:user-loan-details', args=[self.pk])
 
+    def number_of_approved(self):
+        beneficiaries = self.beneficiaries.all()
+        count = 0
+        for beneficiary in beneficiaries:
+            if beneficiary.is_given:
+                count += 1
+        return count
+
+    def number_of_yet_paid(self):
+        beneficiaries = self.beneficiaries.all()
+        count = 0
+        for beneficiary in beneficiaries:
+            if not beneficiary.is_payed:
+                count += 1
+        return count
+
+    def number_of_paid(self):
+        beneficiaries = self.beneficiaries.all()
+        count = 0
+        for beneficiary in beneficiaries:
+            if beneficiary.is_payed:
+                count += 1
+        return count
+
+    def get_sector_data(self):
+        beneficiaries = self.beneficiaries.all()
+        data = {}
+        for beneficiary in beneficiaries:
+            sector = beneficiary.user.sector
+            it_exist = data.get(sector, 0)
+            if it_exist == 0:
+                data[sector] = 1
+            else:
+                data[sector] += 1
+        return data
+
 
 RECORD_CATEGORY = (('Purchase', 'Purchase'),
                    ('Expenses', 'Expenses'),
@@ -287,43 +323,9 @@ class FinancialRecord(models.Model):
     # def __str__(self) -> str:
     #     return str(self.program_title)
 
-    def get_sector_data(self):
-        beneficiaries = self.beneficiaries.all()
-        data = {}
-        for beneficiary in beneficiaries:
-            sector = beneficiary.user.sector
-            it_exist = data.get(sector, 0)
-            if it_exist == 0:
-                data[sector] = 1
-            else:
-                data[sector] += 1
-        return data
 
     # number_of_approved = loan.beneficiaries.filter(is_given=True).count()
 
-    def number_of_approved(self):
-        beneficiaries = self.beneficiaries.all()
-        count = 0
-        for beneficiary in beneficiaries:
-            if beneficiary.is_given:
-                count += 1
-        return count
-
-    def number_of_yet_paid(self):
-        beneficiaries = self.beneficiaries.all()
-        count = 0
-        for beneficiary in beneficiaries:
-            if not beneficiary.is_payed:
-                count += 1
-        return count
-
-    def number_of_paid(self):
-        beneficiaries = self.beneficiaries.all()
-        count = 0
-        for beneficiary in beneficiaries:
-            if beneficiary.is_payed:
-                count += 1
-        return count
 
         # Previous month stuffs
 
