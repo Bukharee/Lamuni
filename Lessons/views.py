@@ -7,13 +7,13 @@ from django.shortcuts import get_object_or_404
 # Create your views here.
 def lessons_list(request):
     context = {"lessons": Lesson.objects.all().order_by("date_published")}
-    return render(request, "lessons-list.html", context)
+    return render(request, "lessons/lessons-list.html", context)
 
 
 @login_required
 def lesson_detail(request, pk):
     lesson = get_object_or_404(Lesson, pk=pk)
-    return render(request, 'lesson-detail.html', {'lesson': lesson})
+    return render(request, 'lessons/lesson-detail.html', {'lesson': lesson})
 
 
 @login_required
@@ -25,7 +25,7 @@ def mark_lesson_completed(request, pk):
         lesson.finished.add(user)
         lesson.save()
 
-    return render(request, 'lesson-done.html', {'lesson': lesson})
+    return render(request, 'lessons/lesson-done.html', {'lesson': lesson})
 
 
 @login_required
@@ -67,7 +67,7 @@ def quiz(request, pk):
             'percent': percent,
             'total': total
         }
-        return render(request, 'quiz-result.html', context)
+        return render(request, 'lessons/quiz-result.html', context)
 
     else:
         questions = Quiz.objects.filter(lesson=lesson)
@@ -75,10 +75,10 @@ def quiz(request, pk):
             'questions': questions
         }
         print(questions)
-        return render(request, 'quiz.html', context)
+        return render(request, 'lessons/quiz.html', context)
 
 
 @login_required
 def quiz_list(request):
     context = {"lessons": Lesson.objects.all().order_by("date_published")}
-    return render(request, 'quiz_list.html', context)
+    return render(request, 'lessons/quiz_list.html', context)

@@ -12,7 +12,7 @@
 
 
     <div class="bg-white shadow-md rounded-lg shadow-light-gray flex flex-row items-center justify-between">
-    <div class="flex flex-row items-center space-x-4"><img class=" bg-white rounded-lg bg-blend-hard-light shadow-sm shadow-light-gray w-[50px] sm:w-[100px] " src="/media/default.png" alt="photo">
+    <div class="flex flex-row items-center mx-4">
       <div class="flex flex-col justify-between">
                 <h3 class="text-base sm:text-lg">{{ loan.fsp }}'s Loan</h3>
                  <span class="mt-2">
@@ -26,7 +26,7 @@
 
         <div class="flex items-center p-4 flex-initial">
 
-           <a href="#"> <button class=" px-4 text-xs sm:text-base sm:px-6 py-2 rounded-lg bg-green-100 text-green-700 hover:bg-green-300 transition-all duration-150"> Apply Now</button></a>
+           <a href="{% url 'loans:apply_loan' loan.id %}"> <button class=" px-4 text-xs sm:text-base sm:px-6 py-2 rounded-lg bg-green-100 text-green-700 hover:bg-green-300 transition-all duration-150"> Apply Now</button></a>
         </div>
     </div>
     <div class="bg-white shadow-md shadow-light-gray rounded-lg flex flex-col my-10  p-4 sm:p-8">
@@ -44,36 +44,21 @@
     <div class="my-5">
         <h1 class="text-lg font-bold tracking-wider">Description</h1>
         <p class="text-sm sm:text-base tracking-wide sm:tracking-wider text-justify">
-            The border property allows you to add a border to your image and specify the size, style, and color of the border. Notice that you can add multiple values for this CSS property. In this rule, you have specified a solid, red border with a width of 2px.
-
-The border-radius property defines the radius of an element’s corners, allowing you to round the edges of an element. In this rule, you have specified 8 pixels as the size of the radius. Try changing this number to see how it affects the display of the image.
-
-The width property defines the width of the image. In this rule, you have specified the width to be 200 pixels wide. Note that if you leave the height undefined, the height of the image will automatically adjust to maintain the original proportions of the image. Try changing both the height and width at the same time to check what happens.
+           {{ loan.description }}
         </p>
     </div>
 
     <div class="my-5">
         <h1 class="text-lg font-bold tracking-wider">Requirements</h1>
         <p class="text-sm sm:text-base tracking-wide sm:tracking-wider text-justify">
-            The border property allows you to add a border to your image and specify the size, style, and color of the border. Notice that you can add multiple values for this CSS property. In this rule, you have specified a solid, red border with a width of 2px.
+            {% for requirement in loan.requirements.all  %}
+                <p>{{ requirement }}</p>
 
-The border-radius property defines the radius of an element’s corners, allowing you to round the edges of an element. In this rule, you have specified 8 pixels as the size of the radius. Try changing this number to see how it affects the display of the image.
-
-The width property defines the width of the image. In this rule, you have specified the width to be 200 pixels wide. Note that if you leave the height undefined, the height of the image will automatically adjust to maintain the original proportions of the image. Try changing both the height and width at the same time to check what happens.
-        </p>
-    </div>
-    <div class="my-5">
-        <h1 class="text-lg font-bold tracking-wider">Procedure</h1>
-        <p class="text-sm sm:text-base tracking-wide sm:tracking-wider text-justify">
-            The border property allows you to add a border to your image and specify the size, style, and color of the border. Notice that you can add multiple values for this CSS property. In this rule, you have specified a solid, red border with a width of 2px.
-
-The border-radius property defines the radius of an element’s corners, allowing you to round the edges of an element. In this rule, you have specified 8 pixels as the size of the radius. Try changing this number to see how it affects the display of the image.
-
-The width property defines the width of the image. In this rule, you have specified the width to be 200 pixels wide. Note that if you leave the height undefined, the height of the image will automatically adjust to maintain the original proportions of the image. Try changing both the height and width at the same time to check what happens.
+            {% endfor %}
         </p>
     </div>
     <div class="flex items center justify-end my-5">
-        <a href="#"> <button class=" px-4 text-xs sm:text-base sm:px-6 py-2 rounded-lg bg-green-100 text-green-700 hover:bg-green-300 transition-all duration-150"> Apply Now</button></a>
+        <a href="{% url 'loans:apply_loan' loan.id %}"> <button class=" px-4 text-xs sm:text-base sm:px-6 py-2 rounded-lg bg-green-100 text-green-700 hover:bg-green-300 transition-all duration-150"> Apply Now</button></a>
     </div>
 </div>
 

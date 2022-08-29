@@ -58,11 +58,11 @@ def verify_code(request, username):
 
 
 def lesson_detail(request):
-    return render(request, "lesson-detail.html")
+    return render(request, "lessons/lesson-detail.html")
 
 
 def lesson_done(request):
-    return render(request, "lesson-done.html")
+    return render(request, "lessons/lesson-done.html")
 
 
 def education(request):
@@ -75,7 +75,7 @@ def chating(request):
 
 def conversation(request):
     return render(request, "conversations.html")
-    return render(request, "education_base.html")
+    return render(request, "lessons/education_base.html")
 
 
 def send_reset_code(request):
@@ -95,11 +95,11 @@ def send_reset_code(request):
 
 
 def quiz(request):
-    return render(request, "quiz.html")
+    return render(request, "lessons/quiz.html")
 
 
 def quiz_result(request):
-    return render(request, "quiz-result.html")
+    return render(request, "lessons/quiz-result.html")
 
 
 def reset_verify(request, username):
@@ -166,7 +166,7 @@ def user_profile(request):
     context = {'user': user, 'wallet': wallet, 'transactions': transactions,
                "loans_applied": loans_applied, "number_of_loan_applied": number_of_loan_applied}
 
-    return render(request, 'profile.html', context)
+    return render(request, 'user/profile.html', context)
 
 
 def update_user_profile(request):
@@ -181,7 +181,7 @@ def update_user_profile(request):
     else:
         form = UserEditForm(instance=request.user)
         print(form)
-    return render(request, 'edit_profile.html', {'form': form})
+    return render(request, 'user/edit_profile.html', {'form': form})
 
 
 def financial_statement(request):

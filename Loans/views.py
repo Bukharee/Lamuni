@@ -19,6 +19,7 @@ from django.utils.decorators import method_decorator
 from django.db.models import Q
 from Users.models import User
 
+
 # Create your views here.
 
 def create_loan(request):
@@ -31,8 +32,9 @@ def create_loan(request):
             form.save()
             return redirect('loans:loan_details', pk=form.id)
     form = CreateLoanForm()
-    sectors = Sector.objects.all()
-    return render(request, "fsp/create_loan.html", {"form": form, "sectors": sectors})
+    print(form.as_p())
+    # sectors = Sector.objects.all()
+    return render(request, "fsp/create_loan.html", {"form": form})
 
 
 def get_stats(loan):
@@ -62,7 +64,6 @@ def user_loan_details(request, pk):
 @login_required
 def dashboard(request):
     user = request.user
-    loans = Loan.objects.filter(fsp=user)
     if request.user.is_staff or request.user.is_superuser:
         loans = Loan.objects.filter(fsp=user)
         return render(request, 'fsp/fsp-home.html', {"loans": loans})
@@ -78,11 +79,13 @@ def loans_list(request):
     loans = Loan.objects.filter(fsp=user)
     return render(request, 'fsp/loan.html', {"loans": loans})
 
+
 def list_loans(request):
     """All the list of loans from all financial service providers"""
     loans = Loan.objects.all()
     print(loans)
     return render(request, "list_of_loans.html", {"loans": loans})
+
 
 def fsp_profile(request):
     user = request.user
@@ -97,9 +100,10 @@ def loan_beneficiaries(request, pk):
     print(beneficiaries)
     return render(request, 'fsp/loan_beneficiaries.html', {"user": user, "beneficiaries": beneficiaries})
 
+
 def grant_loan(request, loan_id, username):
     # TODO: grant loan tomorow test
-    #take the user
+    # take the user
     user = get_object_or_404(User, username=username)
     print(user.username)
     loan = get_object_or_404(Loan, id=loan_id)
@@ -107,8 +111,7 @@ def grant_loan(request, loan_id, username):
     if is_granted:
         return JsonResponse({"message": "granted"}, status=200)
     return JsonResponse({"message": "not an applicant"}, status=403)
-    #and will never apply to this specific loan program again
-
+    # and will never apply to this specific loan program again
 
 
 def deny_loan(request, loan_id, username):
@@ -116,44 +119,46 @@ def deny_loan(request, loan_id, username):
     user = get_object_or_404(User, username=username)
     loan = get_object_or_404(Loan, id=loan_id)
     is_denied = loan.deny_loan(user)
-    if is_denied:    
-        return JsonResponse({"mesage":"denied"}, status=200)
+    if is_denied:
+        return JsonResponse({"mesage": "denied"}, status=200)
         # send the user a sorry message that this isnt the right program for him 
     return JsonResponse({"message": "not applicant"}, status=403)
 
 
 def apply_loan(request, id):
     # TODO: apply loan tomorow continue
-    #user cannot apply loan if theres an outstanding loan payment
+    # user cannot apply loan if theres an outstanding loan payment
     user = request.user
     applications = Beneficiaries.objects.filter(Q(user=user) | Q(is_given=True))
     loan = get_object_or_404(Loan, id=id)
     form = ApplyLoanForm(user=user, loan_id=id, data=request.GET)
     if request.method == "POST":
-        form  =  ApplyLoanForm(user=user, loan_id=id, data=request.POST)
-        print(form)
-        if  not applications.exists():
+        form = ApplyLoanForm(user=user, loan_id=id, data=request.POST)
+
+        if not applications.exists():
             if form:
-                print(form, "the incredible form")
                 if form.is_valid():
-                    #TODO: write a better eligibility function here current only checks 
+                    # TODO: write a better eligibility function here current only checks
                     # if the user have ever applied to the particular loan program what if the whole
-                    #program was renewed and he wants to apply again
-                    beneficiary = Beneficiaries.objects.create(user=user, number_of_employee= int(form.cleaned_data["number_of_employee"]) if not  \
-                    (user.number_of_employee) else user.number_of_employee)
+                    # program was renewed and he wants to apply again
+                    beneficiary = Beneficiaries.objects.create(user=user, number_of_employee=int(
+                        form.cleaned_data["number_of_employee"]) if not \
+                        (user.number_of_employee) else user.number_of_employee)
                     loan.beneficiaries.add(beneficiary)
                     return render(request, "apply_message.html", {"message": \
-                    "successfully applied!, you'll hear from us sonn"})
+                                                                      "successfully applied!, you'll hear from us sonn"})
                 return render(request, "apply_message.html", {"user": user, "message": \
                     "Sorry we cannot offer you Credit!, Try Again"})
         return render(request, "apply_message.html", {"message": "You Have Already Applied to this program!"})
     else:
+        print(form.as_p())
         return render(request, "apply_for_loan.html", {"form": form})
-        
-    #if the user credit score is below 50% dont give him 
-    #if the user has no problem 
-    #add him to the beneficiaries list
-    #with all his documents and things 
+
+    # if the user credit score is below 50% dont give him
+    # if the user has no problem
+    # add him to the beneficiaries list
+    # with all his documents and things
+
 
 def users_credentials(request, loan_id, username):
     """This will query all the requirements of a user of the particular loan"""
@@ -161,22 +166,20 @@ def users_credentials(request, loan_id, username):
     loan = get_object_or_404(Loan, id=loan_id)
     output = {}
     for requirement in loan.requirements.all():
-        print(requirement.requiremenent)
-        output[requirement.requiremenent] = getattr(user, requirement.requiremenent)
+        print(requirement.requirement)
+        output[requirement.requirement] = getattr(user, requirement.requirement)
     print(output)
-    return render(request, "users_credentials.html", {"credentials": output})
-
+    return render(request, "user/users_credentials.html", {"credentials": output})
 
 
 def recommended_loans(request):
-    #TODO: recommend loan
-    #check the loans that target the bussiness size and sector to be top
+    # TODO: recommend loan
+    # check the loans that target the bussiness size and sector to be top
     user = request.user
-    recommended = Loan.objects.filter(Q(sector=user.sector, size=user.size) | 
-    Q(size=user.size) | Q(sector=user.sector))
-    #call a fake machine learning recomendation algorithm
+    recommended = Loan.objects.filter(Q(sector=user.sector, size=user.size) |
+                                      Q(size=user.size) | Q(sector=user.sector))
+    # call a fake machine learning recomendation algorithm
     return render(request, "recommended_loans.html", {"loans": recommended})
-
 
 
 @login_required()
@@ -187,7 +190,7 @@ def add_record(request):
 
         f_record = FinancialRecord.objects.get(user=user)
 
-    except Exception:   
+    except Exception:
 
         f_record = FinancialRecord.objects.create(user=user)
 
@@ -206,7 +209,7 @@ def add_record(request):
     context = {
         'form': add_record_form
     }
-    return render(request, 'add_record.html', context)
+    return render(request, 'user/add_record.html', context)
 
 
 @login_required()
@@ -243,7 +246,7 @@ def add_sales_record(request):
     context = {
         'form': add_sales_form
     }
-    return render(request, 'add_sales_record.html', context)
+    return render(request, 'user/add_sales_record.html', context)
 
 
 def fs(request):
@@ -299,24 +302,24 @@ class GeneratePdf(View):
         name = user.username + " " + " Company"
 
         open('templates/temp.html', "w").write(render_to_string('income-statement.html',
-                                                                            {'f_record': f_record,
-                                                                             'records': records,
-                                                                             'name': name,
-                                                                             'from_date': end_date,
-                                                                             'to_date': start_date,
-                                                                             'revenues': revenues,
-                                                                             'net_profit': net_profit,
-                                                                             'gross_profit': gross_profit,
-                                                                             'depreciation': depreciation,
-                                                                             'prev_revenues': prev_revenues,
-                                                                             'prev_net_profit': prev_net_profit,
-                                                                             'prev_gross_profit': prev_gross_profit,
-                                                                             'depreciation_percent': depreciation_percent,
-                                                                             'other_incomes': other_income,
-                                                                             'total_sales': total_sales,
-                                                                             'total_income': total_income,
-                                                                             'expenses': expenses,
-                                                                             'total_expenses': total_expenses, }))
+                                                                {'f_record': f_record,
+                                                                 'records': records,
+                                                                 'name': name,
+                                                                 'from_date': end_date,
+                                                                 'to_date': start_date,
+                                                                 'revenues': revenues,
+                                                                 'net_profit': net_profit,
+                                                                 'gross_profit': gross_profit,
+                                                                 'depreciation': depreciation,
+                                                                 'prev_revenues': prev_revenues,
+                                                                 'prev_net_profit': prev_net_profit,
+                                                                 'prev_gross_profit': prev_gross_profit,
+                                                                 'depreciation_percent': depreciation_percent,
+                                                                 'other_incomes': other_income,
+                                                                 'total_sales': total_sales,
+                                                                 'total_income': total_income,
+                                                                 'expenses': expenses,
+                                                                 'total_expenses': total_expenses, }))
 
         # getting the template
         pdf = html_to_pdf('temp.html')
