@@ -19,7 +19,7 @@ TIME_IN_BUSINESS_CHOICES = (('Less than 1 year', 'Less than 1 year'),
                             ('4 years', '4 years'),
                             ('5 years', '5 years'),
                             ('Above 5 years', 'Above 5 years'),)
-
+BUSINESS_SIZE = (('MICRO', 'MICRO'), ('SMALL', 'SMALL'), ('MEDIUM', 'MEDIUM'),)
 
 class User(AbstractUser):
     middle_name = models.CharField(max_length=100, blank=True, )
@@ -40,6 +40,8 @@ class User(AbstractUser):
     financial_record = models.FileField(upload_to='financial_record/%Y/%m/', null=True, blank=True)
     time_in_business = models.CharField(max_length=30, choices=TIME_IN_BUSINESS_CHOICES, blank=True, null=True)
     sector = models.ForeignKey(Sector, on_delete=models.DO_NOTHING, blank=True, null=True)
+    size = models.CharField(choices=BUSINESS_SIZE, max_length=20)
+    number_of_employee = models.PositiveIntegerField(blank=True, null=True)
 
     class Meta:
         permissions = [('can_create_loans', 'Can Create Loans')]
