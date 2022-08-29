@@ -476,7 +476,9 @@ def request_financial_statements(request):
 
 def verify_transfer(request):
 
-    """Webhook to verify any transfer made to Flutterwave and send the two pdf files to the user"""
+    """Webhook to verify any transfer made to Flutterwave and send the two pdf files to the user. This is an
+    automatic process"""
+
     headers = {
         "Authorization": "dskjdks",
         "Content-Type": "application/json",
