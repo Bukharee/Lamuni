@@ -158,6 +158,8 @@ def apply_loan(request, id):
                         form.cleaned_data["number_of_employee"]) if not \
                         (user.number_of_employee) else user.number_of_employee)
                     loan.beneficiaries.add(beneficiary)
+                    generate_balance_sheet(request, True)
+                    generate_income_statement(request, True)
                     return render(request, "apply_message.html", {"message": \
                                                                       "successfully applied!, you'll hear from us sonn"})
                 return render(request, "apply_message.html", {"user": user, "message": \
@@ -276,140 +278,140 @@ def fr(request, pk):
     print(record.get_profit)  #
 
 
-@method_decorator(login_required, name='dispatch')
-class GeneratePdf(View):
-    def get(self, request, *args, **kwargs):
-        user = request.user
+@login_required()
+def generate_income_statement(request, is_apply_loan):
+    user = request.user
 
-        f_record = get_object_or_404(FinancialRecord, user=user)
-        records = f_record.records
-        other_income = f_record.get_other_incomes
-        total_sales = f_record.total_sales
-        total_income = f_record.get_total_incomes
-        expenses = f_record.get_expenses
-        total_expenses = f_record.get_total_expenses
+    f_record = get_object_or_404(FinancialRecord, user=user)
+    records = f_record.records
+    other_income = f_record.get_other_incomes
+    total_sales = f_record.total_sales
+    total_income = f_record.get_total_incomes
+    expenses = f_record.get_expenses
+    total_expenses = f_record.get_total_expenses
 
-        start_date = datetime.today()
-        end_date = start_date - timedelta(days=30)
-        revenues = f_record.total_sales
-        prev_revenues = f_record.total_prev_sales
-        net_profit = f_record.get_net_profit
-        prev_net_profit = f_record.get_prev_net_profit
-        ideal_profit = f_record.get_ideal_profit()
-        print(str(ideal_profit))
+    start_date = datetime.today()
+    end_date = start_date - timedelta(days=30)
+    revenues = f_record.total_sales
+    prev_revenues = f_record.total_prev_sales
+    net_profit = f_record.get_net_profit
+    prev_net_profit = f_record.get_prev_net_profit
+    ideal_profit = f_record.get_ideal_profit()
+    print(str(ideal_profit))
 
-        gross_profit = f_record.get_gross_profit
-        prev_gross_profit = f_record.get_prev_gross_profit
+    gross_profit = f_record.get_gross_profit
+    prev_gross_profit = f_record.get_prev_gross_profit
 
-        depreciation = f_record.get_appreciation
+    depreciation = f_record.get_appreciation
 
-        f_record.revenue = revenues
-        f_record.net_profit = net_profit
-        f_record.profit = gross_profit
-        f_record.save()
+    f_record.revenue = revenues
+    f_record.net_profit = net_profit
+    f_record.profit = gross_profit
+    f_record.save()
 
-        try:
-            depreciation_percent = (net_profit / prev_net_profit) * 100
+    try:
+        depreciation_percent = (net_profit / prev_net_profit) * 100
 
-        except ZeroDivisionError:
+    except ZeroDivisionError:
 
-            depreciation_percent = 0
+        depreciation_percent = 0
 
-        name = user.username + " " + " Company"
+    name = user.username + " " + " Company"
 
-        open('templates/temp.html', "w").write(render_to_string('income-statement.html',
-                                                                {'f_record': f_record,
-                                                                 'records': records,
-                                                                 'name': name,
-                                                                 'from_date': end_date,
-                                                                 'to_date': start_date,
-                                                                 'revenues': revenues,
-                                                                 'net_profit': net_profit,
-                                                                 'gross_profit': gross_profit,
-                                                                 'depreciation': depreciation,
-                                                                 'prev_revenues': prev_revenues,
-                                                                 'prev_net_profit': prev_net_profit,
-                                                                 'prev_gross_profit': prev_gross_profit,
-                                                                 'depreciation_percent': depreciation_percent,
-                                                                 'other_incomes': other_income,
-                                                                 'total_sales': total_sales,
-                                                                 'total_income': total_income,
-                                                                 'expenses': expenses,
-                                                                 'total_expenses': total_expenses, }))
+    open('templates/temp.html', "w").write(render_to_string('income-statement.html',
+                                                            {'f_record': f_record,
+                                                             'records': records,
+                                                             'name': name,
+                                                             'from_date': end_date,
+                                                             'to_date': start_date,
+                                                             'revenues': revenues,
+                                                             'net_profit': net_profit,
+                                                             'gross_profit': gross_profit,
+                                                             'depreciation': depreciation,
+                                                             'prev_revenues': prev_revenues,
+                                                             'prev_net_profit': prev_net_profit,
+                                                             'prev_gross_profit': prev_gross_profit,
+                                                             'depreciation_percent': depreciation_percent,
+                                                             'other_incomes': other_income,
+                                                             'total_sales': total_sales,
+                                                             'total_income': total_income,
+                                                             'expenses': expenses,
+                                                             'total_expenses': total_expenses, }))
 
-        # getting the template
-        pdf = html_to_pdf('temp.html')
+    # getting the template
+    pdf = html_to_pdf('temp.html')
 
-        # file_name = user.first_name + " income statement " + month + " " + year + ".pdf"
-        file_name = user.username + " income statement" + ".pdf"
+    # file_name = user.first_name + " income statement " + month + " " + year + ".pdf"
+    file_name = user.username + " income statement" + ".pdf"
 
-        receipt_file = BytesIO(pdf.content)
+    receipt_file = BytesIO(pdf.content)
 
-        user.financial_record = File(receipt_file, file_name)
-        user.save()
-        # rendering the template
-        # return HttpResponse(pdf, content_type='application/pdf')
+    user.financial_record = File(receipt_file, file_name)
+    user.save()
+    # rendering the template
+    # return HttpResponse(pdf, content_type='application/pdf')
+    if not is_apply_loan:
         return receipt_file
 
 
-@method_decorator(login_required, name='dispatch')
-class GenerateBalanceSheet(View):
-    def get(self, request, *args, **kwargs):
-        user = request.user
+@login_required()
+def generate_balance_sheet(request, is_apply_loan):
+    user = request.user
 
-        b_sheet = get_object_or_404(BalanceSheet, user=user)
-        f_record = get_object_or_404(FinancialRecord, user=user)
+    b_sheet = get_object_or_404(BalanceSheet, user=user)
+    f_record = get_object_or_404(FinancialRecord, user=user)
 
-        today = datetime.today()
+    today = datetime.today()
 
-        total_capital = b_sheet.total_capital
-        total_equity = b_sheet.get_total_equity()
-        b_sheet.total_equity = total_equity
-        total_liabilities = b_sheet.get_total_liabilities()
-        b_sheet.total_liabilities = total_liabilities
-        total_assets = b_sheet.get_total_assets()
-        b_sheet.total_assets = total_assets
+    total_capital = b_sheet.total_capital
+    total_equity = b_sheet.get_total_equity()
+    b_sheet.total_equity = total_equity
+    total_liabilities = b_sheet.get_total_liabilities()
+    b_sheet.total_liabilities = total_liabilities
+    total_assets = b_sheet.get_total_assets()
+    b_sheet.total_assets = total_assets
 
-        retained_earnings = b_sheet.get_retained_earnings(f_record.get_total_incomes)
-        equity_and_liability = b_sheet.get_equity_and_liability()
+    retained_earnings = b_sheet.get_retained_earnings(f_record.get_total_incomes)
+    equity_and_liability = b_sheet.get_equity_and_liability()
 
-        cash_dividend = b_sheet.cash_dividend
-        stock_dividend = b_sheet.stock_dividend
-        liabilities = b_sheet.liabilities
-        assets = b_sheet.assets
+    cash_dividend = b_sheet.cash_dividend
+    stock_dividend = b_sheet.stock_dividend
+    liabilities = b_sheet.liabilities
+    assets = b_sheet.assets
 
-        # b_sheet.save()
+    # b_sheet.save()
 
-        name = user.username + " " + " Company"
+    name = user.username + " " + " Company"
 
-        open('templates/temp2.html', "w").write(render_to_string('balance-sheet.html',
-                                                                 {'b_sheet': b_sheet,
-                                                                  'liabilities': liabilities.all(),
-                                                                  'name': name,
-                                                                  'assets': assets.all(),
-                                                                  'today': today,
-                                                                  'total_capital': total_capital,
-                                                                  'retained_earnings': retained_earnings,
-                                                                  'total_equity': total_equity,
-                                                                  'total_liabilities': total_liabilities,
-                                                                  'total_assets': total_assets,
-                                                                  'equity_and_liability': equity_and_liability,
-                                                                  'cash_dividend': cash_dividend,
-                                                                  'stock_dividend': stock_dividend, }))
+    open('templates/temp2.html', "w").write(render_to_string('balance-sheet.html',
+                                                             {'b_sheet': b_sheet,
+                                                              'liabilities': liabilities.all(),
+                                                              'name': name,
+                                                              'assets': assets.all(),
+                                                              'today': today,
+                                                              'total_capital': total_capital,
+                                                              'retained_earnings': retained_earnings,
+                                                              'total_equity': total_equity,
+                                                              'total_liabilities': total_liabilities,
+                                                              'total_assets': total_assets,
+                                                              'equity_and_liability': equity_and_liability,
+                                                              'cash_dividend': cash_dividend,
+                                                              'stock_dividend': stock_dividend, }))
 
-        # getting the template
-        pdf = html_to_pdf('temp2.html')
+    # getting the template
+    pdf = html_to_pdf('temp2.html')
 
-        # file_name = user.first_name + " income statement " + month + " " + year + ".pdf"
-        file_name = user.username + "balance sheet" + ".pdf"
+    # file_name = user.first_name + " income statement " + month + " " + year + ".pdf"
+    file_name = user.username + "balance sheet" + ".pdf"
 
-        receipt_file = BytesIO(pdf.content)
+    receipt_file = BytesIO(pdf.content)
 
-        user.balance_sheet = File(receipt_file, file_name)
-        user.save()
-        # rendering the template
-        # return HttpResponse(pdf, content_type='application/pdf')
+    user.balance_sheet = File(receipt_file, file_name)
+    user.save()
+    # rendering the template
+    # return HttpResponse(pdf, content_type='application/pdf')
 
+    if not is_apply_loan:
         return receipt_file
 
 
