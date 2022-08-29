@@ -159,8 +159,8 @@ def apply_loan(request, id):
                         form.cleaned_data["number_of_employee"]) if not \
                         (user.number_of_employee) else user.number_of_employee)
                     loan.beneficiaries.add(beneficiary)
-                    generate_balance_sheet(request, True)
-                    generate_income_statement(request, True)
+                    generate_balance_sheet(request.user, True)
+                    generate_income_statement(request,user, True)
                     return render(request, "apply_message.html", {"message": \
                                                                       "successfully applied!, you'll hear from us sonn"})
                 return render(request, "apply_message.html", {"user": user, "message": \
