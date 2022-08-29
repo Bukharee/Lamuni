@@ -9,3 +9,4 @@
 /Loans/migrations
 /Wallet/migrations
 /Users/migrations
+/.ENV
