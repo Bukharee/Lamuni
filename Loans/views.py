@@ -4,6 +4,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.db.models import Count
 from datetime import datetime, timedelta
 from PyPDF3.pdf import BytesIO
+from datetime import datetime
 from .process import html_to_pdf
 from django.template.loader import render_to_string
 from django.core.files import File
@@ -11,7 +12,7 @@ from django.views.generic import View
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from .forms import CreateLoanForm, AddRecordForm, AddSalesRecordForm, ApplyLoanForm
-from .models import Beneficiaries, Loan, FinancialRecord, Record, SalesRecord,  Sector
+from .models import Beneficiaries, Loan, FinancialRecord, Record, SalesRecord, Sector, BalanceSheet
 from django.utils.decorators import method_decorator
 from django.db.models import Q
 from Users.models import User
@@ -342,6 +343,65 @@ class GeneratePdf(View):
         receipt_file = BytesIO(pdf.content)
 
         user.financial_record = File(receipt_file, file_name)
+        user.save()
+        # rendering the template
+        return HttpResponse(pdf, content_type='application/pdf')
+
+
+@method_decorator(login_required, name='dispatch')
+class GenerateBalanceSheet(View):
+    def get(self, request, *args, **kwargs):
+        user = request.user
+
+        b_sheet = get_object_or_404(BalanceSheet, user=user)
+        f_record = get_object_or_404(FinancialRecord, user=user)
+
+        today = datetime.today()
+
+        total_capital = b_sheet.total_capital
+        total_equity = b_sheet.get_total_equity()
+        b_sheet.total_equity = total_equity
+        total_liabilities = b_sheet.get_total_liabilities()
+        b_sheet.total_liabilities = total_liabilities
+        total_assets = b_sheet.get_total_assets()
+        b_sheet.total_assets = total_assets
+
+        retained_earnings = b_sheet.get_retained_earnings(f_record.get_total_incomes)
+        equity_and_liability = b_sheet.get_equity_and_liability()
+
+        cash_dividend = b_sheet.cash_dividend
+        stock_dividend = b_sheet.stock_dividend
+        liabilities = b_sheet.liabilities
+        assets = b_sheet.assets
+
+        # b_sheet.save()
+
+        name = user.username + " " + " Company"
+
+        open('templates/temp2.html', "w").write(render_to_string('balance-sheet.html',
+                                                                 {'b_sheet': b_sheet,
+                                                                  'liabilities': liabilities.all(),
+                                                                  'name': name,
+                                                                  'assets': assets.all(),
+                                                                  'today': today,
+                                                                  'total_capital': total_capital,
+                                                                  'retained_earnings': retained_earnings,
+                                                                  'total_equity': total_equity,
+                                                                  'total_liabilities': total_liabilities,
+                                                                  'total_assets': total_assets,
+                                                                  'equity_and_liability': equity_and_liability,
+                                                                  'cash_dividend': cash_dividend,
+                                                                  'stock_dividend': stock_dividend, }))
+
+        # getting the template
+        pdf = html_to_pdf('temp2.html')
+
+        # file_name = user.first_name + " income statement " + month + " " + year + ".pdf"
+        file_name = user.username + "balance sheet" + ".pdf"
+
+        receipt_file = BytesIO(pdf.content)
+
+        user.balance_sheet = File(receipt_file, file_name)
         user.save()
         # rendering the template
         return HttpResponse(pdf, content_type='application/pdf')
