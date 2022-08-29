@@ -1,3 +1,4 @@
+from django.core.mail import EmailMessage
 from django.shortcuts import redirect, render, get_object_or_404
 from django.db.models import Count
 from datetime import datetime, timedelta
@@ -279,9 +280,7 @@ def fr(request, pk):
 
 
 @login_required()
-def generate_income_statement(request, is_apply_loan):
-    user = request.user
-
+def generate_income_statement(user, is_apply_loan):
     f_record = get_object_or_404(FinancialRecord, user=user)
     records = f_record.records
     other_income = f_record.get_other_incomes
@@ -355,9 +354,7 @@ def generate_income_statement(request, is_apply_loan):
 
 
 @login_required()
-def generate_balance_sheet(request, is_apply_loan):
-    user = request.user
-
+def generate_balance_sheet(user, is_apply_loan):
     b_sheet = get_object_or_404(BalanceSheet, user=user)
     f_record = get_object_or_404(FinancialRecord, user=user)
 
@@ -475,3 +472,36 @@ def request_financial_statements(request):
     }
 
     return render(request, 'add_sales_record.html', context=data)
+
+
+def verify_transfer(request):
+
+    """Webhook to verify any transfer made to Flutterwave and send the two pdf files to the user"""
+    headers = {
+        "Authorization": "dskjdks",
+        "Content-Type": "application/json",
+        "sandbox-key": settings.SANDBOX_KEY
+    }
+    response = requests.get("https://lamuni.com.ng/payments/transfer/verify", headers=headers)
+    tx_ref = response.headers.get("tx_ref")
+    payment = Payment.objects.get(tx_ref=tx_ref)
+
+    if response.data.status == "successful" & response.data.amount == payment.amount:
+        pdf = generate_income_statement(payment.user, False)
+        filename = 'Income Statement.pdf'
+        to_email = [payment.user.email]
+        subject = "Your Financial Record from Lamuni"
+        body = "Hello, After verifying your transfer attached is your Income Statement"
+        email = EmailMessage(subject=subject, body=body, from_email="test@lamuni.com.ng", to=to_email)
+        email.attach(filename, pdf, "application/pdf")
+        email.send(fail_silently=True)
+
+        pdf_2 = generate_balance_sheet(payment.user, False)
+        filename_2 = 'Balance Sheet.pdf'
+        subject_2 = "Your Financial Record from Lamuni"
+        body_2 = "Hello, After verifying your transfer attached is your Balance Sheet"
+        email_2 = EmailMessage(subject=subject_2, body=body_2, from_email="test@lamuni.com.ng", to=to_email)
+        email_2.attach(filename_2, pdf_2, "application/pdf")
+        email_2.send(fail_silently=True)
+
+    return HttpResponse(status=200)

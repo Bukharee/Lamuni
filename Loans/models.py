@@ -218,7 +218,6 @@ class FinancialRecord(models.Model):
     records = models.ManyToManyField(Record, blank=True)
     sales_records = models.ManyToManyField(SalesRecord, blank=True)
 
-    @property
     def get_ideal_profit(self):
         profit = 0
 
