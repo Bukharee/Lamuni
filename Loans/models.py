@@ -1,4 +1,6 @@
 from importlib.metadata import requires
+from pyexpat import model
+from string import digits
 from django.utils import timezone
 from django.db import models
 from django.contrib.auth import get_user_model
@@ -77,6 +79,7 @@ class Loan(models.Model):
     grace_period = models.PositiveIntegerField()
     collateral = models.CharField(max_length=200, blank=True, null=True)
     requirements = models.ManyToManyField(Requirement)
+    intrest = models.PositiveIntegerField()
 
     def number_of_approved(self):
         beneficiaries = self.beneficiaries.all()
