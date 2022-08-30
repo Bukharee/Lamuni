@@ -29,6 +29,6 @@ urlpatterns = i18n_patterns(
     path('accounts/', include('django.contrib.auth.urls')),
     path('i18n/', include('django.conf.urls.i18n')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('rosetta/', include('rosetta.urls')),
+    # path('rosetta/', include('rosetta.urls')),
     prefix_default_language=True,
 )
