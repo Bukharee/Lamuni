@@ -81,6 +81,7 @@ class Requirement(models.Model):
 #     if not requirements.exists():
 #         Requirement.objects.create(requiremenent=choice[0])
 
+
 class Loan(models.Model):
     fsp = models.ForeignKey(get_user_model(), on_delete=models.DO_NOTHING, related_name="fsp")
     description = models.TextField()
