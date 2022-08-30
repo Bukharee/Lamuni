@@ -3,7 +3,7 @@ from django.urls import path
 
 from .views import (create_loan, loan_details, dashboard, loans_list, fsp_profile,
  loan_beneficiaries, add_record, add_sales_record, fs, fr, GeneratePdf, list_loans, 
- apply_loan, users_credentials, grant_loan, deny_loan, recommended_loans, GenerateBalanceSheet)
+ apply_loan, users_credentials, grant_loan, deny_loan, recommended_loans, GenerateBalanceSheet, user_loan_details)
 
 app_name = 'loans'
 
