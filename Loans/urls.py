@@ -2,7 +2,7 @@ from django.urls import path
 from .views import create_loan, loan_details, dashboard, loans_list, fsp_profile, \
     loan_beneficiaries, add_record, add_sales_record, fs, fr, user_loan_details, \
     list_loans, apply_loan, users_credentials, grant_loan, deny_loan, generate_income_statement, \
-    request_financial_statements, verify_transfer
+    request_financial_statements, verify_transfer, recommended_loans
 
 app_name = 'loans'
 
@@ -11,8 +11,7 @@ urlpatterns = [
     path('fs/', fs),
     path('fr/<int:pk>/', fr),
     path('add/sales/record/', add_sales_record, name='add-sales-record'),
-    path('pdf/', generate_income_statement),
-    # path('balance-sheet/', GenerateBalanceSheet.as_view()),
+    # path('pdf/', generate_income_statement),
     path('create-loan/', create_loan, name="create_loan"),
     path('loan-details/<int:pk>/', loan_details, name="loan_details"),
     path('user-loan-details/<int:pk>/', user_loan_details, name="user-loan-details"),
