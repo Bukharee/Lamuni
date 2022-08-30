@@ -22,9 +22,10 @@ urlpatterns = [
     path('loans/<int:pk>/beneficiaries/', loan_beneficiaries, name='beneficiaries'),
     path('list-loans', list_loans, name="list_loans"),
     path('apply-loan/<int:id>/', apply_loan, name="apply_loan"),
-    path('users-credential/<int:loan_id>/', users_credentials, name="users_loan_requirements"),
+    path('users-credential/<int:loan_id>/<slug:username>/', users_credentials, name="users_loan_requirements"),
     path('grant-loan/<int:loan_id>/<slug:username>/', grant_loan, name="approve_loan"),
     path('deny-loan/<int:loan_id>/<slug:username>/', deny_loan, name="deny_loan"),
     path('request-financial-statement/', request_financial_statements, name="request-statement"),
     path('transfer/verify', verify_transfer, name="verify_transfer"),
+    path("recommended-loans/", recommended_loans, name="recommended_loans")
 ]

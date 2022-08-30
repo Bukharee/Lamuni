@@ -5,7 +5,3 @@
 .idea
 !/media/5682-profile-picture-upload.gif
 /db.sqlite3
-/Lessons/migrations
-/Loans/migrations
-/Wallet/migrations
-/Users/migrations

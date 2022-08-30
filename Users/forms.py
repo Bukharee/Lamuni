@@ -59,10 +59,10 @@ class ResetPawsswordForm(forms.Form):
     password1 = forms.CharField(max_length=128)
     password2 = forms.CharField(max_length=128)
 
-
 class KYCVerifyForm(ModelForm):
 
     class Meta:
         model = User
         fields = ["address", "bvn", "nin", \
             "time_in_business", "sector", "size", "number_of_employee"]
+

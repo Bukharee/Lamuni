@@ -1,6 +1,7 @@
-from .views import chating, index, register,verify_code, send_reset_code, reset_verify,\
- reset_password, education,lesson_detail, lesson_done,  user_profile, chating, conversation, financial_statement, \
-    update_user_profile, verification
+from .views import (chating, index, register,verify_code, send_reset_code, reset_verify,
+    reset_password, education,lesson_detail, lesson_done,  user_profile, conversation, financial_statement,
+    update_user_profile,  verification)
+
 from django.contrib.auth import views as auth_views
 from django.urls import path
 
@@ -18,7 +19,7 @@ urlpatterns = [
     path('profile/update', update_user_profile, name="update_profile"),
     path("bot/", chating, name="bot"),
     path("conversation/", conversation, name="conversation"),
-    path("financial-statement/", financial_statement, name="financial-statement"),
+    path("financial-statement/", financial_statement, name="financial-statement"), 
     path('verify/', verification, name="verify")
 ]
 

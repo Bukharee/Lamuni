@@ -10,6 +10,7 @@ from django.core.files import File
 from django.views.generic import View
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
+
 from .forms import CreateLoanForm, AddRecordForm, AddSalesRecordForm, ApplyLoanForm
 from .models import Beneficiaries, Loan, FinancialRecord, Record, SalesRecord, Sector, BalanceSheet, Payment
 from django.utils.decorators import method_decorator
@@ -60,7 +61,6 @@ def get_stats_all(loans):
     }
     return data
 
-
 def loan_details(request, pk):
     loan = get_object_or_404(Loan, id=pk)
     data = get_stats(loan)
@@ -79,8 +79,7 @@ def dashboard(request):
     loans = Loan.objects.filter(fsp=user)
     if request.user.is_staff or request.user.is_superuser:
         loans = Loan.objects.filter(fsp=user)
-        data = get_stats_all(loans)
-        return render(request, 'fsp/fsp-home.html', {"loans": loans, "data": data})
+        return render(request, 'fsp/fsp-home.html', {"loans": loans})
     else:
         loans = Loan.objects.all()
         return render(request, 'user/user_loan.html', {"loans": loans})
@@ -111,6 +110,7 @@ def loan_beneficiaries(request, pk):
     user = request.user
     loan = get_object_or_404(Loan, id=pk)
     beneficiaries = loan.beneficiaries.all()
+    print(beneficiaries)
     return render(request, 'fsp/loan_beneficiaries.html', {"user": user, "beneficiaries": beneficiaries})
 
 
@@ -127,14 +127,17 @@ def grant_loan(request, loan_id, username):
     # and will never apply to this specific loan program again
 
 
+
 def deny_loan(request, loan_id, username):
     # TODO: deny loan tomorow test
     user = get_object_or_404(User, username=username)
     loan = get_object_or_404(Loan, id=loan_id)
     is_denied = loan.deny_loan(user)
+    
     if is_denied:
         return JsonResponse({"mesage": "denied"}, status=200)
         # send the user a sorry message that this isnt the right program for him
+        
     return JsonResponse({"message": "not applicant"}, status=403)
 
 
@@ -152,9 +155,6 @@ def apply_loan(request, id):
             if form:
                 print(form, "the incredible form")
                 if form.is_valid():
-                    # TODO: write a better eligibility function here current only checks
-                    # if the user have ever applied to the particular loan program what if the whole
-                    # program was renewed and he wants to apply again
                     beneficiary = Beneficiaries.objects.create(user=user, number_of_employee=int(
                         form.cleaned_data["number_of_employee"]) if not \
                         (user.number_of_employee) else user.number_of_employee)
@@ -174,10 +174,9 @@ def apply_loan(request, id):
     # add him to the beneficiaries list
     # with all his documents and things
 
-
-def users_credentials(request, loan_id):
+def users_credentials(request, loan_id, username):
     """This will query all the requirements of a user of the particular loan"""
-    user = request.user
+    user = get_object_or_404(User, username=username)
     loan = get_object_or_404(Loan, id=loan_id)
     output = {}
     for requirement in loan.requirements.all():
@@ -193,13 +192,13 @@ def recommended_loans(request):
     user = request.user
     recommended = Loan.objects.filter(Q(sector=user.sector, size=user.size) |
                                       Q(size=user.size) | Q(sector=user.sector))
-    # call a fake machine learning recomendation algorithm
     return render(request, "recommended_loans.html", {"loans": recommended})
 
 
 def search(request):
-    pass
-
+    recommended = Loan.objects.filter(Q(sector=user.sector, size=user.size) | 
+    Q(size=user.size) | Q(sector=user.sector))
+    return render(request, "recommended_loans.html", {"loans": recommended})
 
 @login_required()
 def add_record(request):
@@ -209,7 +208,7 @@ def add_record(request):
 
         f_record = FinancialRecord.objects.get(user=user)
 
-    except Exception:
+    except Exception:   
 
         f_record = FinancialRecord.objects.create(user=user)
 
@@ -219,8 +218,8 @@ def add_record(request):
             amount = add_record_form.cleaned_data['amount']
             category = add_record_form.cleaned_data['category']
             record = Record.objects.create(amount=amount, category=category)
-            f_record.records.add(record)
-            return redirect("users:profile")
+            f_record.record.add(record)
+            return HttpResponseRedirect('/accounts/user_profile/')
 
     else:
         add_record_form = AddRecordForm()
@@ -375,7 +374,7 @@ def generate_balance_sheet(user, is_apply_loan):
     stock_dividend = b_sheet.stock_dividend
     liabilities = b_sheet.liabilities
     assets = b_sheet.assets
-
+    
     # b_sheet.save()
 
     name = user.username + " " + " Company"
@@ -507,3 +506,131 @@ def verify_transfer(request):
         email_2.send(fail_silently=True)
 
     return HttpResponse(status=200)
+=======
+        f_record = get_object_or_404(FinancialRecord, user=user)
+        records = f_record.records
+        other_income = f_record.get_other_incomes
+        total_sales = f_record.total_sales
+        total_income = f_record.get_total_incomes
+        expenses = f_record.get_expenses
+        total_expenses = f_record.get_total_expenses
+
+        start_date = datetime.today()
+        end_date = start_date - timedelta(days=30)
+        revenues = f_record.total_sales
+        prev_revenues = f_record.total_prev_sales
+        net_profit = f_record.get_net_profit
+        prev_net_profit = f_record.get_prev_net_profit
+        ideal_profit = f_record.get_ideal_profit()
+        print(str(ideal_profit))
+
+        gross_profit = f_record.get_gross_profit
+        prev_gross_profit = f_record.get_prev_gross_profit
+
+        depreciation = f_record.get_appreciation
+
+        f_record.revenue = revenues
+        f_record.net_profit = net_profit
+        f_record.profit = gross_profit
+        f_record.save()
+
+        try:
+            depreciation_percent = (net_profit / prev_net_profit) * 100
+
+        except ZeroDivisionError:
+
+            depreciation_percent = 0
+
+        name = user.username + " " + " Company"
+
+        open('templates/temp.html', "w").write(render_to_string('income-statement.html',
+                                                                            {'f_record': f_record,
+                                                                             'records': records,
+                                                                             'name': name,
+                                                                             'from_date': end_date,
+                                                                             'to_date': start_date,
+                                                                             'revenues': revenues,
+                                                                             'net_profit': net_profit,
+                                                                             'gross_profit': gross_profit,
+                                                                             'depreciation': depreciation,
+                                                                             'prev_revenues': prev_revenues,
+                                                                             'prev_net_profit': prev_net_profit,
+                                                                             'prev_gross_profit': prev_gross_profit,
+                                                                             'depreciation_percent': depreciation_percent,
+                                                                             'other_incomes': other_income,
+                                                                             'total_sales': total_sales,
+                                                                             'total_income': total_income,
+                                                                             'expenses': expenses,
+                                                                             'total_expenses': total_expenses, }))
+
+        # getting the template
+        pdf = html_to_pdf('temp.html')
+
+        # file_name = user.first_name + " income statement " + month + " " + year + ".pdf"
+        file_name = user.username + " income statement" + ".pdf"
+
+        receipt_file = BytesIO(pdf.content)
+
+        user.financial_record = File(receipt_file, file_name)
+        user.save()
+        # rendering the template
+        return HttpResponse(pdf, content_type='application/pdf')
+
+
+@method_decorator(login_required, name='dispatch')
+class GenerateBalanceSheet(View):
+    def get(self, request, *args, **kwargs):
+        user = request.user
+
+        b_sheet = get_object_or_404(BalanceSheet, user=user)
+        f_record = get_object_or_404(FinancialRecord, user=user)
+
+        today = datetime.today()
+
+        total_capital = b_sheet.total_capital
+        total_equity = b_sheet.get_total_equity()
+        b_sheet.total_equity = total_equity
+        total_liabilities = b_sheet.get_total_liabilities()
+        b_sheet.total_liabilities = total_liabilities
+        total_assets = b_sheet.get_total_assets()
+        b_sheet.total_assets = total_assets
+
+        retained_earnings = b_sheet.get_retained_earnings(f_record.get_total_incomes)
+        equity_and_liability = b_sheet.get_equity_and_liability()
+
+        cash_dividend = b_sheet.cash_dividend
+        stock_dividend = b_sheet.stock_dividend
+        liabilities = b_sheet.liabilities
+        assets = b_sheet.assets
+
+        # b_sheet.save()
+
+        name = user.username + " " + " Company"
+
+        open('templates/temp2.html', "w").write(render_to_string('balance-sheet.html',
+                                                                 {'b_sheet': b_sheet,
+                                                                  'liabilities': liabilities.all(),
+                                                                  'name': name,
+                                                                  'assets': assets.all(),
+                                                                  'today': today,
+                                                                  'total_capital': total_capital,
+                                                                  'retained_earnings': retained_earnings,
+                                                                  'total_equity': total_equity,
+                                                                  'total_liabilities': total_liabilities,
+                                                                  'total_assets': total_assets,
+                                                                  'equity_and_liability': equity_and_liability,
+                                                                  'cash_dividend': cash_dividend,
+                                                                  'stock_dividend': stock_dividend, }))
+
+        # getting the template
+        pdf = html_to_pdf('temp2.html')
+
+        # file_name = user.first_name + " income statement " + month + " " + year + ".pdf"
+        file_name = user.username + "balance sheet" + ".pdf"
+
+        receipt_file = BytesIO(pdf.content)
+
+        user.balance_sheet = File(receipt_file, file_name)
+        user.save()
+        # rendering the template
+        return HttpResponse(pdf, content_type='application/pdf')

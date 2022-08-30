@@ -19,6 +19,7 @@ TIME_IN_BUSINESS_CHOICES = (('Less than 1 year', 'Less than 1 year'),
                             ('4 years', '4 years'),
                             ('5 years', '5 years'),
                             ('Above 5 years', 'Above 5 years'),)
+                            
 BUSINESS_SIZE = (('MICRO', 'MICRO'), ('SMALL', 'SMALL'), ('MEDIUM', 'MEDIUM'),)
 
 class User(AbstractUser):
@@ -33,9 +34,8 @@ class User(AbstractUser):
     address = models.TextField(max_length=200, blank=True, null=True)
     state = models.CharField(max_length=100, blank=True, null=True)
     occupation = models.CharField(max_length=100, blank=True, null=True)
-    bvn = models.PositiveIntegerField(blank=True, null=True)
-    nin = models.PositiveIntegerField(blank=True, null=True)
-    nin_file = models.FileField(upload_to='nins/%Y/%m/', null=True, blank=True)
+    bvn = models.PositiveIntegerField(blank=False, null=True)
+    nin = models.PositiveIntegerField(blank=False, null=True)
     business_certificate = models.FileField(upload_to='business_certificate/%Y/%m/', null=True, blank=True)
     financial_record = models.FileField(upload_to='financial_record/%Y/%m/', null=True, blank=True)
     balance_sheet = models.FileField(upload_to='financial_record/%Y/%m/', null=True, blank=True)
@@ -43,6 +43,11 @@ class User(AbstractUser):
     sector = models.ForeignKey(Sector, on_delete=models.DO_NOTHING, blank=True, null=True)
     size = models.CharField(choices=BUSINESS_SIZE, max_length=20)
     number_of_employee = models.PositiveIntegerField(blank=True, null=True)
-
+    
     class Meta:
         permissions = [('can_create_loans', 'Can Create Loans')]
+
+ 
+    def validate_bvn(request):
+        """this will be used to validate uses bvn"""
+        pass
