@@ -25,9 +25,9 @@ from Users.models import Sector
 
 # Create your models here.
 REQUIREMENTS = (('address', 'address'),
-('bvn', 'bvn'), ('nin', 'nin'), ('business_certificate', 'business_certificate'),
-('financial_record', 'financial_record'), ('time_in_business', 'time_in_business' ),
- ('number_of_employee', 'number_of_employee'))
+                ('bvn', 'bvn'), ('nin', 'nin'), ('business_certificate', 'business_certificate'),
+                ('financial_record', 'financial_record'), ('time_in_business', 'time_in_business'),
+                ('number_of_employee', 'number_of_employee'))
 BUSINESS_SIZE = (('MICRO', 'MICRO'), ('SMALL', 'SMALL'), ('MEDIUM', 'MEDIUM'))
 
 
@@ -55,28 +55,33 @@ class Beneficiaries(models.Model):
 
     @property
     def is_recommended(self, loan_id):
-        #TODO: check if the applicants credit score is greater than 50%
+        # TODO: check if the applicants credit score is greater than 50%
         loan = get_object_or_404(Loan, id=loan_id)
-        all_beneficiaries =  self.objects.filter(user=self.user, is_given=True, is_payed=False)
+        all_beneficiaries = self.objects.filter(user=self.user, is_given=True, is_payed=False)
         if all_beneficiaries.exists():
             return (False, 0)
         if self.user.sector in loan.sectors.all() and self.user.size in loan.size:
-           return (True, 10)
+            return (True, 10)
         elif self.user.size in loan.size:
             return (True, 7)
         elif self.user.sector in loan.sectors.all():
             return (True, 5)
-        #call fake recommend api
-class Requirement(models.Model):
-     requiremenent = models.CharField(choices=REQUIREMENTS, max_length=50)
+        # call fake recommend api
 
-     def __str__(self) -> str:
-         return str(self.requiremenent)
+
+class Requirement(models.Model):
+    requirement = models.CharField(choices=REQUIREMENTS, max_length=50)
+
+    def __str__(self) -> str:
+        return str(self.requirement)
+
 
 # for choice in REQUIREMENTS:
 #     requirements = Requirement.objects.filter(requiremenent=choice[0])
 #     if not requirements.exists():
 #         Requirement.objects.create(requiremenent=choice[0])
+
+
 class Loan(models.Model):
     fsp = models.ForeignKey(get_user_model(), on_delete=models.DO_NOTHING, related_name="fsp")
     description = models.TextField()
@@ -100,13 +105,13 @@ class Loan(models.Model):
             if beneficiary.is_given:
                 count += 1
         return count
-    
+
     def get_sector_data(self):
         beneficiaries = self.beneficiaries.all()
         data = {}
         for beneficiary in beneficiaries:
             sector = beneficiary.user.sector
-            print("sectors",sector)
+            print("sectors", sector)
             it_exist = data.get(sector.name, 0)
             if it_exist == 0:
                 data[sector.name] = 1
@@ -131,9 +136,9 @@ class Loan(models.Model):
             if beneficiary.is_payed:
                 count += 1
         return count
-    
+
     def grant_loan(self, user):
-        #TODO: send notif or message to the user that loan granted
+        # TODO: send notif or message to the user that loan granted
         application = self.beneficiaries.filter(user=user)
         print(application[0].is_given)
         if application.exists():
@@ -145,22 +150,23 @@ class Loan(models.Model):
             application.save()
             return True
         return False
+
     def deny_loan(self, user):
         # TODO: deny loan tomorow test
         application = self.beneficiaries.filter(user=user)
         if application.exists():
-            the_id = application[0].id  
-            application = get_object_or_404(Beneficiaries, id=the_id)  
-            #apply is_denied to be true
+            the_id = application[0].id
+            application = get_object_or_404(Beneficiaries, id=the_id)
+            # apply is_denied to be true
             application.is_denied = True
             application.is_given = False
             application.save()
             return True
-            #TODO: send the user a sorry message that this isnt the right program for him 
+            # TODO: send the user a sorry message that this isnt the right program for him
         return False
 
     def grant_recommended(self):
-        #TODO: this will grant all recommended and deny all unrecommended
+        # TODO: this will grant all recommended and deny all unrecommended
         for beneficiary in self.beneficiaries.all():
             if beneficiary.is_recommended(self.id)[0]:
                 self.grant_loan(beneficiary.user)
@@ -176,8 +182,6 @@ RECORD_CATEGORY = (('Purchase', 'Purchase'),
                    ('Expenses', 'Expenses'),
                    ('Tax', 'Tax'),
                    ('Income', 'Income'))
-    
-  
 
 
 class Record(models.Model):
@@ -325,7 +329,6 @@ class FinancialRecord(models.Model):
         print('start date : ' + str(start_date))
 
         for record in all_records.filter(date__gte=end_date).filter(date__lte=start_date).filter(category="Purchase"):
-
             total_purchase += record.amount
             print('total_purchase : ' + str(total_purchase))
         return total_purchase
@@ -582,7 +585,6 @@ class FinancialRecord(models.Model):
 
         return apr
 
-
     @property
     def get_other_incomes(self):
 
@@ -609,6 +611,7 @@ class FinancialRecord(models.Model):
         expenses = all_records.filter(date__gte=end_date).filter(date__lte=start_date).exclude(category="Income")
 
         return expenses
+
 
 ASSETS_TYPE = (('CASH', 'CASH'),
                ('Account Receivable', 'Account Receivable'),
