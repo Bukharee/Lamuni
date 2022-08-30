@@ -484,7 +484,7 @@ def verify_transfer(request):
         "Content-Type": "application/json",
         "sandbox-key": settings.SANDBOX_KEY
     }
-    response = requests.get("https://lamuni.com.ng/payments/transfer/verify", headers=headers)
+    response = requests.get("https://floating-bastion-43127.herokuapp.com/en/transfer/verify", headers=headers)
     tx_ref = response.headers.get("tx_ref")
     payment = Payment.objects.get(tx_ref=tx_ref)
 

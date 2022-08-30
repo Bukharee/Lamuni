@@ -26,5 +26,5 @@ urlpatterns = [
     path('grant-loan/<int:loan_id>/<slug:username>/', grant_loan, name="approve_loan"),
     path('deny-loan/<int:loan_id>/<slug:username>/', deny_loan, name="deny_loan"),
     path('request-financial-statement/', request_financial_statements, name="request-statement"),
-    path('payments/transfer/verify', verify_transfer, name="verify_transfer"),
+    path('transfer/verify', verify_transfer, name="verify_transfer"),
 ]
