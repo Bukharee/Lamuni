@@ -101,7 +101,7 @@ def list_loans(request):
     """All the list of loans from all financial service providers"""
     loans = Loan.objects.all()
     print(loans)
-    return render(request, "list_of_loans.html", {"loans": loans})
+    return render(request, "loans/list_of_loans.html", {"loans": loans})
 
 
 def fsp_profile(request):
@@ -178,14 +178,14 @@ def apply_loan(request, id):
                     loan.beneficiaries.add(beneficiary)
                     generate_balance_sheet(user, True)
                     generate_income_statement(user, True)
-                    return render(request, "apply_message.html", {"message": \
+                    return render(request, "loans/apply_message.html", {"message": \
                                                                       "successfully applied!, you'll hear from us sonn"})
-                return render(request, "apply_message.html", {"user": user, "message": \
+                return render(request, "loans/apply_message.html", {"user": user, "message": \
                     "Sorry we cannot offer you Credit!, Try Again"})
-        return render(request, "apply_message.html", {"message": "You Have Already Applied to this program!"})
+        return render(request, "loans/apply_message.html", {"message": "You Have Already Applied to this program!"})
     else:
         print(form.as_p())
-        return render(request, "apply_for_loan.html", {"form": form})
+        return render(request, "loans/apply_for_loan.html", {"form": form})
 
     # if the user credit score is below 50% dont give him
     # if the user has no problem
@@ -209,7 +209,7 @@ def recommended_loans(request):
     # TODO: recommend loan
     # check the loans that target the bussiness size and sector to be top
 
-    return render(request, "list_of_loans.html")
+    return render(request, "loans/list_of_loans.html")
 
 
 def search(request):

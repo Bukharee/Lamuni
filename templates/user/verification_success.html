@@ -1,0 +1,13 @@
+{% extends 'base.html' %} {% block content %}
+    <div class="max-w-3xl mx-auto min-h-[400px]">
+    <div class="mx-4 sm:mx-8">
+         <a href="{% url 'loans:dashboard' %}"> <button class="  py-2 px-8 bg-white border my-4 md:my-6 border-gray-200 text-green-600 rounded hover:bg-white active:bg-gray-200 disabled:opacity-50">Back</button></a>
+    <div class=" p-8 sm:p-16 shadow-md shadow-light-gray text center rounded-lg text-dark-orange sm:text-3xl">  {{ message }}</div>
+
+
+
+    </div>
+
+    </div>
+
+{% endblock %}

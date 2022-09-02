@@ -225,8 +225,8 @@ def verification(request):
                 )
                 request.user.is_kyc_verified = True
                 request.user.save()
-                return render(request, "verification_success.html", {"message": "Verification is Successfull"})
+                return render(request, "loans/../templates/user/verification_success.html", {"message": "Verification is Successfull"})
         else:
-            return render(request, "verify.html", {"form": form})
+            return render(request, "loans/../templates/user/verify.html", {"form": form})
     else:
-        return render(request, "verification_success.html", {"message": "Already Verified"})
+        return render(request, "loans/../templates/user/verification_success.html", {"message": "Already Verified"})

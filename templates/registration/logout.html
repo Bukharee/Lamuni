@@ -1,7 +1,18 @@
 {% extends '../base.html' %}
 {% load static %}
 {% block title %} Login:Logout {% endblock %}
-{% block content %} 
-<h1>You are logged out</h1>
-<p><a href="/">Home</a></p>
+{% block content %}
+    <div class="max-w-3xl mx-auto min-h-[400px]">
+    <div class="mx-4 sm:mx-8">
+
+    <div class=" p-8 sm:p-16 shadow-md shadow-light-gray text-center rounded-lg text-dark-orange sm:text-3xl">
+        <h1>You are logged out</h1>
+        <a href="/"> <button class=" py-2 px-8 bg-white border my-4 md:my-6 border-gray-200 text-green-600 rounded hover:bg-white active:bg-gray-200 disabled:opacity-50">Home</button></a></div>
+
+
+
+    </div>
+
+    </div>
+
 {% endblock %}

@@ -94,7 +94,7 @@ def recharge(request, *args, **kwargs):
     context = {
         'recharge_form': recharge_form
     }
-    return render(request, 'recharge_form.html', context)
+    return render(request, 'user/recharge_form.html', context)
 
 
 def withdraw(request, *args, **kwargs):
@@ -135,4 +135,4 @@ def transfer(request, *args, **kwargs):
     context = {
         "transfer_form": transfer_form,
     }
-    return render(request, "transfer_form.html", context)
+    return render(request, "user/transfer_form.html", context)
