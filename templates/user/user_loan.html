@@ -42,9 +42,8 @@
         {% for loan in loans %}
             <a href="{{ loan.get_absolute_url }}">
         <div class=" flex flex-col bg-white shadow-sm shadow-light-gray p-4 sm:p-6 rounded-lg mx-4 sm:mx-6 relative">
-        {% with loan.fsp as user %}
-<img class="absolute top-0 -mt-6  rounded-lg bg-blend-lighten shadow-lg" width="50px"  src="{{ user.image.url }}" alt="">
-            {% endwith %}
+
+    <img class="absolute top-0 -mt-6  rounded-lg bg-blend-lighten shadow-lg" width="50px"  src="{{ user.image.url }}" alt="">
             <p class="text-sm text-dark-gray mt-4">{{ loan.date_created | date }}</p>
             <h3 class=" flex-none text-lg md:text-xl bold tracking-wide">{{ loan.program_title }}</h3>
             <p class="text-dark-gray ">Amount: {{ loan.amount }}</p>

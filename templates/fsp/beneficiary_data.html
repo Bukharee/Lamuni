@@ -1,0 +1,27 @@
+{% extends 'fsp/fsp-base.html' %}
+{% block title %}Lamuni:Loans{% endblock %}
+
+{% block content %}
+<div class="flex flex-col text-left m-10">
+        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                 <div class="flex flex-col  mt-10 sm:mt-0 w-full">
+                    <!-- profile heading -->
+                    <div class="shadow-md shadow-light-gray bg-white rounded-b-lg border-t-8 border-dark-green  px-4 sm:px-8">
+
+                        <h1 class="font-medium text-3xl my-2">Applicats Details</h1>
+                        <div class="flex flex-col space-y-4 p-8">
+                        <p>First name: Ibrahim Muhammad Sadiq</p>
+                             <p>Middle name: Muhammad </p>
+                             <p>Last name: Sadiq</p>
+
+                            <p>Phone: +2348128543654</p>
+                            <p>Address: No. 234 Hotoro nasarawa LGA Kano Nigeria</p>
+                         <p>Financial Statement:<a href="{% url "users:financial-statement" %}"></a> <button class="py-2 px-4 bg-green-500 text-white rounded hover:bg-green-600 active:bg-blue-700 disabled:opacity-50">Download</button></p>
+                            <p>Balance Sheet:<a href="{%  url "users:financial-statement" %}"></a> <button class="py-2 px-4 bg-green-500 text-white rounded hover:bg-green-600 active:bg-blue-700 disabled:opacity-50">Download</button></p>
+                        </div>
+
+                    </div>
+
+            </div>
+          </div>
+{% endblock %}

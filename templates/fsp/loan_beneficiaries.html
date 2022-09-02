@@ -96,7 +96,7 @@
                 <tbody class="bg-white divide-y divide-gray-200">
                   <tr>
                     <td class="px-6 py-4 whitespace-nowrap text-center">
-                          <a href="">
+                          <a href="{% url 'loans:beneficiary_data' loan.id beneficiary.user.id %}">
                       <div class="flex items-center">
                         <div class="flex-shrink-0 h-10 w-10">
                           <img
@@ -125,7 +125,7 @@
                       <div class="text-sm text-gray-500">{{ beneficiary.time_to_pay.time }}</div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                      {{ beneficiary.is_recommended loan.id }}
+                      {{ recommended }}
                     </td>
                     <td
                         class="
@@ -136,7 +136,7 @@
                                font-medium
                                "
                         >
-                      <a href="#" class="text-indigo-400 hover:text-indigo-600"
+                      <a href="{% url 'loans:approve_loan' loan.id  beneficiary.user %}" class="text-indigo-400 hover:text-indigo-600"
                          ><span class="px-4 py-1 text-green-600 bg-green-200 rounded-full">Grand</span></a
                         >
                     </td>
@@ -149,7 +149,7 @@
                                font-medium
                                "
                         >
-                      <a href="#" class="text-indigo-400 hover:text-indigo-600"
+                      <a href="{% url 'loans:deny_loan' loan.id  beneficiary.user %}" class="text-indigo-400 hover:text-indigo-600"
                          ><span class="px-4 py-1 text-red-600 bg-red-200 rounded-full">Deny</span></a
                         >
                     </td>
@@ -164,7 +164,7 @@
             </div>
           </div>
          <div class="my-20 flex items-center justify-end">
-            <a href="{% url 'lessons:lessons' %}"><button class="sm:px-6 py-2 px-4 bg-white sm:py-4 shadow-md shadow-light-gray text-dark-green hover:bg-dark-green focus:bg-dark-green hover:text-white focus:text-white font-bold rounded-md">Grand Recommended</button></a>
+            <a href="#"><button class="sm:px-6 py-2 px-4 bg-white sm:py-4 shadow-md shadow-light-gray text-dark-green hover:bg-dark-green focus:bg-dark-green hover:text-white focus:text-white font-bold rounded-md">Grand Recommended</button></a>
         </div>
         </div>
       </div>

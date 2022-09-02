@@ -19,9 +19,13 @@ class CreateLoanForm(ModelForm):
 
     class Meta:
         model = Loan
-        fields = ["program_title", "size", "sectors", "amount", "amount",
+        fields = ["program_title", "size", "sectors", "amount",
                   "paying_days", "grace_period",
-                  "collateral", "requirements"]
+                  "collateral", "requirements", "intrest"]
+
+    def __init__(self, *args, **kwargs):
+            super(CreateLoanForm,  self).__init__(*args, **kwargs)
+            self.fields["intrest"].widget.attrs['class'] = 'form-input'
 
 
 class AddRecordForm(ModelForm):

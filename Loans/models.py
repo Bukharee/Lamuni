@@ -107,17 +107,18 @@ class Loan(models.Model):
         return count
 
     def get_sector_data(self):
-        beneficiaries = self.beneficiaries.all()
-        data = {}
-        for beneficiary in beneficiaries:
-            sector = beneficiary.user.sector
-            print("sectors", sector)
-            it_exist = data.get(sector.name, 0)
-            if it_exist == 0:
-                data[sector.name] = 1
-            else:
-                data[sector.name] += 1
-        return data
+        pass
+        # beneficiaries = self.beneficiaries.all()
+        # data = {}
+        # for beneficiary in beneficiaries:
+        #     sector = beneficiary.user.sector.all()
+        #     print("sectors", sector)
+        #     it_exist = data.get(sector.name, 0)
+        #     if it_exist == 0:
+        #         data[sector.name] = 1
+        #     else:
+        #         data[sector.name] += 1
+        # return data
 
     # number_of_approved = loan.beneficiaries.filter(is_given=True).count()
 
@@ -146,7 +147,7 @@ class Loan(models.Model):
             application = get_object_or_404(Beneficiaries, id=the_id)
             application.is_given = True
             application.is_denied = False
-            application.time_to_pay = timezone.localtime() + timedelta(days=self.paying_days)
+            application.time_to_pay = datetime.today() + timedelta(days=self.paying_days)
             application.save()
             return True
         return False
