@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %} Signup:Lamuni {% endblock %}
 {% block content %} 
-    <section class="flex flex-col md:flex-row md:space-x-12 px-6 md:px-0">
+    <section class="flex flex-col md:flex-row md:space-x-12 px-8 md:px-0">
       <!-- sign-up form -->
         <div class="flex flex-row items-center justify-center md:w-3/5">
         <form  class="flex flex-col space-y-4 md:px-12 lg:px-20 py-6 bg-white" action="" method="post">
@@ -14,8 +14,8 @@
             <div class="flex flex-col space-y-2 sm:space-y-4">
 <div class="flex flex-col space-y-2 sm:space-y-4">
 
-    <label class="text-lg" for="id_username">Username:</label>
-    <input type="text" name="username" maxlength="150" autofocus required id="id_username"  class="px-3 py-3 border border-light-gray rounded-md text-dark-black focus:outline-dark-green">
+    <label class="text-lg sm:text-xl" for="id_username">Username:</label>
+    <input type="text" name="username" maxlength="150" autofocus required id="id_username"  class="p-2 sm:p-3  border border-light-gray rounded-md text-dark-black focus:outline-dark-green">
 
       <span class="helptext text-xs">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</span>
  {{ form.username.errors }}
@@ -25,15 +25,15 @@
  <div class="flex flex-col lg:flex-row items-center justify-between">
      <div class="flex flex-col space-y-4 w-full lg:w-[48%]">
 
-    <label class="text-lg" for="id_first_name">First name:</label>
-    <input type="text" name="first_name" maxlength="150" id="id_first_name"  class="px-3 py-3 border border-light-gray rounded-md text-dark-black focus:outline-dark-green">
+    <label class="text-lg sm:text-xl" for="id_first_name">First name:</label>
+    <input type="text" name="first_name" maxlength="150" id="id_first_name"  class="p-2 sm:p-3  border border-light-gray rounded-md text-dark-black focus:outline-dark-green">
  {{ form.first_name.errors }}
 
 </div>
 
      <div class="flex flex-col space-y-4 w-full lg:w-[48%]">
-    <label class="text-lg" for="id_middle_name">Middle name:</label>
-    <input type="text" name="middle_name" maxlength="100" required id="id_middle_name"  class="px-3 py-3 border border-light-gray rounded-md text-dark-black focus:outline-dark-green">
+    <label class="text-lg sm:text-xl" for="id_middle_name">Middle name:</label>
+    <input type="text" name="middle_name" maxlength="100" required id="id_middle_name"  class="p-2 sm:p-3  border border-light-gray rounded-md text-dark-black focus:outline-dark-green">
  {{ form.middle_name.errors }}
 
 </div>
@@ -41,16 +41,16 @@
 
  <div class="flex flex-col lg:flex-row items-center justify-between">
      <div class="flex flex-col space-y-4 w-full lg:w-[48%]">
-    <label class="text-lg" for="id_last_name">Last name:</label>
-    <input type="text" name="last_name" maxlength="150" id="id_last_name"  class="px-3 py-3 border border-light-gray rounded-md text-dark-black focus:outline-dark-green">
+    <label class="text-lg sm:text-xl" for="id_last_name">Last name:</label>
+    <input type="text" name="last_name" maxlength="150" id="id_last_name"  class="p-2 sm:p-3  border border-light-gray rounded-md text-dark-black focus:outline-dark-green">
  {{ form.last_name.errors }}
 
 </div>
 
      <div class="flex flex-col space-y-4 w-full lg:w-[48%]">
 
-    <label class="text-lg " for="id_phone">Phone:</label>
-    <input type="text" name="phone" maxlength="20" required id="id_phone"  class="px-3 py-3 border border-light-gray rounded-md text-dark-black focus:outline-dark-green">
+    <label class="text-lg sm:text-xl " for="id_phone">Phone:</label>
+    <input type="text" name="phone" maxlength="20" required id="id_phone"  class="p-2 sm:p-3  border border-light-gray rounded-md text-dark-black focus:outline-dark-green">
  {{ form.phone.errors }}
 </div>
  </div>
@@ -58,8 +58,8 @@
 
 <div class="flex flex-col space-y-2 sm:space-y-4">
 
-    <label class="text-lg" for="id_password1">Password:</label>
-    <input type="password" name="password1" autocomplete="new-password" required id="id_password1"  class="px-3 py-3 border border-light-gray rounded-md text-dark-black focus:outline-dark-green">
+    <label class="text-lg sm:text-xl" for="id_password1">Password:</label>
+    <input type="password" name="password1" autocomplete="new-password" required id="id_password1"  class="p-2 sm:p-3  border border-light-gray rounded-md text-dark-black focus:outline-dark-green">
 
       <span class="helptext text-xs"><ul><li>Your password can’t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can’t be a commonly used password.</li><li>Your password can’t be entirely numeric.</li></ul></span>
 
@@ -67,8 +67,8 @@
 </div>
 
 <div class="flex flex-col space-y-2 sm:space-y-4">
-    <label class="text-lg" for="id_password2">Password confirmation:</label>
-    <input type="password" name="password2" autocomplete="new-password" required id="id_password2"  class="px-3 py-3 border border-light-gray rounded-md text-dark-black focus:outline-dark-green">
+    <label class="text-lg sm:text-xl" for="id_password2">Password confirmation:</label>
+    <input type="password" name="password2" autocomplete="new-password" required id="id_password2"  class="p-2 sm:p-3  border border-light-gray rounded-md text-dark-black focus:outline-dark-green">
 
       <span class="helptext text-xs ">Enter the same password as before, for verification.</span>
     {{ form.password2.errors }}
@@ -76,7 +76,7 @@
 
                 <button
             type="submit"
-            class="px-6 py-4 bg-dark-green text-white font-bold rounded-md"
+            class="px-4 py-3 sm:px-6 sm:py-4 bg-dark-green text-white font-bold rounded-md"
           >
             Create Lamuni Account
           </button>

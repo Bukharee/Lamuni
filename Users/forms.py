@@ -67,8 +67,8 @@ class KYCVerifyForm(ModelForm):
         fields = ("address", "bvn", "nin",
                   "time_in_business", "sector", "size", "number_of_employee")
 
-   def __init__(self, *args, **kwargs):
-       super(KYCVerifyForm, self).__init__(*args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        super(KYCVerifyForm, self).__init__(*args, **kwargs)
         self.fields['address'].widget.attrs['class'] = 'form-input'
         self.fields['bvn'].widget.attrs['class'] = 'form-input'
         self.fields['nin'].widget.attrs['class'] = 'form-input'
